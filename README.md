@@ -24,26 +24,20 @@ tsci login
 # Create a Project
 tsci init
 
-# Develop a Project
-tsci dev                  # build, view and edit circuit files in browser
+# Develop a Project (preview, export, and edit circuit files in browser)
+tsci dev
 
 # Manage Dependencies
 tsci install
 tsci add some-package
 tsci remove some-package
 
-# Lint a Project
-tsci lint
-tsci lint 2024            # use 2024 tscircuit recommendations
-
-# Format a Project
-tsci format
-tsci format 2024
-
 # Publish a Project
 tsci publish
-
-# View Your Project on Registry
-tsci open
-tsci view
 ```
+
+## Features Coming Soon
+
+- [`tsci format`](https://github.com/tscircuit/cli/issues/1)
+- [`tsci lint`](https://github.com/tscircuit/cli/issues/2)
+- [`tsci open`](https://github.com/tscircuit/cli/issues/4)
