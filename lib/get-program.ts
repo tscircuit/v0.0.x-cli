@@ -139,7 +139,7 @@ export const getProgram = (ctx: AppContext) => {
 
   packageFiles
     .command("upload-directory")
-    .requiredOption("--directory <directory>", "Directory to upload")
+    .requiredOption("--dir <dir>", "Directory to upload")
     .action((args) => CMDFN.packageFilesUploadDirectory(ctx, args))
 
   const packageExamples = cmd.command("package_examples")
@@ -228,6 +228,18 @@ export const getProgram = (ctx: AppContext) => {
     .command("uninstall")
     .argument("<packages...>", "Packages to uninstall")
     .action((packages, flags) => CMDFN.install(ctx, { packages, flags }))
+
+  const devServerCmd = cmd.command("dev-server")
+
+  devServerCmd
+    .command("upload")
+    .option(
+      "--dir <dir>",
+      "Directory to upload (defaults to current directory)"
+    )
+    .option("-w, --watch", "Watch for changes")
+    .option("-p, --port", "Port dev server is running on (default: 3020)")
+    .action((args) => CMDFN.devServerUpload(ctx, args))
 
   return cmd
 }

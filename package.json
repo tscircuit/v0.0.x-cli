@@ -1,11 +1,12 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
   "main": "./dist/cli.js",
   "scripts": {
+    "bootstrap": "bun i && cd dev-server-api && bun i && cd ../dev-server-frontend && bun i",
     "start": "bun cli.ts",
     "start:dev-server:dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.db concurrently 'cd dev-server-api && bun start' 'cd dev-server-frontend && bun start'",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./tests/assets/example-project",

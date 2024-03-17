@@ -8,27 +8,9 @@ import { getDevServerAxios } from "./get-dev-server-axios"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import { unlink } from "fs/promises"
 import * as Path from "path"
-import { appendFileSync, existsSync, readFileSync } from "fs"
 import { startWatcher } from "./start-watcher"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
-
-export const checkIfInitialized = async (ctx: AppContext) => {
-  const packageJsonPath = Path.join(cwd, "package.json")
-  if (!existsSync(packageJsonPath)) {
-    console.error(kleur.red(`No package.json found`))
-    return false
-  }
-
-  const packageJsonRaw = readFileSync(packageJsonPath, "utf-8")
-  if (!packageJsonRaw.includes("tscircuit")) {
-    console.error(
-      kleur.red(`No tscircuit dependencies are installed in this project.`)
-    )
-    return false
-  }
-
-  return true
-}
+import { checkIfInitialized } from "./check-if-initialized"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
