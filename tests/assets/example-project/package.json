@@ -1,0 +1,9 @@
+{
+  "name": "example-project",
+  "version": "1.2.26",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@tscircuit/builder": "^1.5.4",
+    "@tscircuit/react-fiber": "^1.0.6"
+  }
+}

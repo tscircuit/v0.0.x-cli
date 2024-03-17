@@ -1,0 +1,24 @@
+{
+  "name": "@tscircuit/dev-server-api",
+  "main": "dist/bundle.ts",
+  "type": "module",
+  "scripts": {
+    "start": "edgespec dev --port 3021",
+    "build": "edgespec bundle -o dist/bundle.ts"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/bun": "latest",
+    "@types/sql.js": "^1.4.9"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "edgespec": "^0.0.69",
+    "kysely": "^0.27.3",
+    "kysely-bun-sqlite": "^0.3.2",
+    "zod": "^3.22.4"
+  }
+}
