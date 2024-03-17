@@ -1,7 +1,7 @@
 import { AppContext } from "../util/app-context"
 import { z } from "zod"
-import { getDevServerAxios } from "./get-dev-server-axios"
-import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
+import { getDevServerAxios } from "./dev/get-dev-server-axios"
+import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
 import { startWatcher } from "./dev/start-watcher"
 
 export const devServerUpload = async (ctx: AppContext, args: any) => {

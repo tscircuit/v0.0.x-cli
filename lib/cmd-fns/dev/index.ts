@@ -11,6 +11,7 @@ import * as Path from "path"
 import { startWatcher } from "./start-watcher"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
+import { initCmd } from "../init"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -27,12 +28,18 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   const isInitialized = await checkIfInitialized(ctx)
 
   if (!isInitialized) {
-    console.log(
-      kleur.red(
-        `This project is not properly initialized. Please run "tsci init" first, or follow the manual installation steps here:\n\nhttps://github.com/tscircuit/tscircuit/blob/main/docs/manual-installation.md`
-      )
-    )
-    process.exit(1)
+    const { confirmInitialize } = await prompts({
+      type: "confirm",
+      name: "confirmInitialize",
+      message: "Would you like to initialize this project now?",
+      initial: true,
+    })
+
+    if (confirmInitialize) {
+      return initCmd(ctx, {})
+    } else {
+      process.exit(1)
+    }
   }
 
   await createOrModifyNpmrc({ quiet: false }, ctx)
