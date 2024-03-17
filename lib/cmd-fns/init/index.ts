@@ -30,6 +30,17 @@ export const initCmd = async (ctx: AppContext, args: any) => {
     params.dir = `.`
   }
 
+  if (!params.name) {
+    try {
+      const myAccount = await ctx.axios
+        .get("/accounts/get")
+        .then((r) => r.data.account)
+      params.name = `@${myAccount.github_username}/${Path.basename(params.dir)}`
+    } catch (e) {
+      params.name = Path.basename(params.dir ?? ctx.cwd)
+    }
+  }
+
   let runtime = params.runtime
   if (!runtime) {
     const bunExists = $.commandExistsSync("bun")
