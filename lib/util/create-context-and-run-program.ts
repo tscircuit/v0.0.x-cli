@@ -10,6 +10,7 @@ import kleur from "kleur"
 import { PARAM_HANDLERS_BY_PARAM_NAME } from "lib/param-handlers"
 import { createConfigHandler } from "lib/create-config-manager"
 import dargs from "dargs"
+import { versionCmd } from "lib/cmd-fns/version"
 
 export type CliArgs = {
   cmd: string[]
@@ -111,6 +112,11 @@ export const createContextAndRunProgram = async (process_args: any) => {
 
   const { _: positional, ...flagsAndParams } = args
   const args_without_globals = positional.concat(dargs(flagsAndParams))
+
+  if (args["version"] && args._.length === 2) {
+    await versionCmd(ctx, {})
+    process.exit(0)
+  }
 
   await perfectCli(getProgram(ctx), args_without_globals, {
     async customParamHandler({ commandPath, optionName }, { prompts }) {
