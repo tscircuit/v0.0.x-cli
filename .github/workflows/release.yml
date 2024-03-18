@@ -19,7 +19,7 @@ jobs:
           bun-version: latest
 
       - name: Install project dependencies
-        run: bun install --frozen-lockfile
+        run: bun run bootstrap
 
       - name: Build project
         run: bun run build

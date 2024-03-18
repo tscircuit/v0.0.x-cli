@@ -6,7 +6,7 @@
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
   "main": "./dist/cli.js",
   "scripts": {
-    "bootstrap": "bun i && cd dev-server-api && bun i && cd ../dev-server-frontend && bun i",
+    "bootstrap": "bun i --frozen-lockfile && cd dev-server-api && bun i --frozen-lockfile && cd ../dev-server-frontend && bun i --frozen-lockfile",
     "start": "bun cli.ts",
     "start:dev-server:dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.db concurrently 'cd dev-server-api && bun start' 'cd dev-server-frontend && bun start'",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./tests/assets/example-project",
