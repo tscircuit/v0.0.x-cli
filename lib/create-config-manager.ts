@@ -83,6 +83,13 @@ export const createConfigHandler = ({
       (global_config as any).get(`profiles.${current_profile}.${key}`),
     set: (key: string, value: any) =>
       (global_config as any).set(`profiles.${current_profile}.${key}`, value),
+    clear: () => {
+      for (const key of Object.keys(global_config.all)) {
+        if (key.startsWith(`profiles.${current_profile}`)) {
+          global_config.delete(key as any)
+        }
+      }
+    },
   } as any
 
   return { profile_config, global_config, current_profile }

@@ -123,8 +123,15 @@ export const createContextAndRunProgram = async (process_args: any) => {
 
   await perfectCli(getProgram(ctx), args_without_globals, {
     async customParamHandler({ commandPath, optionName }, { prompts }) {
-      const optionNameHandler =
+      let optionNameHandler =
         PARAM_HANDLERS_BY_PARAM_NAME[_.snakeCase(optionName)]
+
+      if (
+        commandPath.join(" ") === "config set-registry" &&
+        optionName === "server"
+      ) {
+        optionNameHandler = PARAM_HANDLERS_BY_PARAM_NAME["registry_url"]
+      }
 
       if (optionNameHandler) {
         return optionNameHandler({ prompts, ctx })
