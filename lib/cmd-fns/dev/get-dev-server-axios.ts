@@ -5,6 +5,10 @@ export const getDevServerAxios = ({ serverUrl }: { serverUrl: string }) => {
   const devServerAxios = defaultAxios.create({
     baseURL: serverUrl,
   })
+
+  // https://github.com/oven-sh/bun/issues/267
+  devServerAxios.defaults.headers.common["Accept-Encoding"] = "gzip"
+
   devServerAxios.interceptors.response.use(
     (res) => res,
     (err) => {

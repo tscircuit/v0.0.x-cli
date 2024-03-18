@@ -23,8 +23,6 @@ import * as CMDFN from "lib/cmd-fns"
 export const getProgram = (ctx: AppContext) => {
   const cmd = new Command("tsci")
 
-  cmd.version(packageJson.version)
-
   const authCmd = cmd.command("auth")
   authCmd.command("login").action((args) => CMDFN.authLogin(ctx, args))
   authCmd.command("logout").action((args) => CMDFN.authLogout(ctx, args))
@@ -96,6 +94,15 @@ export const getProgram = (ctx: AppContext) => {
     .option("--package-name <package_name>", "Package name")
     .option("--release-version <release_version>", "Version to publish")
     .action((args) => CMDFN.packageReleasesCreate(ctx, args))
+  packageReleases
+    .command("update")
+    .option(
+      "-p, --package-name-with-version <package_name_with_version>",
+      "Package name and version"
+    )
+    .option("--is-latest", "Make package release the latest version")
+    .option("--is-locked", "Lock the release")
+    .action((args) => CMDFN.packageReleasesUpdate(ctx, args))
 
   const packageFiles = cmd.command("package_files")
 

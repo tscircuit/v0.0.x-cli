@@ -48,6 +48,9 @@ export const createContextAndRunProgram = async (process_args: any) => {
     },
   })
 
+  // https://github.com/oven-sh/bun/issues/267
+  axios.defaults.headers.common["Accept-Encoding"] = "gzip"
+
   if (global_config.get("log_requests")) {
     console.log(`Using registry_url: ${registry_url}`)
     axios.interceptors.request.use((req) => {
