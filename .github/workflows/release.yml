@@ -1,0 +1,30 @@
+name: Release Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install project dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build project
+        run: bun build
+
+      - name: Run pver release
+        run: bunx pver release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
