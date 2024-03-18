@@ -67,6 +67,15 @@ export const createContextAndRunProgram = async (process_args: any) => {
   axios.interceptors.response.use(
     (res) => res,
     (err) => {
+      // ---- IGNORE LOGGING *_not_found --------
+      if (
+        err.config.data?.error?.error_code === "package_not_found" ||
+        err.config.data?.error?.error_code === "package_release_not_found"
+      ) {
+        return Promise.reject(err)
+      }
+      // end ignores ---
+
       console.log(
         kleur.red(
           `[ERR] ${err.response?.status} ${err.config.method?.toUpperCase()} ${

@@ -12,6 +12,7 @@ import { inferExportNameFromSource } from "../dev/infer-export-name-from-source"
 import $ from "dax-sh"
 import semver from "semver"
 import { unlink } from "fs/promises"
+import esbuild from "esbuild"
 
 export const publish = async (ctx: AppContext, args: any) => {
   const params = z
@@ -42,24 +43,31 @@ export const publish = async (ctx: AppContext, args: any) => {
   )
 
   // TODO possibly use esbuild here, it's got stuff like packages: "external"
-  await Bun.build({
-    root: ctx.cwd,
-    // TODO determine entrypoint in a more clever way e.g.
-    // - package.json "main"
-    entrypoints: ["index.ts"],
+  // await Bun.build({
+  //   root: ctx.cwd,
+  //   // TODO determine entrypoint in a more clever way e.g.
+  //   // - package.json "main"
+  //   entrypoints: ["index.ts"],
 
-    // Everything should be external since it's a node module, esbuild has a
-    // packages: "external" option for this
-    external: [
-      ...Object.keys(packageJson.dependencies || {}),
-      ...Object.keys(packageJson.devDependencies || {}),
-      ...Object.keys(packageJson.peerDependencies || {}),
-      ...Object.keys(packageJson.trustedDependencies || {}),
-    ],
+  //   // Everything should be external since it's a node module, esbuild has a
+  //   // packages: "external" option for this
+  //   external: [
+  //     ...Object.keys(packageJson.dependencies || {}),
+  //     ...Object.keys(packageJson.devDependencies || {}),
+  //     ...Object.keys(packageJson.peerDependencies || {}),
+  //     ...Object.keys(packageJson.trustedDependencies || {}),
+  //   ],
 
+  //   outdir: "dist",
+
+  //   target: "node",
+  // })
+  await esbuild.build({
+    entryPoints: ["index.ts"], // TODO dynamically determine entrypoint
+    bundle: true,
+    platform: "node",
+    packages: "external",
     outdir: "dist",
-
-    target: "node",
   })
 
   // Publish to npm??
