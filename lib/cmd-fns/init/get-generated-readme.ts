@@ -7,6 +7,12 @@ export const getGeneratedReadme = ({
 }) => {
   return `
 # ${name}
+
+[![tscircuit version badge](https://registry.tscircuit.com/badges/view?package_name=${name.replace(
+    "/",
+    "."
+  )})](https://registry.tscircuit.com/${name.replace("@", "")})
+
 ${
   shouldHaveProjectGeneratedNotice
     ? `\n\n> This project was generated using [tsci](https://github.com/tscircuit/tscircuit)\n`
