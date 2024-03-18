@@ -19,7 +19,7 @@
     "tscircuit": "./dist/cli.js",
     "tsci": "./dist/cli.js"
   },
-  "keywords": [],
+  "keywords": ["circuit", "react", "electronics", "pcb", "schematic"],
   "author": "",
   "license": "ISC",
   "dependencies": {
