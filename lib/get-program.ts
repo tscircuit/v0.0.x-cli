@@ -47,6 +47,7 @@ export const getProgram = (ctx: AppContext) => {
   configCmd
     .command("print-config")
     .action((args) => CMDFN.configPrintConfig(ctx, args))
+  configCmd.command("clear").action((args) => CMDFN.configClear(ctx, args))
 
   const authSessionsCmd = authCmd.command("sessions")
 
