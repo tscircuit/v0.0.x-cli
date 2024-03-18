@@ -241,5 +241,7 @@ export const getProgram = (ctx: AppContext) => {
     .option("-p, --port", "Port dev server is running on (default: 3020)")
     .action((args) => CMDFN.devServerUpload(ctx, args))
 
+  cmd.command("open").action((args) => CMDFN.open(ctx, args))
+
   return cmd
 }

@@ -9,6 +9,7 @@ import defaultAxios from "axios"
 import kleur from "kleur"
 import { PARAM_HANDLERS_BY_PARAM_NAME } from "lib/param-handlers"
 import { createConfigHandler } from "lib/create-config-manager"
+import dargs from "dargs"
 
 export type CliArgs = {
   cmd: string[]
@@ -106,7 +107,12 @@ export const createContextAndRunProgram = async (process_args: any) => {
     params: args,
   }
 
-  await perfectCli(getProgram(ctx), process.argv, {
+  delete args["cwd"]
+
+  const { _: positional, ...flagsAndParams } = args
+  const args_without_globals = positional.concat(dargs(flagsAndParams))
+
+  await perfectCli(getProgram(ctx), args_without_globals, {
     async customParamHandler({ commandPath, optionName }, { prompts }) {
       const optionNameHandler =
         PARAM_HANDLERS_BY_PARAM_NAME[_.snakeCase(optionName)]
