@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build_and_release:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: https://registry.npmjs.org/
 
       - name: Setup bun
         uses: oven-sh/setup-bun@v1
