@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios"
 import Configstore from "configstore"
+import { ContextConfigProps } from "lib/create-config-manager"
 
 export type AppContext = {
   args: any
@@ -8,7 +9,5 @@ export type AppContext = {
   params: Record<string, any>
   registry_url: string
   axios: AxiosInstance
-  profile: string
-  profile_config: Configstore
-  global_config: Configstore
-}
+  current_profile: string
+} & ContextConfigProps

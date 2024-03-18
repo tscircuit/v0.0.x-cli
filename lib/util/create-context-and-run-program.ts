@@ -8,6 +8,7 @@ import { getProgram } from "../get-program"
 import defaultAxios from "axios"
 import kleur from "kleur"
 import { PARAM_HANDLERS_BY_PARAM_NAME } from "lib/param-handlers"
+import { createConfigHandler } from "lib/create-config-manager"
 
 export type CliArgs = {
   cmd: string[]
@@ -18,15 +19,10 @@ export type CliArgs = {
 export const createContextAndRunProgram = async (process_args: any) => {
   const args = minimist(process_args)
 
-  const global_config = new Configstore("tsci")
-  const current_profile =
-    args.profile ?? global_config.get("current_profile") ?? "default"
-  const profile_config: typeof global_config = {
-    get: (key: string) =>
-      global_config.get(`profiles.${current_profile}.${key}`),
-    set: (key: string, value: any) =>
-      global_config.set(`profiles.${current_profile}.${key}`, value),
-  } as any
+  const { global_config, profile_config, current_profile } =
+    createConfigHandler({
+      profile: args.profile,
+    })
 
   // Load registry commands
   const registry_url =
@@ -88,7 +84,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
   const ctx: AppContext = {
     cmd: args._,
     cwd: args.cwd ?? process.cwd(),
-    profile: current_profile,
+    current_profile,
     registry_url,
     axios,
     global_config,
