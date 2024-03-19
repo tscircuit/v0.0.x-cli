@@ -17,7 +17,10 @@ export const ExampleContentView = () => {
         .post(`/api/dev_package_examples/get`, {
           dev_package_example_id: devExamplePackageId,
         })
-        .then((r) => r.data.dev_package_example)
+        .then((r) => r.data.dev_package_example),
+    {
+      refetchIntervalInBackground: true,
+    }
   )
 
   const viewMode = useGlobalStore((s) => s.view_mode)
