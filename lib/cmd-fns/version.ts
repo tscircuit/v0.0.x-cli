@@ -9,6 +9,9 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   const reactFiberPackageJson = await import(
     "@tscircuit/react-fiber/package.json"
   ).catch((e) => ({ version: "" }))
+  const builderPackageJson = await import(
+    "@tscircuit/builder/package.json"
+  ).catch((e) => ({ version: "" }))
   if (tscircuitPackageJson.version) {
     console.log(`tscircuit@${cliPackageJson.version}`)
   }
@@ -20,4 +23,5 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   console.log(
     `@tscircuit/pcb-viewer@${frontendPackageJson.dependencies["@tscircuit/pcb-viewer"]}`
   )
+  console.log(`@tscircuit/builder@${builderPackageJson.version}`)
 }
