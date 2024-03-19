@@ -174,7 +174,7 @@ export const getProgram = (ctx: AppContext) => {
     .option("--lock", "Lock the release after publishing to prevent changes")
     .action((args) => CMDFN.publish(ctx, args))
 
-  cmd.command("version").action(() => CMDFN.version(ctx, args))
+  cmd.command("version").action((args) => CMDFN.version(ctx, args))
 
   cmd.command("login").action((args) => CMDFN.authLogin(ctx, args))
   cmd.command("logout").action((args) => CMDFN.authLogout(ctx, args))
