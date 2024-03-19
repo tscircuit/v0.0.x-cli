@@ -15,6 +15,7 @@ import {
 } from "src/components/ui/menubar"
 import toast from "react-hot-toast"
 import { useGlobalStore } from "./hooks/use-global-store"
+import packageJson from "../package.json"
 
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
@@ -180,6 +181,21 @@ export const HeaderMenu = () => {
             }}
           >
             Changelog
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem disabled>
+            @tscircuit/schematic-viewer v
+            {packageJson.dependencies["@tscircuit/schematic-viewer"].replace(
+              /\^/g,
+              ""
+            )}
+          </MenubarItem>
+          <MenubarItem disabled>
+            @tscircuit/pcb-viewer v
+            {packageJson.dependencies["@tscircuit/pcb-viewer"].replace(
+              /\^/g,
+              ""
+            )}
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
