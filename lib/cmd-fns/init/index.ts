@@ -75,12 +75,18 @@ export const initCmd = async (ctx: AppContext, args: any) => {
   }
 
   // TODO just allow adding "tscircuit" in the future
-  await $`${pkm} add -D @tscircuit/react-fiber @tscircuit/builder`
+  await $`${pkm} add -D tscircuit`
 
   console.log("Changing package name...")
   // Change package.json "name" to params.name
   const packageJson = JSON.parse(readFileSync("package.json", "utf-8"))
   packageJson.name = params.name
+  writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
+
+  console.log('Changing adding "start" and "dev" scripts...')
+  packageJson.scripts ??= {}
+  packageJson.scripts.start = "npm run dev"
+  packageJson.scripts.dev = "tsci dev"
   writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
 
   console.log(`Adding ".tscircuit" to .gitignore`)
