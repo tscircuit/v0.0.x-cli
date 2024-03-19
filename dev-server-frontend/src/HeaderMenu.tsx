@@ -16,6 +16,7 @@ import {
 import toast from "react-hot-toast"
 import { useGlobalStore } from "./hooks/use-global-store"
 import packageJson from "../package.json"
+import cliPackageJson from "../../package.json"
 
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
@@ -183,6 +184,23 @@ export const HeaderMenu = () => {
             Changelog
           </MenubarItem>
           <MenubarSeparator />
+          <MenubarItem disabled>
+            @tscircuit/cli v{cliPackageJson.version}
+          </MenubarItem>
+          <MenubarItem disabled>
+            @tscircuit/builder v
+            {cliPackageJson.dependencies["@tscircuit/builder"].replace(
+              /\^/g,
+              ""
+            )}
+          </MenubarItem>
+          <MenubarItem disabled>
+            @tscircuit/react-fiber v
+            {cliPackageJson.dependencies["@tscircuit/react-fiber"].replace(
+              /\^/g,
+              ""
+            )}
+          </MenubarItem>
           <MenubarItem disabled>
             @tscircuit/schematic-viewer v
             {packageJson.dependencies["@tscircuit/schematic-viewer"].replace(

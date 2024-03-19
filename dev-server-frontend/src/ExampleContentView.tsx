@@ -28,7 +28,6 @@ export const ExampleContentView = () => {
 
   const itemHeight =
     viewMode === "split" && splitMode === "vertical" ? halfHeight : editorHeight
-  console.log(pkg)
 
   return (
     <div

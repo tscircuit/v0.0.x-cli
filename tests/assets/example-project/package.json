@@ -1,9 +1,10 @@
 {
   "name": "example-project",
   "version": "1.2.26",
+  "type": "module",
   "main": "dist/index.js",
   "dependencies": {
-    "@tscircuit/builder": "^1.5.4",
+    "@tscircuit/builder": "latest",
     "@tscircuit/react-fiber": "^1.0.6"
   }
 }
