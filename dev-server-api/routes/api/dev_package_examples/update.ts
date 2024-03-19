@@ -6,12 +6,14 @@ export default withEdgeSpec({
   methods: ["POST"],
   jsonBody: z.object({
     dev_package_example_id: z.coerce.number(),
-    tscircuit_soup: z.any(),
+    tscircuit_soup: z.any().optional(),
+    error: z.string().nullable().optional().default(null),
   }),
   jsonResponse: z.object({
     dev_package_example: z.object({
       dev_package_example_id: z.coerce.number(),
       tscircuit_soup: z.any(),
+      error: z.string().nullable().optional(),
       last_updated_at: z.string().datetime(),
     }),
   }),
@@ -22,6 +24,7 @@ export default withEdgeSpec({
       .updateTable("dev_package_example")
       .set({
         tscircuit_soup: req.jsonBody.tscircuit_soup,
+        error: req.jsonBody.error,
         last_updated_at: new Date().toISOString(),
       })
       .returningAll()

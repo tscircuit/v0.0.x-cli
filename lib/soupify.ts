@@ -44,7 +44,10 @@ console.log(JSON.stringify(elements))
 `.trim()
   )
 
-  const processResult = await $`bun ${tmpFilePath}`.captureCombined(true)
+  const processResult = await $`npx tsx ${tmpFilePath}`
+    .stdout("piped")
+    .stderr("piped")
+    .noThrow()
 
   const rawSoup = processResult.stdout
   const errText = processResult.stderr
@@ -56,7 +59,7 @@ console.log(JSON.stringify(elements))
 
     if (soup.COMPILE_ERROR) {
       // console.log(kleur.red(`Failed to compile ${filePath}`))
-      // console.log(soup.COMPILE_ERROR)
+      console.log(kleur.red(soup.COMPILE_ERROR))
       throw new Error(soup.COMPILE_ERROR)
     }
 
@@ -64,8 +67,8 @@ console.log(JSON.stringify(elements))
   } catch (e: any) {
     // console.log(kleur.red(`Failed to parse result of soupify: ${e.toString()}`))
     const t = Date.now()
-    console.log(`Outputting raw soupify result to .tscircuit/err-${t}.log`)
+    console.log(`Dumping raw output to .tscircuit/err-${t}.log`)
     writeFileSync(`.tscircuit/err-${t}.log`, rawSoup + "\n\n" + errText)
-    throw e
+    throw new Error(errText)
   }
 }

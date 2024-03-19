@@ -20,6 +20,7 @@ export const startWatcher = async ({
     should_run: true,
   }
   watcher.on("change", async (path) => {
+    if (path.endsWith(".__tmp_entrypoint.tsx")) return
     console.log(`File ${path} has been changed`)
     // TODO analyze to determine which examples were impacted
     upload_queue_state.dirty = true

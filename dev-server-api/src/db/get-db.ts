@@ -8,6 +8,7 @@ interface DevPackageExample {
   tscircuit_soup: any
   file_path: string
   export_name: string
+  error: string | null
   last_updated_at: string
 }
 

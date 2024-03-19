@@ -28,11 +28,13 @@ export const ExampleContentView = () => {
 
   const itemHeight =
     viewMode === "split" && splitMode === "vertical" ? halfHeight : editorHeight
+  console.log(pkg)
 
   return (
     <div
       key={pkg?.last_updated_at}
       className={cn(
+        "relative",
         `h-[${editorHeight}px]`,
         viewMode === "split" &&
           splitMode === "horizontal" &&
@@ -54,6 +56,13 @@ export const ExampleContentView = () => {
           height={itemHeight}
           soup={pkg.tscircuit_soup}
         />
+      )}
+      {pkg?.error && (
+        <div className="absolute top-0 w-full">
+          <div className="bg-red-50 shadow-lg p-4 m-16 border-red-200 border rounded-lg whitespace-pre">
+            {pkg?.error}
+          </div>
+        </div>
       )}
     </div>
   )

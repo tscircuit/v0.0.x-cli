@@ -12,6 +12,7 @@ export default withEdgeSpec({
       dev_package_example_id: z.coerce.number(),
       file_path: z.string(),
       tscircuit_soup: z.any(),
+      error: z.string().nullable().optional().default(null),
       last_updated_at: z.string().datetime(),
     }),
   }),

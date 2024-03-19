@@ -8,29 +8,36 @@ export default withEdgeSpec({
     file_path: z.string(),
     export_name: z.string().default("default"),
     tscircuit_soup: z.any(),
+    error: z.string().nullable().optional().default(null),
   }),
   jsonResponse: z.object({
     dev_package_example: z.object({
       dev_package_example_id: z.coerce.number(),
       file_path: z.string(),
       tscircuit_soup: z.any(),
+      error: z.string().nullable().optional(),
       last_updated_at: z.string().datetime(),
     }),
   }),
   auth: "none",
 })(async (req, ctx) => {
+  const tscircuit_soup = req.jsonBody.tscircuit_soup
+    ? JSON.stringify(req.jsonBody.tscircuit_soup)
+    : undefined
   const dev_package_example = await ctx.db
     .insertInto("dev_package_example")
     .values({
       file_path: req.jsonBody.file_path,
       export_name: req.jsonBody.export_name,
-      tscircuit_soup: JSON.stringify(req.jsonBody.tscircuit_soup),
+      error: req.jsonBody.error,
+      tscircuit_soup,
       last_updated_at: new Date().toISOString(),
     })
     .onConflict((oc) =>
       oc.columns(["file_path"]).doUpdateSet({
         export_name: req.jsonBody.export_name,
-        tscircuit_soup: JSON.stringify(req.jsonBody.tscircuit_soup),
+        error: req.jsonBody.error,
+        tscircuit_soup,
         last_updated_at: new Date().toISOString(),
       })
     )
