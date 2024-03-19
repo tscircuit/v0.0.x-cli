@@ -3,7 +3,7 @@ import { z } from "zod"
 import { AppContext } from "../../util/app-context"
 import * as Path from "path"
 import * as fs from "fs/promises"
-import { readFileSync } from "fs"
+import { existsSync, readFileSync } from "fs"
 import { getAllPackageFiles } from "lib/util/get-all-package-files"
 import prompts from "prompts"
 import { getGeneratedReadme } from "../init/get-generated-readme"
@@ -25,7 +25,7 @@ export const publish = async (ctx: AppContext, args: any) => {
 
   const shouldIncrement = params.increment || params.patch
 
-  if (!(await fs.exists(Path.join(ctx.cwd, "package.json")))) {
+  if (!existsSync(Path.join(ctx.cwd, "package.json"))) {
     console.log(kleur.red("No package.json found in current directory"))
     process.exit(1)
   }
@@ -244,7 +244,7 @@ export const publish = async (ctx: AppContext, args: any) => {
     tmpTarballPath
   )}`.json()
 
-  if (!(await fs.exists(tmpTarballPath))) {
+  if (!existsSync(tmpTarballPath)) {
     console.log(kleur.red(`Couldn't find tarball at ${tmpTarballPath}`))
     process.exit(1)
   }
