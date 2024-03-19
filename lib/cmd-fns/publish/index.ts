@@ -34,6 +34,16 @@ export const publish = async (ctx: AppContext, args: any) => {
     await readFileSync(Path.join(ctx.cwd, "package.json"), "utf-8")
   )
 
+  if (!packageJson.version) {
+    console.log(kleur.yellow("No version found in package.json"))
+    console.log(kleur.green("Setting package.json version to 0.0.1"))
+    packageJson.version = "0.0.1"
+    await fs.writeFile(
+      Path.join(ctx.cwd, "package.json"),
+      JSON.stringify(packageJson, null, 2)
+    )
+  }
+
   await esbuild.build({
     entryPoints: ["index.ts"], // TODO dynamically determine entrypoint
     bundle: true,
