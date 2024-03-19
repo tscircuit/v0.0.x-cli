@@ -24,7 +24,7 @@ jobs:
           bun-version: latest
 
       - name: Install project dependencies
-        run: bun run bootstrap
+        run: bun run bootstrap:ci
 
       - name: Build project
         run: bun run build
