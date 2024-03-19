@@ -22,14 +22,6 @@ export const publish = async (ctx: AppContext, args: any) => {
       lock: z.boolean().optional(),
     })
     .parse(args)
-  if (typeof Bun === "undefined") {
-    console.log(
-      kleur.red(
-        "\n\n----------------------------------\nBun is currently required for publishing packages to the tscircuit registry. Try installing bun:\nhhttps://bun.sh/docs/installation\n\n---------------------"
-      )
-    )
-    process.exit(1)
-  }
 
   const shouldIncrement = params.increment || params.patch
 
@@ -42,26 +34,6 @@ export const publish = async (ctx: AppContext, args: any) => {
     await readFileSync(Path.join(ctx.cwd, "package.json"), "utf-8")
   )
 
-  // TODO possibly use esbuild here, it's got stuff like packages: "external"
-  // await Bun.build({
-  //   root: ctx.cwd,
-  //   // TODO determine entrypoint in a more clever way e.g.
-  //   // - package.json "main"
-  //   entrypoints: ["index.ts"],
-
-  //   // Everything should be external since it's a node module, esbuild has a
-  //   // packages: "external" option for this
-  //   external: [
-  //     ...Object.keys(packageJson.dependencies || {}),
-  //     ...Object.keys(packageJson.devDependencies || {}),
-  //     ...Object.keys(packageJson.peerDependencies || {}),
-  //     ...Object.keys(packageJson.trustedDependencies || {}),
-  //   ],
-
-  //   outdir: "dist",
-
-  //   target: "node",
-  // })
   await esbuild.build({
     entryPoints: ["index.ts"], // TODO dynamically determine entrypoint
     bundle: true,
