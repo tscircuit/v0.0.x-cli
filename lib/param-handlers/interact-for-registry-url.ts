@@ -9,7 +9,7 @@ export const interactForRegistryUrl: ParamHandler = async (params) => {
     name: "registry_url",
     message: "Select a package example",
     choices: [
-      "https://registry.tscircuit.com",
+      "https://registry-api.tscircuit.com",
       "http://localhost:3100",
       "other",
     ].map((a) => ({ title: a, value: a })),
