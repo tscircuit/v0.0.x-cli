@@ -52,26 +52,6 @@ export const ExampleContentView = () => {
         viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2"
       )}
     >
-      {notFound && (
-        <div className="absolute top-0 w-full flex justify-center">
-          <div className="bg-yellow-50 shadow-lg p-4 m-16 border-yellow-200 border rounded-lg whitespace-pre max-w-[400px]">
-            Select an example from the menu above
-          </div>
-        </div>
-      )}
-      {isLoading && !isError && (
-        <div className="absolute top-0 w-full flex justify-center">
-          <div className="bg-gray-50 shadow-lg p-4 m-16 border-gray-200 border rounded-lg whitespace-pre">
-            Loading...
-          </div>
-        </div>
-      )}
-      {pkg && pkg.is_loading && (
-        <div className="absolute top-0 right-0 bg-white p-4 py-2 m-4 rounded-md flex items-center z-10 shadow-lg border border-gray-200">
-          <div className="border-2 border-blue-400 border-t-transparent rounded-full w-4 h-4 animate-spin mr-2"></div>
-          Rebuilding...
-        </div>
-      )}
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
         <Schematic
           key={`sch-${pkg?.last_updated_at}`}
@@ -92,6 +72,26 @@ export const ExampleContentView = () => {
           <div className="bg-red-50 shadow-lg p-4 m-16 border-red-200 border rounded-lg whitespace-pre">
             {pkg?.error}
           </div>
+        </div>
+      )}
+      {notFound && (
+        <div className="absolute top-0 w-full flex justify-center">
+          <div className="bg-yellow-50 shadow-lg p-4 m-16 border-yellow-200 border rounded-lg whitespace-pre max-w-[400px]">
+            Select an example from the menu above
+          </div>
+        </div>
+      )}
+      {isLoading && !isError && (
+        <div className="absolute top-0 w-full flex justify-center">
+          <div className="bg-gray-50 shadow-lg p-4 m-16 border-gray-200 border rounded-lg whitespace-pre">
+            Loading...
+          </div>
+        </div>
+      )}
+      {pkg && pkg.is_loading && (
+        <div className="absolute top-0 right-0 bg-white p-4 py-2 m-4 rounded-md flex items-center z-10 shadow-lg border border-gray-200">
+          <div className="border-2 border-blue-400 border-t-transparent rounded-full w-4 h-4 animate-spin mr-2"></div>
+          Rebuilding...
         </div>
       )}
     </div>
