@@ -12,8 +12,10 @@
     "start:dev-server:dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.db concurrently 'cd dev-server-api && bun start' 'cd dev-server-frontend && bun start'",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./tests/assets/example-project",
     "build:dev-server": "cd dev-server-api && bun run build && cd ../dev-server-frontend && bun run build",
+    "build:dev-server:api": "cd dev-server-api && bun run build",
     "build:cli": "bun build-cli.ts",
     "build": "bun build:dev-server && npm run build:cli",
+    "dev-with-test-project": "bun cli.ts dev --cwd ./tests/assets/example-project",
     "test:init": "bun cli.ts init --dir ./tmp/test --name test"
   },
   "bin": {
@@ -54,7 +56,7 @@
     "minimist": "^1.2.8",
     "node-persist": "^4.0.1",
     "open": "^10.1.0",
-    "perfect-cli": "^1.0.16",
+    "perfect-cli": "^1.0.19",
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "semver": "^7.6.0",

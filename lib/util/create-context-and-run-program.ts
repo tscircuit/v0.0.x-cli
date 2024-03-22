@@ -103,6 +103,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
     axios,
     global_config,
     profile_config,
+    runtime: global_config.get("runtime") ?? "node",
     args: {
       cmd: args._,
       yes: args.y ?? args.yes,

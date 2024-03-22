@@ -10,7 +10,12 @@ export const ExampleContentView = () => {
     (s) => s.active_dev_example_package_id
   )
 
-  const { data: pkg } = useQuery(
+  const {
+    data: pkg,
+    error,
+    isError,
+    isLoading,
+  } = useQuery(
     ["dev_package_example", devExamplePackageId],
     async () =>
       axios
@@ -20,8 +25,11 @@ export const ExampleContentView = () => {
         .then((r) => r.data.dev_package_example),
     {
       refetchIntervalInBackground: true,
+      retry: false,
     }
   )
+
+  const notFound = (error as any)?.response?.status === 404
 
   const viewMode = useGlobalStore((s) => s.view_mode)
   const splitMode = useGlobalStore((s) => s.split_mode)
@@ -44,6 +52,20 @@ export const ExampleContentView = () => {
         viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2"
       )}
     >
+      {notFound && (
+        <div className="absolute top-0 w-full flex justify-center">
+          <div className="bg-yellow-50 shadow-lg p-4 m-16 border-yellow-200 border rounded-lg whitespace-pre max-w-[400px]">
+            Select an example from the menu above
+          </div>
+        </div>
+      )}
+      {isLoading && !isError && (
+        <div className="absolute top-0 w-full flex justify-center">
+          <div className="bg-gray-50 shadow-lg p-4 m-16 border-gray-200 border rounded-lg whitespace-pre">
+            Loading...
+          </div>
+        </div>
+      )}
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
         <Schematic
           key={pkg?.last_updated_at}

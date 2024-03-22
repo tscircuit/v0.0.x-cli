@@ -8,6 +8,7 @@ interface ProfileConfigProps {
 interface GlobalConfigProps {
   current_profile?: string
   log_requests?: boolean
+  runtime?: "bun" | "node"
 }
 
 interface TypedConfigstore<T extends Record<string, any>> {

@@ -6,13 +6,16 @@ import { unlink } from "node:fs/promises"
 import kleur from "kleur"
 import { writeFileSync } from "fs"
 
-export const soupify = async ({
-  filePath,
-  exportName,
-}: {
-  filePath: string
-  exportName?: string
-}) => {
+export const soupify = async (
+  {
+    filePath,
+    exportName,
+  }: {
+    filePath: string
+    exportName?: string
+  },
+  ctx: { runtime: "node" | "bun" }
+) => {
   const tmpFilePath = Path.join(
     Path.dirname(filePath),
     Path.basename(filePath).replace(/\.[^\.]+$/, "") + ".__tmp_entrypoint.tsx"
@@ -44,7 +47,9 @@ console.log(JSON.stringify(elements))
 `.trim()
   )
 
-  const processResult = await $`npx tsx ${tmpFilePath}`
+  const runtime = ctx.runtime === "node" ? "npx tsx" : "bun"
+
+  const processResult = await $`${runtime} ${tmpFilePath}`
     .stdout("piped")
     .stderr("piped")
     .noThrow()

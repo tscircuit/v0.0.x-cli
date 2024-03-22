@@ -9,6 +9,7 @@ interface DevPackageExample {
   file_path: string
   export_name: string
   error: string | null
+  is_loading: 1 | 0
   last_updated_at: string
 }
 
@@ -22,11 +23,13 @@ export type DbClient = Kysely<KyselyDatabaseSchema>
 
 let globalDb: Kysely<KyselyDatabaseSchema> | undefined
 
+export const getDbFilePath = () =>
+  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/dev-server.db"
+
 export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
   if (globalDb) return globalDb
 
-  const devServerDbPath =
-    process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/dev-server.db"
+  const devServerDbPath = getDbFilePath()
 
   mkdirSync(Path.dirname(devServerDbPath), { recursive: true })
 

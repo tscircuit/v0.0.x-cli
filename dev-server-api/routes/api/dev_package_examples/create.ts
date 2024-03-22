@@ -9,6 +9,7 @@ export default withEdgeSpec({
     export_name: z.string().default("default"),
     tscircuit_soup: z.any(),
     error: z.string().nullable().optional().default(null),
+    is_loading: z.boolean().optional(),
   }),
   jsonResponse: z.object({
     dev_package_example: z.object({
@@ -31,6 +32,7 @@ export default withEdgeSpec({
       export_name: req.jsonBody.export_name,
       error: req.jsonBody.error,
       tscircuit_soup,
+      is_loading: req.jsonBody.is_loading ? 1 : 0,
       last_updated_at: new Date().toISOString(),
     })
     .onConflict((oc) =>
@@ -38,6 +40,7 @@ export default withEdgeSpec({
         export_name: req.jsonBody.export_name,
         error: req.jsonBody.error,
         tscircuit_soup,
+        is_loading: req.jsonBody.is_loading ? 1 : 0,
         last_updated_at: new Date().toISOString(),
       })
     )

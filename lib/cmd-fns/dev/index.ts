@@ -16,12 +16,12 @@ import { initCmd } from "../init"
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
     .object({
-      cwd: z.string().optional().default(process.cwd()),
       port: z.coerce.number().optional().default(3020),
     })
     .parse(args)
 
-  const { cwd, port } = params
+  const { port } = params
+  const { cwd } = ctx
 
   // In the future we should automatically run "tsci init" if the directory
   // isn't properly initialized, for now we're just going to do a spot check
@@ -66,12 +66,15 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   const server = await startDevServer({ port, devServerAxios })
 
+  // Reset the database, allows migration to re-run
+  await devServerAxios.post("/api/dev_server/reset")
+
   // Soupify all examples
   console.log(`Loading examples...`)
-  await uploadExamplesFromDirectory({ devServerAxios, cwd })
+  await uploadExamplesFromDirectory({ devServerAxios, cwd }, ctx)
 
   // Start watcher
-  const watcher = await startWatcher({ cwd, devServerAxios })
+  const watcher = await startWatcher({ cwd, devServerAxios }, ctx)
 
   while (true) {
     const { action } = await prompts({

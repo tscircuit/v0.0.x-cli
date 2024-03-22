@@ -5,26 +5,33 @@ import { readdirSync, readFileSync } from "fs"
 import { soupify } from "lib/soupify"
 import { inferExportNameFromSource } from "./infer-export-name-from-source"
 
-export const soupifyAndUploadExampleFile = async ({
-  examplesDir,
-  exampleFileName,
-  devServerAxios,
-}: {
-  examplesDir: string
-  exampleFileName: string
-  devServerAxios: AxiosInstance
-}) => {
+export const soupifyAndUploadExampleFile = async (
+  {
+    examplesDir,
+    exampleFileName,
+    devServerAxios,
+  }: {
+    examplesDir: string
+    exampleFileName: string
+    devServerAxios: AxiosInstance
+  },
+  ctx: { runtime: "node" | "bun" }
+) => {
   try {
+    const startTime = Date.now()
     const examplePath = joinPath(examplesDir, exampleFileName)
     const exampleContent = readFileSync(examplePath).toString()
 
     const exportName = inferExportNameFromSource(exampleContent)
 
     console.log(kleur.gray(`[soupifying] ${exampleFileName}...`))
-    const { soup, error } = await soupify({
-      filePath: examplePath,
-      exportName,
-    })
+    const { soup, error } = await soupify(
+      {
+        filePath: examplePath,
+        exportName,
+      },
+      ctx
+    )
       .then((soup) => ({ soup, error: null }))
       .catch((e) => ({ error: e, soup: undefined }))
 
@@ -38,8 +45,16 @@ export const soupifyAndUploadExampleFile = async ({
       error: error?.toString() || null,
       file_path: examplePath,
       export_name: exportName,
+      is_loading: false,
     })
-    console.log(kleur.gray(`[   done   ] ${exampleFileName}!`))
+    const timeTaken = Date.now() - startTime
+    console.log(
+      kleur.gray(
+        `[   done   ] [ ${Math.round(timeTaken)
+          .toString()
+          .padStart(5, " ")}ms ] ${exampleFileName}!`
+      )
+    )
   } catch (e: any) {
     console.log(kleur.red(`[   error  ] ${e.toString()}`))
   }

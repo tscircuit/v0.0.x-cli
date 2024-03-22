@@ -41,6 +41,13 @@ export const getProgram = (ctx: AppContext) => {
     .requiredOption("--session-token <session_token>", "Session Token")
     .action((args) => CMDFN.configSetSession(ctx, args))
   configCmd
+    .command("set-runtime")
+    .requiredOption(
+      "--runtime <runtime>",
+      "Bun or node. Setting to bun generally doubles soupification speed."
+    )
+    .action((args) => CMDFN.configSetRuntime(ctx, args))
+  configCmd
     .command("set-log-requests")
     .requiredOption("--log-requests", "Should log requests to registry")
     .action((args) => CMDFN.configSetLogRequests(ctx, args))

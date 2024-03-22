@@ -9,6 +9,8 @@ import {
   CommandShortcut,
 } from "./ui/command"
 import { useGlobalStore } from "src/hooks/use-global-store"
+import { useDevPackageExamples } from "./select-example-search"
+import { CommandSeparator } from "cmdk"
 
 export const CommandK = () => {
   const [open, setOpen] = useState(false)
@@ -19,11 +21,16 @@ export const CommandK = () => {
         e.preventDefault()
         setOpen((open) => !open)
       }
+      if (e.key === "Escape") {
+        setOpen(false)
+      }
     }
 
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
+
+  const { data: examples } = useDevPackageExamples()
 
   const close = () => {
     setOpen(false)
@@ -31,11 +38,11 @@ export const CommandK = () => {
   }
 
   return (
-    <CommandDialog open={open}>
+    <CommandDialog open={open} onOpenChange={(open) => setOpen(open)}>
       <Command className="rounded-lg border shadow-md">
         <CommandInput placeholder="Type a command or search..." />
-        <CommandGroup>
-          <CommandList>
+        <CommandList>
+          <CommandGroup heading="Viewing Options">
             <CommandItem
               onSelect={() => close() && store.setViewMode("schematic")}
             >
@@ -54,8 +61,25 @@ export const CommandK = () => {
               Vertical Split
               <CommandShortcut></CommandShortcut>
             </CommandItem>
-          </CommandList>
-        </CommandGroup>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Examples">
+            {examples?.map((ex) => (
+              <CommandItem
+                key={ex.dev_package_example_id}
+                value={ex.expath}
+                onSelect={() =>
+                  close() &&
+                  store.setActiveDevExamplePackageId(
+                    ex.dev_package_example_id.toString()
+                  )
+                }
+              >
+                {ex.expath}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
       </Command>
     </CommandDialog>
   )

@@ -12,10 +12,13 @@ export const packageExamplesCreate = async (ctx: AppContext, args: any) => {
     })
     .parse(args)
 
-  const tscircuit_soup = await soupify({
-    filePath: params.file,
-    exportName: params.export,
-  })
+  const tscircuit_soup = await soupify(
+    {
+      filePath: params.file,
+      exportName: params.export,
+    },
+    ctx
+  )
 
   const fileContent = await fs.promises.readFile(params.file, "utf8")
 

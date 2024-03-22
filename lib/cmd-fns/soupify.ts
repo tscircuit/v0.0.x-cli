@@ -14,10 +14,13 @@ export const soupifyCmd = async (ctx: AppContext, args: any) => {
     })
     .parse(args)
 
-  const soup = await soupify({
-    filePath: params.file,
-    exportName: params.export,
-  })
+  const soup = await soupify(
+    {
+      filePath: params.file,
+      exportName: params.export,
+    },
+    ctx
+  )
 
   if (params.output) {
     await writeFileSync(params.output, JSON.stringify(soup, null, 2))

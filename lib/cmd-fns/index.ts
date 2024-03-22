@@ -1,6 +1,7 @@
 export { configRevealLocation } from "./config-reveal-location"
 export { configSetRegistry } from "./config-set-registry"
 export { configSetSession } from "./config-set-session"
+export { configSetRuntime } from "./config-set-runtime"
 export { configSetLogRequests } from "./config-set-log-requests"
 export { configPrintConfig } from "./config-print-config"
 export { authLogin } from "./auth-login"

@@ -218,10 +218,13 @@ export const publish = async (ctx: AppContext, args: any) => {
 
     const exportName = inferExportNameFromSource(fileContent)
 
-    const tscircuit_soup = await soupify({
-      filePath,
-      exportName,
-    }).catch((e) => e)
+    const tscircuit_soup = await soupify(
+      {
+        filePath,
+        exportName,
+      },
+      ctx
+    ).catch((e) => e)
 
     if (tscircuit_soup instanceof Error) {
       console.log(

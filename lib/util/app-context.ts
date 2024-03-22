@@ -10,4 +10,5 @@ export type AppContext = {
   registry_url: string
   axios: AxiosInstance
   current_profile: string
+  runtime: "node" | "bun"
 } & ContextConfigProps

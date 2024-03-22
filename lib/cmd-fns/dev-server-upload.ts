@@ -17,10 +17,10 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
   const devServerAxios = getDevServerAxios({ serverUrl })
 
   console.log(`Loading examples...`)
-  await uploadExamplesFromDirectory({ devServerAxios, cwd: params.dir })
+  await uploadExamplesFromDirectory({ devServerAxios, cwd: params.dir }, ctx)
 
   if (params.watch) {
     // Start watcher
-    const watcher = await startWatcher({ cwd: params.dir, devServerAxios })
+    const watcher = await startWatcher({ cwd: params.dir, devServerAxios }, ctx)
   }
 }

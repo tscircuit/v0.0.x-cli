@@ -3,13 +3,16 @@ import chokidar from "chokidar"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import kleur from "kleur"
 
-export const startWatcher = async ({
-  cwd,
-  devServerAxios,
-}: {
-  cwd: string
-  devServerAxios: AxiosInstance
-}) => {
+export const startWatcher = async (
+  {
+    cwd,
+    devServerAxios,
+  }: {
+    cwd: string
+    devServerAxios: AxiosInstance
+  },
+  ctx: { runtime: "node" | "bun" }
+) => {
   const watcher = chokidar.watch(`${cwd}/**/*.tsx`, {
     ignored: /node_modules/,
     persistent: true,
@@ -31,7 +34,7 @@ export const startWatcher = async ({
       if (upload_queue_state.dirty) {
         console.log(kleur.yellow("Changes detected, re-uploading examples..."))
         upload_queue_state.dirty = false
-        await uploadExamplesFromDirectory({ cwd, devServerAxios })
+        await uploadExamplesFromDirectory({ cwd, devServerAxios }, ctx)
       }
       await new Promise((resolve) => setTimeout(resolve, 100))
     }
