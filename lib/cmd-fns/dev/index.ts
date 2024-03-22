@@ -53,8 +53,8 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   // Add .tscircuit to .gitignore if it's not already there
   // TODO
 
-  // Delete old .tscircuit/dev-server.db
-  unlink(Path.join(cwd, ".tscircuit/dev-server.db")).catch(() => {})
+  // Delete old .tscircuit/dev-server.sqlite
+  unlink(Path.join(cwd, ".tscircuit/dev-server.sqlite")).catch(() => {})
 
   console.log(
     kleur.green(

@@ -24,7 +24,7 @@ export type DbClient = Kysely<KyselyDatabaseSchema>
 let globalDb: Kysely<KyselyDatabaseSchema> | undefined
 
 export const getDbFilePath = () =>
-  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/dev-server.db"
+  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/dev-server.sqlite"
 
 export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
   if (globalDb) return globalDb

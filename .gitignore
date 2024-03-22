@@ -4,3 +4,4 @@ tmp
 dist
 # tests/example-init
 .npmrc
+*.__tmp_entrypoint.tsx
