@@ -8,10 +8,12 @@ export const getGeneratedReadme = ({
   return `
 # ${name}
 
-[![tscircuit version badge](https://registry.tscircuit.com/badges/view?package_name=${name.replace(
-    "/",
-    "."
-  )})](https://registry.tscircuit.com/${name.replace("@", "")})
+[![tscircuit version badge](https://registry-api.tscircuit.com/badges/view?package_name=${name
+    .replace("@", "")
+    .replace("/", ".")})](https://registry.tscircuit.com/${name.replace(
+    "@",
+    ""
+  )})
 
 ${
   shouldHaveProjectGeneratedNotice

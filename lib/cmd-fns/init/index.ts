@@ -35,7 +35,11 @@ export const initCmd = async (ctx: AppContext, args: any) => {
       const myAccount = await ctx.axios
         .get("/accounts/get")
         .then((r) => r.data.account)
-      params.name = `@${myAccount.github_username}/${Path.basename(params.dir)}`
+      let subName = Path.basename(params.dir)
+      if (subName === ".") {
+        subName = Path.basename(Path.resolve(Path.join(subName, "..")))
+      }
+      params.name = `@${myAccount.github_username}/${subName}`
     } catch (e) {
       params.name = Path.basename(params.dir ?? ctx.cwd)
     }
