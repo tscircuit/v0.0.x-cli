@@ -37,10 +37,10 @@ export const initCmd = async (ctx: AppContext, args: any) => {
         .then((r) => r.data.account)
       let subName = Path.basename(params.dir)
       if (subName === ".") {
-        subName = Path.basename(Path.resolve(Path.join(subName, "..")))
+        subName = Path.basename(Path.resolve(params.dir))
       }
       params.name = `@${myAccount.github_username}/${subName}`
-    } catch (e) {
+    } catch (e: any) {
       params.name = Path.basename(params.dir ?? ctx.cwd)
     }
   }
