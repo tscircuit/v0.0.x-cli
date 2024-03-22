@@ -74,7 +74,7 @@ export const ExampleContentView = () => {
       )}
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
         <Schematic
-          key={pkg?.last_updated_at}
+          key={`sch-${pkg?.last_updated_at}`}
           style={{ height: itemHeight }}
           soup={pkg.tscircuit_soup}
           showTable={false}
@@ -82,7 +82,7 @@ export const ExampleContentView = () => {
       )}
       {pkg && (viewMode === "pcb" || viewMode === "split") && (
         <PCBViewer
-          key={pkg?.last_updated_at}
+          key={`pcb-${pkg?.last_updated_at}`}
           height={itemHeight}
           soup={pkg.tscircuit_soup}
         />
