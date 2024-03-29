@@ -25,7 +25,7 @@ export const removeCmd = async (ctx: AppContext, args: any) => {
     .join(" ")}`
   console.log(kleur.gray(`> ${cmd}`))
 
-  await $`npm remove ${flagsString} ${params.packages
-    .map((p) => `@tsci/${p.replace(/\//, ".")}`)
-    .join(" ")}`
+  await $`npm remove ${flagsString} ${params.packages.map(
+    (p) => `@tsci/${p.replace(/\//, ".")}`
+  )}`
 }
