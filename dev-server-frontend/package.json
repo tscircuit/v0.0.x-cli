@@ -13,7 +13,7 @@
     "build": "tsc && vite build --base /preview && rm -f dist/bundle* && make-vfs --dir dist --outfile ./dist/bundle.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 10",
     "preview": "vite preview",
-    "update-deps": "bun add @tscircuit/pcb-viewer@latest @tscircuit/builder@latest @tscircuit/schematic-viewer@latest"
+    "update-deps": "bun add @tscircuit/pcb-viewer @tscircuit/builder @tscircuit/schematic-viewer"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -29,9 +29,9 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@tscircuit/builder": "latest",
-    "@tscircuit/pcb-viewer": "latest",
-    "@tscircuit/schematic-viewer": "latest",
+    "@tscircuit/builder": "^1.5.29",
+    "@tscircuit/pcb-viewer": "^1.2.14",
+    "@tscircuit/schematic-viewer": "^1.1.17",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
