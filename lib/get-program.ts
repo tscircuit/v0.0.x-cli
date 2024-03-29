@@ -8,6 +8,43 @@ export const getProgram = (ctx: AppContext) => {
     "Develop, test and manage tscircuit packages"
   )
 
+  cmd
+    .command("dev")
+    .description("Run development server in current directory")
+    .option("--cwd <cwd>", "Current working directory")
+    .option("--port <port>", "Port to run dev server on")
+    .action((args) => CMDFN.dev(ctx, args))
+
+  cmd
+    .command("init")
+    .description("Initialize a new tscircuit project")
+    .option("--name <name>", "Name of the project")
+    .option(
+      "--runtime <runtime>",
+      "Runtime to use (attempts to bun, otherwise node/tsx)"
+    )
+    .option(
+      "--dir <dir>",
+      "Directory to initialize (defaults to ./<name> or . if name not provided)"
+    )
+    .action((args) => CMDFN.init(ctx, args))
+
+  cmd
+    .command("add")
+    .description("Add a package from the tscircuit registry")
+    .argument(
+      "<packages...>",
+      "Packages to install from registry.tscircuit.com, optionally with version"
+    )
+    .option("-D, --dev", "Add to devDependencies")
+    .action((packages, flags) => CMDFN.add(ctx, { packages, flags }))
+
+  cmd
+    .command("remove")
+    .description("Remove/uninstall a package")
+    .argument("<packages...>", "Packages to remove")
+    .action((packages, flags) => CMDFN.remove(ctx, { packages, flags }))
+
   const authCmd = cmd.command("auth").description("Login/logout")
   authCmd
     .command("login")
@@ -223,43 +260,6 @@ export const getProgram = (ctx: AppContext) => {
       "Name of export to soupify, if not specified, soupify the default/only export"
     )
     .action((args) => CMDFN.soupify(ctx, args))
-
-  cmd
-    .command("dev")
-    .description("Run development server in current directory")
-    .option("--cwd <cwd>", "Current working directory")
-    .option("--port <port>", "Port to run dev server on")
-    .action((args) => CMDFN.dev(ctx, args))
-
-  cmd
-    .command("init")
-    .description("Initialize a new tscircuit project")
-    .option("--name <name>", "Name of the project")
-    .option(
-      "--runtime <runtime>",
-      "Runtime to use (attempts to bun, otherwise node/tsx)"
-    )
-    .option(
-      "--dir <dir>",
-      "Directory to initialize (defaults to ./<name> or . if name not provided)"
-    )
-    .action((args) => CMDFN.init(ctx, args))
-
-  cmd
-    .command("add")
-    .description("Add a package from the tscircuit registry")
-    .argument(
-      "<packages...>",
-      "Packages to install from registry.tscircuit.com, optionally with version"
-    )
-    .option("-D, --dev", "Add to devDependencies")
-    .action((packages, flags) => CMDFN.add(ctx, { packages, flags }))
-
-  cmd
-    .command("remove")
-    .description("Remove/uninstall a package")
-    .argument("<packages...>", "Packages to remove")
-    .action((packages, flags) => CMDFN.remove(ctx, { packages, flags }))
 
   cmd
     .command("install")
