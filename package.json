@@ -57,7 +57,7 @@
     "minimist": "^1.2.8",
     "node-persist": "^4.0.1",
     "open": "^10.1.0",
-    "perfect-cli": "^1.0.19",
+    "perfect-cli": "1.0.20",
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "semver": "^7.6.0",
