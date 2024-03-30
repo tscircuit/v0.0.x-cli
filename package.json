@@ -35,7 +35,7 @@
   "dependencies": {
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
-    "@tscircuit/builder": "latest",
+    "@tscircuit/builder": "1.5.33",
     "@tscircuit/react-fiber": "latest",
     "axios": "^1.6.7",
     "better-sqlite3": "^9.4.3",
