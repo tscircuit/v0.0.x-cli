@@ -59,6 +59,13 @@ export const HeaderMenu = () => {
                   toast.error("Not yet implemented!")
                 }}
               >
+                Bill of Materials
+              </MenubarItem>
+              <MenubarItem
+                onSelect={() => {
+                  toast.error("Not yet implemented!")
+                }}
+              >
                 Netlist
               </MenubarItem>
               <MenubarItem
@@ -66,7 +73,7 @@ export const HeaderMenu = () => {
                   toast.error("Not yet implemented!")
                 }}
               >
-                PNG
+                Schematic (PDF)
               </MenubarItem>
             </MenubarSubContent>
           </MenubarSub>
