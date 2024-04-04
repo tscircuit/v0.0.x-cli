@@ -47,9 +47,10 @@ console.log(JSON.stringify(elements))
 `.trim()
   )
 
-  const runtime = ctx.runtime === "node" ? "npx tsx" : "bun"
+  const processCmdPart1 =
+    ctx.runtime === "node" ? $`npx tsx ${tmpFilePath}` : $`bun ${tmpFilePath}`
 
-  const processResult = await $`${runtime} ${tmpFilePath}`
+  const processResult = await processCmdPart1
     .stdout("piped")
     .stderr("piped")
     .noThrow()
