@@ -13,8 +13,27 @@ interface DevPackageExample {
   last_updated_at: string
 }
 
+interface ExportRequest {
+  export_request_id: Generated<number>
+  example_file_path: string
+  export_name: string
+  is_complete: 1 | 0
+  created_at: string
+}
+
+interface ExportFile {
+  export_file_id: Generated<number>
+  file_name: string
+  file_content: Buffer
+  is_complete: 1 | 0
+  export_request_id: number
+  created_at: string
+}
+
 interface KyselyDatabaseSchema {
   dev_package_example: DevPackageExample
+  export_request: ExportRequest
+  export_file: ExportFile
 }
 
 export type DbClient = Kysely<KyselyDatabaseSchema>
