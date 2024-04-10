@@ -2,7 +2,7 @@ import { AppContext } from "../util/app-context"
 import { z } from "zod"
 import { getDevServerAxios } from "./dev/get-dev-server-axios"
 import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
-import { startWatcher } from "./dev/start-watcher"
+import { startFsWatcher } from "./dev/start-fs-watcher"
 
 export const devServerUpload = async (ctx: AppContext, args: any) => {
   const params = z
@@ -21,6 +21,9 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
 
   if (params.watch) {
     // Start watcher
-    const watcher = await startWatcher({ cwd: params.dir, devServerAxios }, ctx)
+    const watcher = await startFsWatcher(
+      { cwd: params.dir, devServerAxios },
+      ctx
+    )
   }
 }

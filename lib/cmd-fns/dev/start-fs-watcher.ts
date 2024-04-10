@@ -3,7 +3,7 @@ import chokidar from "chokidar"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import kleur from "kleur"
 
-export const startWatcher = async (
+export const startFsWatcher = async (
   {
     cwd,
     devServerAxios,
