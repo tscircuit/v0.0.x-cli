@@ -5,6 +5,7 @@ import * as Path from "path"
 import { unlink } from "node:fs/promises"
 import kleur from "kleur"
 import { writeFileSync } from "fs"
+import { readFile } from "fs/promises"
 
 export const soupify = async (
   {
@@ -16,6 +17,27 @@ export const soupify = async (
   },
   ctx: { runtime: "node" | "bun" }
 ) => {
+  const targetFileContent = await readFile(filePath, "utf-8")
+
+  if (!exportName) {
+    if (targetFileContent.includes("export default")) {
+      exportName = "default"
+    } else {
+      // Look for "export const <name>" or "export function <name>"
+      const exportRegex = /export\s+(?:const|function)\s+(\w+)/g
+      const match = exportRegex.exec(targetFileContent)
+      if (match) {
+        exportName = match[1]
+      }
+    }
+  }
+
+  if (!exportName) {
+    throw new Error(
+      `Couldn't derive an export name and didn't find default export in "${filePath}"`
+    )
+  }
+
   const tmpFilePath = Path.join(
     Path.dirname(filePath),
     Path.basename(filePath).replace(/\.[^\.]+$/, "") + ".__tmp_entrypoint.tsx"

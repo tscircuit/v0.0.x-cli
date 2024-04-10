@@ -251,6 +251,21 @@ export const getProgram = (ctx: AppContext) => {
     .description("Clear your local authentication")
     .action((args) => CMDFN.authLogout(ctx, args))
 
+  const exportCmd = cmd
+    .command("export")
+    .description("Export Gerbers, Drill Files, Netlists and more")
+
+  exportCmd
+    .command("gerbers")
+    .description("Export Gerber files from an example file")
+    .requiredOption("--file <file>", "Input example files")
+    .option(
+      "--export <export_name>",
+      "Name of export to soupify, if not specified, soupify the default/only export"
+    )
+    .option("--outputfile <outputfile>", "Output file name", "gerbers.zip")
+    .action((args) => CMDFN.exportGerbers(ctx, args))
+
   cmd
     .command("soupify")
     .description("Convert an example file to tscircuit soup")
