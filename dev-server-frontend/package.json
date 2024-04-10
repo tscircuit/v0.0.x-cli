@@ -16,6 +16,7 @@
     "update-deps": "bun add @tscircuit/pcb-viewer @tscircuit/builder @tscircuit/schematic-viewer"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-context-menu": "^2.1.5",
     "@radix-ui/react-dialog": "^1.0.5",

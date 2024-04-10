@@ -2,8 +2,6 @@
 
 import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import { useQuery } from "react-query"
-import axios from "axios"
 
 import { cn } from "src/lib/utils"
 import { Button } from "src/components/ui/button"
@@ -22,22 +20,10 @@ import {
   PopoverTrigger,
 } from "src/components/ui/popover"
 import { useGlobalStore } from "src/hooks/use-global-store"
+import { useDevPackageExamples } from "../hooks/use-dev-package-examples"
+import { useActiveDevPackageExampleLite } from "src/hooks/use-active-dev-package-example-lite"
 
-export const useDevPackageExamples = () => {
-  return useQuery("examples", async () => {
-    const { data } = await axios.get("/api/dev_package_examples/list")
-    return data.dev_package_examples.map(inflatePackageExample) as Array<{
-      dev_package_example_id: number
-      searchable_id: string
-      file_path: string
-      expath: string
-      export_name: string
-      last_updated_at: string
-    }>
-  })
-}
-
-function inflatePackageExample(ex: any) {
+export function inflatePackageExample(ex: any) {
   if (!ex) return ex
   return {
     ...ex,
@@ -57,12 +43,7 @@ export const SelectExampleSearch = () => {
       s.setActiveDevExamplePackageId,
     ])
 
-  const activeDevExamplePackage = inflatePackageExample(
-    examples?.find(
-      (ex) =>
-        ex.dev_package_example_id.toString() === active_dev_example_package_id
-    )
-  )
+  const activeDevExamplePackage = useActiveDevPackageExampleLite()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {

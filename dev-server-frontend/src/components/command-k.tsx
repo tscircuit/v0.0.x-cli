@@ -9,7 +9,7 @@ import {
   CommandShortcut,
 } from "./ui/command"
 import { useGlobalStore } from "src/hooks/use-global-store"
-import { useDevPackageExamples } from "./select-example-search"
+import { useDevPackageExamples } from "../hooks/use-dev-package-examples"
 import { CommandSeparator } from "cmdk"
 
 export const CommandK = () => {
