@@ -8,7 +8,7 @@ import { getDevServerAxios } from "./get-dev-server-axios"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import { unlink } from "fs/promises"
 import * as Path from "path"
-import { startWatcher } from "./start-watcher"
+import { startFsWatcher } from "./start-fs-watcher"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
 import { initCmd } from "../init"
@@ -74,7 +74,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   await uploadExamplesFromDirectory({ devServerAxios, cwd }, ctx)
 
   // Start watcher
-  const watcher = await startWatcher({ cwd, devServerAxios }, ctx)
+  const watcher = await startFsWatcher({ cwd, devServerAxios }, ctx)
 
   while (true) {
     const { action } = await prompts({

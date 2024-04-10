@@ -4,6 +4,7 @@ import axios from "axios"
 import { Schematic } from "@tscircuit/schematic-viewer"
 import { PCBViewer } from "@tscircuit/pcb-viewer"
 import { cn } from "./lib/utils"
+import { ErrorBoundary } from "react-error-boundary"
 
 export const ExampleContentView = () => {
   const devExamplePackageId = useGlobalStore(
@@ -53,19 +54,23 @@ export const ExampleContentView = () => {
       )}
     >
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
-        <Schematic
-          key={`sch-${pkg?.last_updated_at}`}
-          style={{ height: itemHeight }}
-          soup={pkg.tscircuit_soup}
-          showTable={false}
-        />
+        <ErrorBoundary fallback={<div>Failed to render Schematic</div>}>
+          <Schematic
+            key={`sch-${pkg?.last_updated_at}`}
+            style={{ height: itemHeight }}
+            soup={pkg.tscircuit_soup}
+            showTable={false}
+          />
+        </ErrorBoundary>
       )}
       {pkg && (viewMode === "pcb" || viewMode === "split") && (
-        <PCBViewer
-          key={`pcb-${pkg?.last_updated_at}`}
-          height={itemHeight}
-          soup={pkg.tscircuit_soup}
-        />
+        <ErrorBoundary fallback={<div>Failed to render PCB</div>}>
+          <PCBViewer
+            key={`pcb-${pkg?.last_updated_at}`}
+            height={itemHeight}
+            soup={pkg.tscircuit_soup}
+          />
+        </ErrorBoundary>
       )}
       {pkg?.error && (
         <div className="absolute top-0 w-full">
