@@ -62,7 +62,6 @@
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "semver": "^7.6.0",
-    "zip-a-folder": "^3.1.6",
     "zod": "latest"
   },
   "devDependencies": {
