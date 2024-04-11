@@ -12,6 +12,7 @@ import { startFsWatcher } from "./start-fs-watcher"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
 import { initCmd } from "../init"
+import { startExportRequestWatcher } from "./start-export-request-watcher"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -22,6 +23,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   const { port } = params
   const { cwd } = ctx
+  console.log({ cwd })
 
   // In the future we should automatically run "tsci init" if the directory
   // isn't properly initialized, for now we're just going to do a spot check
@@ -74,7 +76,8 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   await uploadExamplesFromDirectory({ devServerAxios, cwd }, ctx)
 
   // Start watcher
-  const watcher = await startFsWatcher({ cwd, devServerAxios }, ctx)
+  const fs_watcher = await startFsWatcher({ cwd, devServerAxios }, ctx)
+  const er_watcher = await startExportRequestWatcher({ devServerAxios }, ctx)
 
   while (true) {
     const { action } = await prompts({
@@ -97,7 +100,8 @@ export const devCmd = async (ctx: AppContext, args: any) => {
     } else if (!action || action === "stop") {
       if (server.stop) server.stop()
       if (server.close) server.close()
-      watcher.stop()
+      fs_watcher.stop()
+      er_watcher.stop()
       break
     }
   }

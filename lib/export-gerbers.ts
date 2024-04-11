@@ -58,8 +58,6 @@ export const exportGerbersToFile = async (
   archive.pipe(output)
   archive.directory(tempDir, false)
 
-  console.log("starting archiver...")
-
   await new Promise((resolve, reject) => {
     output.on("close", resolve)
     output.on("finish", resolve)
