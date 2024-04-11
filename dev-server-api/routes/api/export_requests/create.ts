@@ -3,20 +3,14 @@ import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
+import { export_parameters } from "../../../src/lib/zod/export_parameters"
 
 export default withEdgeSpec({
   methods: ["POST"],
   jsonBody: z.object({
     example_file_path: z.string(),
     export_name: z.string().nullable().optional(),
-    export_parameters: z.object({
-      should_export_gerber_zip: z.boolean().default(false),
-      gerbers_zip_file_name: z
-        .string()
-        .nullable()
-        .optional()
-        .default("gerbers.zip"),
-    }),
+    export_parameters: export_parameters,
   }),
   jsonResponse: z.object({
     export_request,

@@ -12,7 +12,10 @@ export const publicMapExportRequest = (db_export_request: {
 }): z.infer<typeof export_request> => {
   return {
     export_request_id: db_export_request.export_request_id as any,
+    example_file_path: db_export_request.example_file_path,
+    export_name: db_export_request.export_name,
     is_completed: db_export_request.is_complete === 1,
+    export_parameters: JSON.parse(db_export_request.export_parameters),
     created_at: db_export_request.created_at,
     file_summary: [],
   }

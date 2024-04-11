@@ -307,6 +307,10 @@ export const getProgram = (ctx: AppContext) => {
     .option("-p, --port", "Port dev server is running on (default: 3020)")
     .action((args) => CMDFN.devServerUpload(ctx, args))
 
+  devServerCmd
+    .command("fulfill-export-requests")
+    .action((args) => CMDFN.devServerFulfillExportRequests(ctx, args))
+
   cmd
     .command("open")
     .description("Open browser to package on tscircuit registry")

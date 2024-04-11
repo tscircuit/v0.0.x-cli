@@ -44,6 +44,13 @@ export const exportGerbersToFile = async (
 
   console.log(kleur.gray("[zipping tmp dir]..."))
   const output = fs.createWriteStream(params.output_zip_path)
+
+  if (typeof Bun !== "undefined") {
+    throw new Error(
+      `Exporting gerbers doesn't currently work with Bun (bug w/ archiver module)`
+    )
+  }
+
   const archive = archiver("zip", {
     zlib: { level: 9 },
   })
@@ -51,10 +58,17 @@ export const exportGerbersToFile = async (
   archive.pipe(output)
   archive.directory(tempDir, false)
 
+  console.log("starting archiver...")
+
   await new Promise((resolve, reject) => {
     output.on("close", resolve)
+    output.on("finish", resolve)
+    output.on("end", resolve)
     output.on("error", reject)
+    archive.finalize()
   })
+
+  console.log("finished...")
 }
 
 export const exportGerbersToZipBuffer = async (
