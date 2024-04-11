@@ -8,10 +8,12 @@ export const export_request = z.object({
   export_name: z.string(),
   example_file_path: z.string(),
   export_parameters,
-  file_summary: z.array(
-    z.object({
-      file_name: z.string(),
-      is_complete: z.boolean(),
-    })
-  ),
+  file_summary: z
+    .array(
+      z.object({
+        file_name: z.string(),
+        export_file_id: z.number().int(),
+      })
+    )
+    .optional(),
 })
