@@ -20,7 +20,7 @@ export const createSchema = async (db: DbClient) => {
       col.primaryKey().autoIncrement()
     )
     .addColumn("example_file_path", "text")
-    .addColumn("export_parameters", "jsonb")
+    .addColumn("export_parameters", "json")
     .addColumn("export_name", "text")
     .addColumn("is_complete", "boolean", (col) => col.defaultTo(0).notNull())
     .addColumn("created_at", "text")

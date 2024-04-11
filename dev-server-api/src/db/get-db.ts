@@ -3,7 +3,7 @@ import { createSchema } from "./create-schema"
 import { mkdirSync } from "fs"
 import * as Path from "path"
 
-interface DevPackageExample {
+export interface DevPackageExample {
   dev_package_example_id: Generated<number>
   tscircuit_soup: any
   file_path: string
@@ -13,15 +13,16 @@ interface DevPackageExample {
   last_updated_at: string
 }
 
-interface ExportRequest {
+export interface ExportRequest {
   export_request_id: Generated<number>
   example_file_path: string
+  export_parameters: string
   export_name: string
   is_complete: 1 | 0
   created_at: string
 }
 
-interface ExportFile {
+export interface ExportFile {
   export_file_id: Generated<number>
   file_name: string
   file_content: Buffer
