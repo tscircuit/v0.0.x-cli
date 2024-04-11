@@ -26,7 +26,6 @@ export interface ExportFile {
   export_file_id: Generated<number>
   file_name: string
   file_content: Buffer
-  is_complete: 1 | 0
   export_request_id: number
   created_at: string
 }
