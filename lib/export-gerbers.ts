@@ -65,8 +65,6 @@ export const exportGerbersToFile = async (
     output.on("error", reject)
     archive.finalize()
   })
-
-  console.log("finished...")
 }
 
 export const exportGerbersToZipBuffer = async (

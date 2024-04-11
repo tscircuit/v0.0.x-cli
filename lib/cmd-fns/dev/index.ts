@@ -23,7 +23,6 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   const { port } = params
   const { cwd } = ctx
-  console.log({ cwd })
 
   // In the future we should automatically run "tsci init" if the directory
   // isn't properly initialized, for now we're just going to do a spot check
