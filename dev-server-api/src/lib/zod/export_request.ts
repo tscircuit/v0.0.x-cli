@@ -3,7 +3,7 @@ import { export_parameters } from "./export_parameters"
 
 export const export_request = z.object({
   export_request_id: z.coerce.number(),
-  is_completed: z.boolean(),
+  is_complete: z.boolean(),
   created_at: z.string(),
   export_name: z.string(),
   example_file_path: z.string(),

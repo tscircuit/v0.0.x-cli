@@ -44,7 +44,7 @@ export const devServerFulfillExportRequests = async (
   console.log("Getting export requests...")
   const export_requests = await dev_server_axios
     .post("/api/export_requests/list", {
-      is_completed: false,
+      is_complete: false,
     })
     .then((r) => r.data.export_requests)
 
@@ -70,16 +70,16 @@ export const devServerFulfillExportRequests = async (
     )
 
     await dev_server_axios.post("/api/export_files/create", {
-      file_content: zip_buffer.toString("base64"),
+      file_content_base64: zip_buffer.toString("base64"),
       file_name: export_request.export_parameters.gerbers_zip_file_name,
-      export_request_id: export_request.id,
+      export_request_id: export_request.export_request_id,
     })
 
     console.log(kleur.gray(`  marking export request as complete...`))
 
     await dev_server_axios.post("/api/export_requests/update", {
       export_request_id: export_request.export_request_id,
-      is_completed: true,
+      is_complete: true,
     })
 
     console.log(kleur.green(`  done`))
