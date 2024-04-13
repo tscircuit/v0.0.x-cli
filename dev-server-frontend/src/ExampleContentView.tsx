@@ -25,7 +25,9 @@ export const ExampleContentView = () => {
         })
         .then((r) => r.data.dev_package_example),
     {
+      refetchInterval: 5_000,
       refetchIntervalInBackground: true,
+      refetchOnWindowFocus: true,
       retry: false,
     }
   )
