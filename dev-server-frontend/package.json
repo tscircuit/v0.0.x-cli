@@ -31,7 +31,7 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tscircuit/builder": "latest",
-    "@tscircuit/pcb-viewer": "^1.2.23",
+    "@tscircuit/pcb-viewer": "^1.2.24",
     "@tscircuit/schematic-viewer": "^1.1.22",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",

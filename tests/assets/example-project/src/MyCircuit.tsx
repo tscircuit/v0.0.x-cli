@@ -1,5 +1,7 @@
 import "@tscircuit/react-fiber"
 
 export const MyCircuit = () => (
-  <resistor name="R2" resistance="20kohm" footprint="0402" />
+  <board width="40mm" height="40mm" center_x={0} center_y={0}>
+    <resistor name="R2" resistance="20kohm" footprint="1210" />
+  </board>
 )
