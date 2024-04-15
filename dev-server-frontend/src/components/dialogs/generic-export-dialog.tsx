@@ -4,15 +4,22 @@ import { useGlobalStore } from "src/hooks/use-global-store"
 import { useActiveDevPackageExampleLite } from "src/hooks/use-active-dev-package-example-lite"
 import { Button } from "../ui/button"
 import axios from "axios"
+import {
+  ExportParameters,
+  ExportParametersInput,
+  export_parameters,
+} from "@server/lib/zod/export_parameters"
 
 export const useGenericExportDialog = ({
   exportFileName,
   dialogTitle,
   dialogDescription,
+  exportParameters,
 }: {
   exportFileName: string
   dialogTitle: string
   dialogDescription: string
+  exportParameters: ExportParametersInput
 }) => {
   const [open, setIsOpen] = useState(false)
   const activeDevExamplePackage = useActiveDevPackageExampleLite()
@@ -56,45 +63,46 @@ export const useGenericExportDialog = ({
             setExportError(null)
             setIsExporting(true)
             try {
-              // let export_request = await axios
-              //   .post("/api/export_requests/create", {
-              //     example_file_path: activeDevExamplePackage.file_path,
-              //     export_name: activeDevExamplePackage.export_name,
-              //     export_parameters: {
-              //       should_export_gerber_zip: true,
-              //       gerbers_zip_file_name: outputName,
-              //     },
-              //   })
-              //   .then((r) => r.data.export_request)
-              // const pollExportRequest = async () => {
-              //   while (!export_request.is_complete) {
-              //     try {
-              //       export_request = await axios
-              //         .post("/api/export_requests/get", {
-              //           export_request_id: export_request.export_request_id,
-              //         })
-              //         .then((r) => r.data.export_request)
-              //     } catch (e: any) {
-              //       console.error(e)
-              //       setExportError(
-              //         `${e.toString()}\n\n${e.response?.data?.error?.message}`
-              //       )
-              //       setIsExporting(false)
-              //       return
-              //     }
-              //     await new Promise((resolve) => setTimeout(resolve, 100))
-              //   }
-              //   setIsExporting(false)
-              // }
-              // await pollExportRequest()
-              // // open /api/export_files/download?export_file_id=... in new tab
-              // const export_file_id =
-              //   export_request.file_summary[0].export_file_id
-              // window.open(
-              //   `/api/export_files/download?export_file_id=${export_file_id}`,
-              //   "_blank"
-              // )
-              // setIsExporting(false)
+              if (exportParameters.should_export_pnp_csv) {
+                exportParameters.pnp_csv_file_name ??= exportFileName
+              }
+
+              let export_request = await axios
+                .post("/api/export_requests/create", {
+                  example_file_path: activeDevExamplePackage.file_path,
+                  export_name: activeDevExamplePackage.export_name,
+                  export_parameters: exportParameters,
+                })
+                .then((r) => r.data.export_request)
+              const pollExportRequest = async () => {
+                while (!export_request.is_complete) {
+                  try {
+                    export_request = await axios
+                      .post("/api/export_requests/get", {
+                        export_request_id: export_request.export_request_id,
+                      })
+                      .then((r) => r.data.export_request)
+                  } catch (e: any) {
+                    console.error(e)
+                    setExportError(
+                      `${e.toString()}\n\n${e.response?.data?.error?.message}`
+                    )
+                    setIsExporting(false)
+                    return
+                  }
+                  await new Promise((resolve) => setTimeout(resolve, 100))
+                }
+                setIsExporting(false)
+              }
+              await pollExportRequest()
+              // open /api/export_files/download?export_file_id=... in new tab
+              const export_file_id =
+                export_request.file_summary[0].export_file_id
+              window.open(
+                `/api/export_files/download?export_file_id=${export_file_id}`,
+                "_blank"
+              )
+              setIsExporting(false)
             } catch (e: any) {
               console.error(e)
               setExportError(

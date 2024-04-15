@@ -36,6 +36,9 @@ export const HeaderMenu = () => {
     dialogDescription:
       "Export the Pick'n'Place CSV for this example export. You can upload this to an assembler (PCBA) to tell their machines where to place each component.",
     exportFileName: "pnp.csv",
+    exportParameters: {
+      should_export_pnp_csv: true,
+    },
   })
 
   return (

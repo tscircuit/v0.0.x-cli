@@ -1,6 +1,6 @@
 import { AppContext } from "../util/app-context"
 import { z } from "zod"
-import { exportGerbersToFile } from "lib/export-gerbers"
+import { exportGerbersToFile } from "lib/export-fns/export-gerbers"
 
 export const exportGerbersCmd = async (ctx: AppContext, args: any) => {
   const params = z

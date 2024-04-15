@@ -17,3 +17,5 @@ export const export_request = z.object({
     )
     .optional(),
 })
+
+export type ExportRequest = z.infer<typeof export_request>
