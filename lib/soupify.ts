@@ -6,6 +6,9 @@ import { unlink } from "node:fs/promises"
 import kleur from "kleur"
 import { writeFileSync } from "fs"
 import { readFile } from "fs/promises"
+import Debug from "debug"
+
+const debug = Debug("tscircuit:soupify")
 
 export const soupify = async (
   {
@@ -17,6 +20,7 @@ export const soupify = async (
   },
   ctx: { runtime: "node" | "bun" }
 ) => {
+  debug(`reading ${filePath}`)
   const targetFileContent = await readFile(filePath, "utf-8")
 
   if (!exportName) {
@@ -43,6 +47,7 @@ export const soupify = async (
     Path.basename(filePath).replace(/\.[^\.]+$/, "") + ".__tmp_entrypoint.tsx"
   )
 
+  debug(`writing to ${tmpFilePath}`)
   writeFileSync(
     tmpFilePath,
     `
@@ -69,20 +74,24 @@ console.log(JSON.stringify(elements))
 `.trim()
   )
 
+  debug(`using runtime ${ctx.runtime}`)
   const processCmdPart1 =
     ctx.runtime === "node" ? $`npx tsx ${tmpFilePath}` : $`bun ${tmpFilePath}`
 
+  debug(`starting process....`)
   const processResult = await processCmdPart1
-    .stdout("piped")
-    .stderr("piped")
+    .stdout("inheritPiped")
+    .stderr("inheritPiped")
     .noThrow()
 
   const rawSoup = processResult.stdout
   const errText = processResult.stderr
 
+  debug(`deleting ${tmpFilePath}`)
   await unlink(tmpFilePath)
 
   try {
+    debug(`parsing result of soupify...`)
     const soup = JSON.parse(rawSoup)
 
     if (soup.COMPILE_ERROR) {
