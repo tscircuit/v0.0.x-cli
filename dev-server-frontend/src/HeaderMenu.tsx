@@ -18,6 +18,7 @@ import { useGlobalStore } from "./hooks/use-global-store"
 import packageJson from "../package.json"
 import cliPackageJson from "../../package.json"
 import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
+import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
 
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
@@ -30,6 +31,12 @@ export const HeaderMenu = () => {
   ])
   const [inDebugMode, setInDebugMode] = useState(false)
   const gerberExportDialog = useGerberExportDialog()
+  const pnpExportDialog = useGenericExportDialog({
+    dialogTitle: "Export Pick'n'Place",
+    dialogDescription:
+      "Export the Pick'n'Place CSV for this example export. You can upload this to an assembler (PCBA) to tell their machines where to place each component.",
+    exportFileName: "pnp.csv",
+  })
 
   return (
     <>
@@ -52,6 +59,9 @@ export const HeaderMenu = () => {
               <MenubarSubContent>
                 <MenubarItem onSelect={() => gerberExportDialog.openDialog()}>
                   Gerbers
+                </MenubarItem>
+                <MenubarItem onSelect={() => pnpExportDialog.openDialog()}>
+                  Pick'n'Place CSV
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() => {
@@ -234,7 +244,8 @@ export const HeaderMenu = () => {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      {<gerberExportDialog.Component />}
+      <gerberExportDialog.Component />
+      <pnpExportDialog.Component />
     </>
   )
 }
