@@ -12,7 +12,7 @@ import {
 import kleur from "kleur"
 import archiver from "archiver"
 
-export const exportPnpCsvToFile = async (
+export const exportPnpCsvToBuffer = async (
   params: {
     example_file_path: string
     export_name?: string

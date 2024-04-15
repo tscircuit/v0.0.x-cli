@@ -3,7 +3,8 @@ import kleur from "kleur"
 import { exportGerbersToZipBuffer } from "lib/export-fns/export-gerbers"
 import { AxiosInstance } from "axios"
 import { ExportRequest } from "@server/lib/zod/export_request"
-import { exportPnpCsvToFile } from "lib/export-fns/export-pnp-csv"
+import { exportPnpCsvToBuffer } from "lib/export-fns/export-pnp-csv"
+import { exportBomCsvToBuffer } from "lib/export-fns/export-bom-csv"
 
 export const uploadBufferToExportFile = async ({
   dev_server_axios,
@@ -82,7 +83,7 @@ export const fulfillExportRequests = async (
 
     if (export_request.export_parameters.should_export_pnp_csv) {
       console.log(kleur.gray(`\n  exporting pick'n'place...`))
-      const csv_buffer = await exportPnpCsvToFile(
+      const csv_buffer = await exportPnpCsvToBuffer(
         {
           example_file_path: export_request.example_file_path,
           export_name: export_request.export_name,
@@ -94,6 +95,24 @@ export const fulfillExportRequests = async (
         dev_server_axios,
         file_buffer: csv_buffer,
         file_name: export_request.export_parameters.pnp_csv_file_name!,
+        export_request_id: export_request.export_request_id,
+      })
+    }
+
+    if (export_request.export_parameters.should_export_bom_csv) {
+      console.log(kleur.gray(`\n  exporting bill of materials...`))
+      const csv_buffer = await exportBomCsvToBuffer(
+        {
+          example_file_path: export_request.example_file_path,
+          export_name: export_request.export_name,
+        },
+        ctx
+      )
+
+      await uploadBufferToExportFile({
+        dev_server_axios,
+        file_buffer: csv_buffer,
+        file_name: export_request.export_parameters.bom_csv_file_name!,
         export_request_id: export_request.export_request_id,
       })
     }

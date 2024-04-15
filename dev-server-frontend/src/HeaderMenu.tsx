@@ -40,6 +40,15 @@ export const HeaderMenu = () => {
       should_export_pnp_csv: true,
     },
   })
+  const bomExportDialog = useGenericExportDialog({
+    dialogTitle: "Export Bill of Materials",
+    dialogDescription:
+      "Export the Bill of Materials CSV for this example export. You can upload this to an assembler (PCBA) so they know how to source each component.",
+    exportFileName: "bom.csv",
+    exportParameters: {
+      should_export_bom_csv: true,
+    },
+  })
 
   return (
     <>
@@ -66,11 +75,7 @@ export const HeaderMenu = () => {
                 <MenubarItem onSelect={() => pnpExportDialog.openDialog()}>
                   Pick'n'Place CSV
                 </MenubarItem>
-                <MenubarItem
-                  onSelect={() => {
-                    toast.error("Not yet implemented!")
-                  }}
-                >
+                <MenubarItem onSelect={() => bomExportDialog.openDialog()}>
                   Bill of Materials
                 </MenubarItem>
                 <MenubarItem
@@ -249,6 +254,7 @@ export const HeaderMenu = () => {
       </Menubar>
       <gerberExportDialog.Component />
       <pnpExportDialog.Component />
+      <bomExportDialog.Component />
     </>
   )
 }

@@ -5,7 +5,7 @@ export const MyCircuit = () => (
     <resistor
       name="R1"
       resistance="20kohm"
-      footprint="1210"
+      footprint="0805"
       supplier_part_numbers={{
         jlcpcb: "C2759650",
       }}
