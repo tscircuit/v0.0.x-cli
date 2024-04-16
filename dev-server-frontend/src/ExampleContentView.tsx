@@ -77,14 +77,14 @@ export const ExampleContentView = () => {
         </ErrorBoundary>
       )}
       {pkg && viewMode === "soup" && (
-        // <ErrorBoundary fallback={<div>Failed to render Soup</div>}>
-        <SoupTableViewer
-          key={`soup-${pkg?.last_updated_at}`}
-          height={itemHeight}
-          elements={pkg.tscircuit_soup}
-          appearance="dark"
-        />
-        // </ErrorBoundary>
+        <ErrorBoundary fallback={<div>Failed to render Soup</div>}>
+          <SoupTableViewer
+            key={`soup-${pkg?.last_updated_at}`}
+            height={itemHeight}
+            elements={pkg.tscircuit_soup}
+            appearance="dark"
+          />
+        </ErrorBoundary>
       )}
       {pkg?.error && (
         <div className="absolute top-0 w-full">
