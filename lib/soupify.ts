@@ -80,8 +80,8 @@ console.log(JSON.stringify(elements))
 
   debug(`starting process....`)
   const processResult = await processCmdPart1
-    .stdout("inheritPiped")
-    .stderr("inheritPiped")
+    .stdout(debug.enabled ? "inheritPiped" : "piped")
+    .stderr(debug.enabled ? "inheritPiped" : "piped")
     .noThrow()
 
   const rawSoup = processResult.stdout
