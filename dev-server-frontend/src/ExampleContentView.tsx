@@ -86,7 +86,7 @@ export const ExampleContentView = () => {
           />
         </ErrorBoundary>
       )}
-      {pkg?.error && (
+      {pkg?.error && viewMode !== "soup" && (
         <div className="absolute top-0 w-full">
           <div className="bg-red-50 shadow-lg p-4 m-16 border-red-200 border rounded-lg whitespace-pre">
             {pkg?.error}
