@@ -23,6 +23,8 @@ export const createSchema = async (db: DbClient) => {
     .addColumn("export_parameters", "json")
     .addColumn("export_name", "text")
     .addColumn("is_complete", "boolean", (col) => col.defaultTo(0).notNull())
+    .addColumn("has_error", "boolean", (col) => col.defaultTo(0).notNull())
+    .addColumn("error", "text")
     .addColumn("created_at", "text")
     .execute()
 

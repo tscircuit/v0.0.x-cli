@@ -49,6 +49,15 @@ export const HeaderMenu = () => {
       should_export_bom_csv: true,
     },
   })
+  const soupExportDialog = useGenericExportDialog({
+    dialogTitle: "Export tscircuit Soup",
+    dialogDescription:
+      "Export the tscircuit soup for this example export. This is an internal compiled JSON representation of your circuit.",
+    exportFileName: "soup.json",
+    exportParameters: {
+      should_export_soup_json: true,
+    },
+  })
 
   return (
     <>
@@ -91,6 +100,9 @@ export const HeaderMenu = () => {
                   }}
                 >
                   Schematic (PDF)
+                </MenubarItem>
+                <MenubarItem onSelect={() => soupExportDialog.openDialog()}>
+                  tscircuit Soup JSON
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -255,6 +267,7 @@ export const HeaderMenu = () => {
       <gerberExportDialog.Component />
       <pnpExportDialog.Component />
       <bomExportDialog.Component />
+      <soupExportDialog.Component />
     </>
   )
 }

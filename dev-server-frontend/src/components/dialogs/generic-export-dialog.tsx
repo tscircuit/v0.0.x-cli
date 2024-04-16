@@ -69,6 +69,9 @@ export const useGenericExportDialog = ({
               if (exportParameters.should_export_bom_csv) {
                 exportParameters.bom_csv_file_name ??= exportFileName
               }
+              if (exportParameters.should_export_soup_json) {
+                exportParameters.soup_json_file_name ??= exportFileName
+              }
 
               let export_request = await axios
                 .post("/api/export_requests/create", {

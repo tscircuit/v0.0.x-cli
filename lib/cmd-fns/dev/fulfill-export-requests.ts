@@ -5,6 +5,7 @@ import { AxiosInstance } from "axios"
 import { ExportRequest } from "@server/lib/zod/export_request"
 import { exportPnpCsvToBuffer } from "lib/export-fns/export-pnp-csv"
 import { exportBomCsvToBuffer } from "lib/export-fns/export-bom-csv"
+import { soupify } from "lib/soupify"
 
 export const uploadBufferToExportFile = async ({
   dev_server_axios,
@@ -59,6 +60,17 @@ export const fulfillExportRequests = async (
 
     if (export_request.export_parameters.should_export_gerber_zip) {
       console.log(kleur.gray(`\n  exporting gerbers...`))
+      if (typeof Bun !== "undefined") {
+        const err_str =
+          "Bun currently isn't capable of exporting due to an archiver bug, exports will not work."
+        console.log(kleur.red(err_str))
+        await dev_server_axios.post("/api/export_requests/update", {
+          export_request_id: export_request.export_request_id,
+          has_error: true,
+          error: err_str,
+        })
+        return
+      }
       const zip_buffer = await exportGerbersToZipBuffer(
         {
           example_file_path: export_request.example_file_path,
@@ -113,6 +125,24 @@ export const fulfillExportRequests = async (
         dev_server_axios,
         file_buffer: csv_buffer,
         file_name: export_request.export_parameters.bom_csv_file_name!,
+        export_request_id: export_request.export_request_id,
+      })
+    }
+
+    if (export_request.export_parameters.should_export_soup_json) {
+      console.log(kleur.gray(`\n  exporting soup...`))
+      const soup = await soupify(
+        {
+          filePath: export_request.example_file_path,
+          exportName: export_request.export_name,
+        },
+        ctx
+      )
+
+      await uploadBufferToExportFile({
+        dev_server_axios,
+        file_buffer: Buffer.from(JSON.stringify(soup, null, 2), "utf-8"),
+        file_name: export_request.export_parameters.soup_json_file_name!,
         export_request_id: export_request.export_request_id,
       })
     }

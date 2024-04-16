@@ -11,17 +11,6 @@ export const startExportRequestWatcher = async (
   },
   ctx: AppContext
 ) => {
-  if (typeof Bun !== "undefined") {
-    console.log(
-      kleur.yellow(
-        "Bun currently isn't capable of exporting due to an archiver bug, exports will not work."
-      )
-    )
-    return {
-      stop: () => {},
-    }
-  }
-
   let running = true
 
   ;(async () => {

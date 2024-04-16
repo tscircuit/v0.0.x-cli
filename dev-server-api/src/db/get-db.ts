@@ -19,6 +19,8 @@ export interface ExportRequest {
   export_parameters: string
   export_name: string
   is_complete: 1 | 0
+  has_error: 1 | 0
+  error?: string
   created_at: string
 }
 

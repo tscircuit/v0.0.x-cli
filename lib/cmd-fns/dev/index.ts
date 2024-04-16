@@ -13,6 +13,7 @@ import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
 import { initCmd } from "../init"
 import { startExportRequestWatcher } from "./start-export-request-watcher"
+import $ from "dax-sh"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -89,6 +90,10 @@ export const devCmd = async (ctx: AppContext, args: any) => {
           value: "open-in-browser",
         },
         {
+          title: "Open Directory in VS Code",
+          value: "open-in-vs-code",
+        },
+        {
           title: "Stop Server",
           value: "stop",
         },
@@ -96,6 +101,8 @@ export const devCmd = async (ctx: AppContext, args: any) => {
     })
     if (action === "open-in-browser") {
       open(serverUrl)
+    } else if (action === "open-in-vs-code") {
+      await $`code ${cwd}`
     } else if (!action || action === "stop") {
       if (server.stop) server.stop()
       if (server.close) server.close()
