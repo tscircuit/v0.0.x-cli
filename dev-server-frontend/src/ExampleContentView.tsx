@@ -5,6 +5,8 @@ import { Schematic } from "@tscircuit/schematic-viewer"
 import { PCBViewer } from "@tscircuit/pcb-viewer"
 import { cn } from "./lib/utils"
 import { ErrorBoundary } from "react-error-boundary"
+import { SoupTableViewer } from "@tscircuit/table-viewer"
+import "react-data-grid/lib/styles.css"
 
 export const ExampleContentView = () => {
   const devExamplePackageId = useGlobalStore(
@@ -73,6 +75,16 @@ export const ExampleContentView = () => {
             soup={pkg.tscircuit_soup}
           />
         </ErrorBoundary>
+      )}
+      {pkg && viewMode === "soup" && (
+        // <ErrorBoundary fallback={<div>Failed to render Soup</div>}>
+        <SoupTableViewer
+          key={`soup-${pkg?.last_updated_at}`}
+          height={itemHeight}
+          elements={pkg.tscircuit_soup}
+          appearance="dark"
+        />
+        // </ErrorBoundary>
       )}
       {pkg?.error && (
         <div className="absolute top-0 w-full">

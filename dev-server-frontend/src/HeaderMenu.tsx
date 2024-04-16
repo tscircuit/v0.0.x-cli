@@ -118,6 +118,7 @@ export const HeaderMenu = () => {
               <MenubarRadioItem value="schematic">Schematic</MenubarRadioItem>
               <MenubarRadioItem value="pcb">PCB</MenubarRadioItem>
               <MenubarRadioItem value="split">Split View</MenubarRadioItem>
+              <MenubarRadioItem value="soup">Soup</MenubarRadioItem>
             </MenubarRadioGroup>
             <MenubarSeparator />
             <MenubarRadioGroup
