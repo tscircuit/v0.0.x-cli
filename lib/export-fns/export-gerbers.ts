@@ -7,6 +7,8 @@ import * as fs from "fs"
 import {
   stringifyGerberCommandLayers,
   convertSoupToGerberCommands,
+  convertSoupToExcellonDrillCommands,
+  stringifyExcellonDrill,
 } from "@tscircuit/builder"
 import kleur from "kleur"
 import archiver from "archiver"
@@ -31,15 +33,29 @@ export const exportGerbersToFile = async (
   console.log(kleur.gray("[soup to gerber json]..."))
   const gerber_layer_cmds = convertSoupToGerberCommands(soup)
 
+  console.log(kleur.gray("[soup to drl json]..."))
+  const drill_cmds = convertSoupToExcellonDrillCommands({
+    soup,
+    is_plated: true,
+  })
+
   console.log(kleur.gray("[stringify gerber json]..."))
   const gerber_file_contents = stringifyGerberCommandLayers(gerber_layer_cmds)
+  console.log(kleur.gray("[stringify drl json]..."))
+  const drill_file_contents = {
+    plated: stringifyExcellonDrill(drill_cmds),
+  }
 
   console.log(kleur.gray("[writing gerbers to tmp dir]..."))
   const tempDir = Path.join(".tscircuit", "tmp-gerber-export")
   fs.mkdirSync(tempDir, { recursive: true })
   for (const [fileName, fileContents] of Object.entries(gerber_file_contents)) {
     const filePath = Path.join(tempDir, fileName)
-    await fs.writeFileSync(filePath, fileContents)
+    await fs.writeFileSync(`${filePath}.gbr`, fileContents)
+  }
+  for (const [fileName, fileContents] of Object.entries(drill_file_contents)) {
+    const filePath = Path.join(tempDir, fileName)
+    await fs.writeFileSync(`${filePath}.drl`, fileContents)
   }
 
   console.log(kleur.gray("[zipping tmp dir]..."))
