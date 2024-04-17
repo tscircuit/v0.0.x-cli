@@ -31,12 +31,15 @@ export const exportGerbersToFile = async (
   )
 
   console.log(kleur.gray("[soup to gerber json]..."))
-  const gerber_layer_cmds = convertSoupToGerberCommands(soup)
+  const gerber_layer_cmds = convertSoupToGerberCommands(soup, {
+    flip_y_axis: true,
+  })
 
   console.log(kleur.gray("[soup to drl json]..."))
   const drill_cmds = convertSoupToExcellonDrillCommands({
     soup,
     is_plated: true,
+    flip_y_axis: true,
   })
 
   console.log(kleur.gray("[stringify gerber json]..."))
@@ -48,6 +51,7 @@ export const exportGerbersToFile = async (
 
   console.log(kleur.gray("[writing gerbers to tmp dir]..."))
   const tempDir = Path.join(".tscircuit", "tmp-gerber-export")
+  fs.rmSync(tempDir, { recursive: true, force: true })
   fs.mkdirSync(tempDir, { recursive: true })
   for (const [fileName, fileContents] of Object.entries(gerber_file_contents)) {
     const filePath = Path.join(tempDir, fileName)
