@@ -91,6 +91,7 @@ export const initCmd = async (ctx: AppContext, args: any) => {
   packageJson.scripts ??= {}
   packageJson.scripts.start = "npm run dev"
   packageJson.scripts.dev = "tsci dev"
+  packageJson.scripts.build = "tsup ./index.ts --sourcemap --dts"
   writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
 
   console.log(`Adding ".tscircuit" to .gitignore`)

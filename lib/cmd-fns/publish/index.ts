@@ -44,15 +44,38 @@ export const publish = async (ctx: AppContext, args: any) => {
     )
   }
 
-  await esbuild.build({
-    entryPoints: ["index.ts"], // TODO dynamically determine entrypoint
-    bundle: true,
-    platform: "node",
-    packages: "external",
-    outdir: "dist",
-  })
+  // This works but doesn't emit types, we're just going to build somewhat
+  // normally for now
+  // await esbuild.build({
+  //   entryPoints: ["index.ts"], // TODO dynamically determine entrypoint
+  //   bundle: true,
+  //   platform: "node",
+  //   packages: "external",
+  //   outdir: "dist",
+  // })
+  await $`npm run build`
 
-  // Publish to npm??
+  if (packageJson.module) {
+    console.log(kleur.yellow("package.json module field detected. Removing..."))
+    delete packageJson.module
+    await fs.writeFile(
+      Path.join(ctx.cwd, "package.json"),
+      JSON.stringify(packageJson, null, 2)
+    )
+  }
+
+  if (packageJson.main !== "./dist/index.cjs") {
+    console.log(
+      kleur.yellow(
+        `package.json main field is not set to "./dist/index.cjs". Setting it...`
+      )
+    )
+    packageJson.main = "./dist/index.cjs"
+    await fs.writeFile(
+      Path.join(ctx.cwd, "package.json"),
+      JSON.stringify(packageJson, null, 2)
+    )
+  }
 
   // Upload to tscircuit registry
   // 1. Get the package name and version from package.json
