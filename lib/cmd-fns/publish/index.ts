@@ -67,10 +67,34 @@ export const publish = async (ctx: AppContext, args: any) => {
   if (packageJson.main !== "./dist/index.cjs") {
     console.log(
       kleur.yellow(
-        `package.json main field is not set to "./dist/index.cjs". Setting it...`
+        `package.json "main" field is not set to "./dist/index.cjs". Setting it...`
       )
     )
     packageJson.main = "./dist/index.cjs"
+    await fs.writeFile(
+      Path.join(ctx.cwd, "package.json"),
+      JSON.stringify(packageJson, null, 2)
+    )
+  }
+  if (packageJson.types !== "./index.ts") {
+    console.log(
+      kleur.yellow(
+        `package.json "types" field is not set to "./index.ts". Setting it...`
+      )
+    )
+    packageJson.types = "./index.ts"
+    await fs.writeFile(
+      Path.join(ctx.cwd, "package.json"),
+      JSON.stringify(packageJson, null, 2)
+    )
+  }
+  if (!packageJson.files) {
+    console.log(
+      kleur.yellow(
+        `package.json "files" field is not set. Setting it to ["./dist", "index.ts", "./lib"]...`
+      )
+    )
+    packageJson.files = ["dist", "index.ts", "lib"]
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
       JSON.stringify(packageJson, null, 2)
