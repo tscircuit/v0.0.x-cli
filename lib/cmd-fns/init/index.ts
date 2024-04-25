@@ -45,7 +45,7 @@ export const initCmd = async (ctx: AppContext, args: any) => {
     }
   }
 
-  let runtime = params.runtime
+  let runtime = params.runtime ?? ctx.runtime
   if (!runtime) {
     const bunExists = $.commandExistsSync("bun")
 
@@ -92,6 +92,10 @@ export const initCmd = async (ctx: AppContext, args: any) => {
   packageJson.scripts.start = "npm run dev"
   packageJson.scripts.dev = "tsci dev"
   packageJson.scripts.build = "tsup ./index.ts --sourcemap --dts"
+  writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
+
+  console.log('Making package type: "module"...')
+  packageJson.type = "module"
   writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
 
   console.log(`Adding ".tscircuit" to .gitignore`)
