@@ -9,6 +9,7 @@ export const createSchema = async (db: DbClient) => {
     .addColumn("file_path", "text", (col) => col.unique())
     .addColumn("export_name", "text")
     .addColumn("tscircuit_soup", "json")
+    .addColumn("completed_edit_events", "json")
     .addColumn("error", "text")
     .addColumn("is_loading", "boolean", (cb) => cb.defaultTo(0).notNull())
     .addColumn("last_updated_at", "text")

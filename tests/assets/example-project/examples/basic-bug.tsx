@@ -5,6 +5,7 @@ export const BasicBug = () => (
       left_size: 4,
       right_size: 4,
     }}
+    footprint="sparkfun:ssop16"
     center={[-10, 0]}
     port_labels={{
       "1": "GND",

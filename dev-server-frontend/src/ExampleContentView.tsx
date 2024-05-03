@@ -72,6 +72,8 @@ export const ExampleContentView = () => {
           <PCBViewer
             key={`pcb-${pkg?.last_updated_at}`}
             height={itemHeight}
+            allowEditing
+            onEditEventsChanged={() => {}}
             soup={pkg.tscircuit_soup}
           />
         </ErrorBoundary>
