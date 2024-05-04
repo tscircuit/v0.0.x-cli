@@ -64,7 +64,7 @@ export const HeaderMenu = () => {
       <Menubar className="border-none shadow-none">
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
-          <MenubarContent>
+          <MenubarContent className="z-[200]">
             <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
             <MenubarSeparator />
             <MenubarItem
@@ -110,7 +110,7 @@ export const HeaderMenu = () => {
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
-          <MenubarContent>
+          <MenubarContent className="z-[200]">
             <MenubarRadioGroup
               value={viewMode}
               onValueChange={(v) => setViewMode(v as any)}
@@ -149,7 +149,7 @@ export const HeaderMenu = () => {
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>Package</MenubarTrigger>
-          <MenubarContent>
+          <MenubarContent className="z-[200]">
             <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
             <MenubarSeparator />
             <MenubarCheckboxItem
@@ -187,7 +187,7 @@ export const HeaderMenu = () => {
         </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger>About</MenubarTrigger>
-          <MenubarContent>
+          <MenubarContent className="z-[200]">
             <MenubarItem
               onSelect={() => {
                 window.open("https://github.com/tscircuit/tscircuit", "_blank")

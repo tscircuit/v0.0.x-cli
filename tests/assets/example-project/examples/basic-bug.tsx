@@ -2,7 +2,11 @@ import { layout } from "@tscircuit/layout"
 import manual_edits from "../src/manual-edits"
 
 export const BasicBug = () => (
-  <group layout={layout().manualPcbPlacement(manual_edits.pcb_placements)}>
+  <group
+    layout={layout()
+      .autoLayoutSchematic()
+      .manualPcbPlacement(manual_edits.pcb_placements)}
+  >
     <bug
       name="U2"
       port_arrangement={{
@@ -18,5 +22,7 @@ export const BasicBug = () => (
         "4": "D+",
       }}
     />
+    <resistor name="R1" resistance="10kohm" footprint="0805" />
+    <trace from=".U2 > .1" to=".R1 > .left" />
   </group>
 )
