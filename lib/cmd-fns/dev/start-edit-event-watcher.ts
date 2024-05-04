@@ -164,30 +164,37 @@ export const startEditEventWatcher = async (
                 pcb_component_id: edit_event.pcb_component_id,
               })
 
-              console.log(
-                kleur.gray(
-                  `  adding PCB placement from edit event for "${selector}"`
-                )
+              const existing_placement_for_selector = pcb_placements.find(
+                (pp) => pp.selector === selector
               )
 
-              pcb_placements.push({
-                _edit_event_id: edit_event.edit_event_id,
-                selector,
-                center: edit_event.new_center,
-                relative_to: "group_center",
-              })
+              if (!existing_placement_for_selector) {
+                console.log(
+                  kleur.gray(
+                    `  adding PCB placement from edit event for "${selector}"`
+                  )
+                )
+
+                pcb_placements.push({
+                  _edit_event_id: edit_event.edit_event_id,
+                  selector,
+                  center: edit_event.new_center,
+                  relative_to: "group_center",
+                })
+              } else {
+                existing_placement_for_selector.center = edit_event.new_center
+              }
+
+              // Edit the pcb placements object
+              pcb_placements_ts.replaceWithText(JSON.stringify(pcb_placements))
+
+              // Save the file
+
+              fs.writeFileSync(
+                Path.join(ctx.cwd, manual_edit_file),
+                ts_manual_edits_file.getFullText()
+              )
             }
-
-            // Edit the pcb placements object
-
-            pcb_placements_ts.replaceWithText(JSON.stringify(pcb_placements))
-
-            // Save the file
-
-            fs.writeFileSync(
-              Path.join(ctx.cwd, manual_edit_file),
-              ts_manual_edits_file.getFullText()
-            )
           }
         }
       } catch (err: any) {
