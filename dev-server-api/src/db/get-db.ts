@@ -13,6 +13,8 @@ export interface DevPackageExample {
   is_loading: 1 | 0
   last_updated_at: string
   soup_last_updated_at: string
+  edit_events_last_updated_at: string
+  edit_events_last_applied_at: string
 }
 
 export interface ExportRequest {
@@ -90,6 +92,8 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
   const db = new Kysely<KyselyDatabaseSchema>({
     dialect,
   })
+
+  await sql`pragma busy_timeout = 5000`.execute(db)
 
   const schemaExistsResult = await sql`
     SELECT name

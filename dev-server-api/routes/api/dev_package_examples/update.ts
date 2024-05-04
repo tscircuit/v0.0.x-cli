@@ -8,6 +8,7 @@ export default withEdgeSpec({
     dev_package_example_id: z.coerce.number(),
     tscircuit_soup: z.any().optional(),
     completed_edit_events: z.array(z.any()).optional(),
+    edit_events_last_applied_at: z.string().datetime().optional(),
     error: z.string().nullable().optional().default(null),
   }),
   jsonResponse: z.object({
@@ -36,9 +37,17 @@ export default withEdgeSpec({
         q.set("error", req.jsonBody.error)
       )
       .$if(req.jsonBody.completed_edit_events !== undefined, (q) =>
+        q
+          .set(
+            "completed_edit_events",
+            JSON.stringify(req.jsonBody.completed_edit_events)
+          )
+          .set("edit_events_last_updated_at", new Date().toISOString())
+      )
+      .$if(req.jsonBody.edit_events_last_applied_at !== undefined, (q) =>
         q.set(
-          "completed_edit_events",
-          JSON.stringify(req.jsonBody.completed_edit_events)
+          "edit_events_last_applied_at",
+          req.jsonBody.edit_events_last_applied_at!
         )
       )
       .returningAll()

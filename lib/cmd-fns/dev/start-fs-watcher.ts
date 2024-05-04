@@ -13,7 +13,7 @@ export const startFsWatcher = async (
   },
   ctx: { runtime: "node" | "bun" }
 ) => {
-  const watcher = chokidar.watch(`${cwd}/**/*.tsx`, {
+  const watcher = chokidar.watch([`${cwd}/**/*.tsx`, `${cwd}/**/*.ts`], {
     ignored: /node_modules/,
     persistent: true,
   })
@@ -23,6 +23,7 @@ export const startFsWatcher = async (
     should_run: true,
   }
   watcher.on("change", async (path) => {
+    console.log(path)
     if (path.endsWith(".__tmp_entrypoint.tsx")) return
     console.log(`File ${path} has been changed`)
     // TODO analyze to determine which examples were impacted

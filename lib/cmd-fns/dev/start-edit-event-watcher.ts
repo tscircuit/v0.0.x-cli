@@ -44,9 +44,9 @@ export const startEditEventWatcher = async (
           const last_recorded_update_time =
             last_edit_event_update_time[dev_package_example_id]
 
-          // TODO use last_edit_event_updated_at
           if (
-            last_recorded_update_time !== dev_package_example.last_updated_at
+            last_recorded_update_time !==
+            dev_package_example.edit_events_last_updated_at
           ) {
             console.log(
               kleur.gray(
@@ -58,7 +58,7 @@ export const startEditEventWatcher = async (
             )
 
             last_edit_event_update_time[dev_package_example_id] =
-              dev_package_example.last_updated_at // TODO last_edit_event_updated_at
+              dev_package_example.edit_events_last_updated_at // TODO last_edit_event_updated_at
 
             console.log(kleur.gray(`  getting new edit events...`))
 
@@ -200,6 +200,11 @@ export const startEditEventWatcher = async (
                 Path.join(ctx.cwd, manual_edit_file),
                 ts_manual_edits_file.getFullText()
               )
+              await devServerAxios.post("/api/dev_package_examples/update", {
+                dev_package_example_id,
+                edit_events_last_applied_at:
+                  dev_package_example.edit_events_last_updated_at,
+              })
             }
           }
         }

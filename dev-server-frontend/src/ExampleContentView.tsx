@@ -7,7 +7,7 @@ import { cn } from "./lib/utils"
 import { ErrorBoundary } from "react-error-boundary"
 import { SoupTableViewer } from "@tscircuit/table-viewer"
 import "react-data-grid/lib/styles.css"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import type { EditEvent } from "@tscircuit/pcb-viewer"
 
 export const ExampleContentView = () => {
@@ -42,7 +42,12 @@ export const ExampleContentView = () => {
 
   const viewMode = useGlobalStore((s) => s.view_mode)
   const splitMode = useGlobalStore((s) => s.split_mode)
-  const [editEvents, setEditEvents] = useState<EditEvent[]>([])
+  // eslint-disable-next-line prefer-const
+  let [editEvents, setEditEvents] = useState<EditEvent[]>([])
+
+  editEvents = editEvents.filter(
+    (ee) => ee.created_at > new Date(pkg?.edit_events_last_applied_at).valueOf()
+  )
 
   const editorHeight = window.innerHeight - 52
   const halfHeight = Math.floor(editorHeight / 2)

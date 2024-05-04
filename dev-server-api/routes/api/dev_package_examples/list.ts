@@ -11,6 +11,12 @@ export default withEdgeSpec({
         file_path: z.string(),
         export_name: z.string(),
         is_loading: z.coerce.boolean(),
+        edit_events_last_updated_at: z
+          .string()
+          .datetime()
+          .nullable()
+          .default(null),
+        soup_last_updated_at: z.string().datetime().nullable().default(null),
         last_updated_at: z.string().datetime(),
       })
     ),
@@ -24,6 +30,7 @@ export default withEdgeSpec({
       "file_path",
       "export_name",
       "last_updated_at",
+      "edit_events_last_updated_at",
       "soup_last_updated_at",
       sql`(is_loading = 1)`.$castTo<boolean>().as("is_loading"),
     ])

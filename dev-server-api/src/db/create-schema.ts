@@ -14,6 +14,8 @@ export const createSchema = async (db: DbClient) => {
     .addColumn("error", "text")
     .addColumn("is_loading", "boolean", (cb) => cb.defaultTo(0).notNull())
     .addColumn("soup_last_updated_at", "text")
+    .addColumn("edit_events_last_updated_at", "text")
+    .addColumn("edit_events_last_applied_at", "text")
     .addColumn("last_updated_at", "text")
     .execute()
 
