@@ -15,7 +15,13 @@ export const startExportRequestWatcher = async (
 
   ;(async () => {
     while (running) {
-      await fulfillExportRequests({ dev_server_axios: devServerAxios }, ctx)
+      try {
+        await fulfillExportRequests({ dev_server_axios: devServerAxios }, ctx)
+      } catch (err: any) {
+        console.log(
+          kleur.red(`Error in export request watcher: ${err.toString()}`)
+        )
+      }
       await new Promise((resolve) => setTimeout(resolve, 100))
     }
   })()

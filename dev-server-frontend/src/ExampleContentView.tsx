@@ -7,6 +7,8 @@ import { cn } from "./lib/utils"
 import { ErrorBoundary } from "react-error-boundary"
 import { SoupTableViewer } from "@tscircuit/table-viewer"
 import "react-data-grid/lib/styles.css"
+import { useRef, useState } from "react"
+import type { EditEvent } from "@tscircuit/pcb-viewer"
 
 export const ExampleContentView = () => {
   const devExamplePackageId = useGlobalStore(
@@ -34,10 +36,13 @@ export const ExampleContentView = () => {
     }
   )
 
+  const sentEditEvents = useRef<Record<string, boolean>>({})
+
   const notFound = (error as any)?.response?.status === 404
 
   const viewMode = useGlobalStore((s) => s.view_mode)
   const splitMode = useGlobalStore((s) => s.split_mode)
+  const [editEvents, setEditEvents] = useState<EditEvent[]>([])
 
   const editorHeight = window.innerHeight - 52
   const halfHeight = Math.floor(editorHeight / 2)
@@ -47,7 +52,7 @@ export const ExampleContentView = () => {
 
   return (
     <div
-      key={pkg?.last_updated_at}
+      key={pkg?.soup_last_updated_at}
       className={cn(
         "relative",
         `h-[${editorHeight}px]`,
@@ -60,7 +65,7 @@ export const ExampleContentView = () => {
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
         <ErrorBoundary fallback={<div>Failed to render Schematic</div>}>
           <Schematic
-            key={`sch-${pkg?.last_updated_at}`}
+            key={`sch-${pkg?.soup_last_updated_at}`}
             style={{ height: itemHeight }}
             soup={pkg.tscircuit_soup}
             showTable={false}
@@ -70,8 +75,33 @@ export const ExampleContentView = () => {
       {pkg && (viewMode === "pcb" || viewMode === "split") && (
         <ErrorBoundary fallback={<div>Failed to render PCB</div>}>
           <PCBViewer
-            key={`pcb-${pkg?.last_updated_at}`}
+            key={`pcb-${pkg?.soup_last_updated_at}`}
             height={itemHeight}
+            allowEditing
+            editEvents={editEvents}
+            onEditEventsChanged={(changedEditEvents) => {
+              // Look for any edit events that have not been sent to the server
+              // and send them, then mark them as sent
+              let hasUnsentEditEvents = false
+              for (const editEvent of changedEditEvents) {
+                if (
+                  !editEvent.in_progress &&
+                  !sentEditEvents.current[editEvent.edit_event_id]
+                ) {
+                  hasUnsentEditEvents = true
+                  sentEditEvents.current[editEvent.edit_event_id] = true
+                }
+              }
+              if (hasUnsentEditEvents) {
+                axios.post(`/api/dev_package_examples/update`, {
+                  dev_package_example_id: devExamplePackageId,
+                  completed_edit_events: changedEditEvents.filter(
+                    (ee) => ee.in_progress === false
+                  ),
+                })
+              }
+              setEditEvents(changedEditEvents)
+            }}
             soup={pkg.tscircuit_soup}
           />
         </ErrorBoundary>
@@ -79,7 +109,7 @@ export const ExampleContentView = () => {
       {pkg && viewMode === "soup" && (
         <ErrorBoundary fallback={<div>Failed to render Soup</div>}>
           <SoupTableViewer
-            key={`soup-${pkg?.last_updated_at}`}
+            key={`soup-${pkg?.soup_last_updated_at}`}
             height={itemHeight}
             elements={pkg.tscircuit_soup}
             appearance="dark"

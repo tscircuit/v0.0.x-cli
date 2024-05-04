@@ -9,7 +9,8 @@
     "bootstrap": "bun i && cd dev-server-api && bun i && cd ../dev-server-frontend && bun i",
     "bootstrap:ci": "bun i --frozen-lockfile && cd dev-server-api && bun i --frozen-lockfile && cd ../dev-server-frontend && bun i --frozen-lockfile",
     "start": "bun cli.ts",
-    "start:dev-server:dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.sqlite concurrently 'cd dev-server-api && bun start' 'cd dev-server-frontend && bun start'",
+    "dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.sqlite concurrently 'cd dev-server-api && bun run build && bun start' 'cd dev-server-frontend && bun start' 'bun run dev-with-test-project'",
+    "clear": "rm -rf .tscircuit",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./tests/assets/example-project",
     "build:dev-server": "cd dev-server-api && bun run build && cd ../dev-server-frontend && bun run build",
     "build:dev-server:api": "cd dev-server-api && bun run build",
@@ -17,7 +18,7 @@
     "build": "bun build:dev-server && npm run build:cli",
     "dev-with-test-project": "bun cli.ts dev --cwd ./tests/assets/example-project",
     "test:init": "bun cli.ts init --dir ./tmp/test --name test",
-    "update-deps": "bun add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && bun run update-deps"
+    "update-deps": "npm add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && npm run update-deps && cd ../tests/assets/example-project && npm add @tscircuit/builder@latest @tscircuit/react-fiber@latest"
   },
   "bin": {
     "tscircuit": "./dist/cli.js",
@@ -35,8 +36,9 @@
   "dependencies": {
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
-    "@tscircuit/builder": "1.5.72",
-    "@tscircuit/react-fiber": "^1.0.35",
+    "@tscircuit/builder": "^1.5.85",
+    "@tscircuit/react-fiber": "^1.0.39",
+    "@tscircuit/soup-util": "^0.0.1",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
     "better-sqlite3": "^9.4.3",
@@ -49,6 +51,7 @@
     "delay": "^6.0.0",
     "edgespec": "^0.0.69",
     "esbuild": "^0.20.2",
+    "fast-glob": "^3.3.2",
     "glob": "^10.3.10",
     "hono": "^4.1.0",
     "ignore": "^5.3.1",
@@ -63,6 +66,7 @@
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "semver": "^7.6.0",
+    "ts-morph": "^22.0.0",
     "tsup": "^8.0.2",
     "zod": "latest"
   },
