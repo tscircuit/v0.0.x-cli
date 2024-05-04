@@ -162,14 +162,15 @@ export const startEditEventWatcher = async (
 
               console.log(
                 kleur.gray(
-                  `  adding PCB placement from edit event #${edit_event.pcb_component_id} ${edit_event.edit_event_id}`
+                  `  adding PCB placement from edit event "#${edit_event.pcb_component_id}" "${edit_event.edit_event_id}"`
                 )
               )
 
               // pcb_placements.push({
               //   _edit_event_id: edit_event.edit_event_id,
               //   selector: edit_event.selector,
-              //   center: edit_event.,
+              //   center: edit_event.
+
               // })
             }
 
