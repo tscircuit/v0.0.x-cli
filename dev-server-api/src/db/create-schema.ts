@@ -1,6 +1,7 @@
 import type { DbClient } from "./get-db"
 
 export const createSchema = async (db: DbClient) => {
+  console.log("Creating schema...")
   await db.schema
     .createTable("dev_package_example")
     .addColumn("dev_package_example_id", "integer", (col) =>
@@ -12,6 +13,7 @@ export const createSchema = async (db: DbClient) => {
     .addColumn("completed_edit_events", "json")
     .addColumn("error", "text")
     .addColumn("is_loading", "boolean", (cb) => cb.defaultTo(0).notNull())
+    .addColumn("soup_last_updated_at", "text")
     .addColumn("last_updated_at", "text")
     .execute()
 

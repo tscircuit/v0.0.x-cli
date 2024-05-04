@@ -6,12 +6,13 @@ import * as Path from "path"
 export interface DevPackageExample {
   dev_package_example_id: Generated<number>
   tscircuit_soup: any
-  completed_edit_events: any[]
+  completed_edit_events: any
   file_path: string
   export_name: string
   error: string | null
   is_loading: 1 | 0
   last_updated_at: string
+  soup_last_updated_at: string
 }
 
 export interface ExportRequest {

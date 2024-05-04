@@ -24,6 +24,7 @@ export default withEdgeSpec({
       "file_path",
       "export_name",
       "last_updated_at",
+      "soup_last_updated_at",
       sql`(is_loading = 1)`.$castTo<boolean>().as("is_loading"),
     ])
     .execute()

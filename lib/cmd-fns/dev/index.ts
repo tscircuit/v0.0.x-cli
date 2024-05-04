@@ -14,6 +14,7 @@ import { checkIfInitialized } from "./check-if-initialized"
 import { initCmd } from "../init"
 import { startExportRequestWatcher } from "./start-export-request-watcher"
 import $ from "dax-sh"
+import { startEditEventWatcher } from "./start-edit-event-watcher"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -75,9 +76,10 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   console.log(`Loading examples...`)
   await uploadExamplesFromDirectory({ devServerAxios, cwd }, ctx)
 
-  // Start watcher
+  // Start watchers
   const fs_watcher = await startFsWatcher({ cwd, devServerAxios }, ctx)
   const er_watcher = await startExportRequestWatcher({ devServerAxios }, ctx)
+  const ee_watcher = await startEditEventWatcher({ devServerAxios }, ctx)
 
   while (true) {
     const { action } = await prompts({
@@ -108,6 +110,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
       if (server.close) server.close()
       fs_watcher.stop()
       er_watcher.stop()
+      ee_watcher.stop()
       break
     }
   }

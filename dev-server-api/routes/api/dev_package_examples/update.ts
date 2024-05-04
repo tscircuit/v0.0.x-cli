@@ -27,13 +27,19 @@ export default withEdgeSpec({
         last_updated_at: new Date().toISOString(),
       })
       .$if(req.jsonBody.tscircuit_soup !== undefined, (q) =>
-        q.set("tscircuit_soup", req.jsonBody.tscircuit_soup).set("error", null)
+        q
+          .set("tscircuit_soup", req.jsonBody.tscircuit_soup)
+          .set("error", null)
+          .set("soup_last_updated_at", new Date().toISOString())
       )
       .$if(req.jsonBody.error !== undefined, (q) =>
         q.set("error", req.jsonBody.error)
       )
       .$if(req.jsonBody.completed_edit_events !== undefined, (q) =>
-        q.set("completed_edit_events", req.jsonBody.completed_edit_events)
+        q.set(
+          "completed_edit_events",
+          JSON.stringify(req.jsonBody.completed_edit_events)
+        )
       )
       .returningAll()
       .where("dev_package_example_id", "=", req.jsonBody.dev_package_example_id)
