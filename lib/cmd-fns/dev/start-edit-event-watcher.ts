@@ -110,7 +110,9 @@ export const startEditEventWatcher = async (
             //    to preserve comments etc. later)
 
             const edit_events: EditEvent[] =
-              dev_package_example_full.completed_edit_events
+              dev_package_example_full.completed_edit_events ?? []
+
+            if (edit_events.length === 0) continue
 
             const project = new Project()
 
@@ -138,7 +140,9 @@ export const startEditEventWatcher = async (
               _edit_event_id?: string
             })[]
             try {
-              pcb_placements = JSON.parse(pcb_placements_ts.getText())
+              pcb_placements = JSON.parse(
+                pcb_placements_ts.getText().replace(/pcb_placements:\s/, "")
+              )
             } catch (e: any) {
               console.log(
                 kleur.red(
@@ -186,7 +190,9 @@ export const startEditEventWatcher = async (
               }
 
               // Edit the pcb placements object
-              pcb_placements_ts.replaceWithText(JSON.stringify(pcb_placements))
+              pcb_placements_ts.replaceWithText(
+                `pcb_placements: ${JSON.stringify(pcb_placements, null, "  ")}`
+              )
 
               // Save the file
 

@@ -14,5 +14,15 @@ export default {
   manual_edit_id: "abcdef",
 
   // Manual pcb placements, added when you drag a footprint
-  pcb_placements: [],
+  pcb_placements: [
+      {
+        "_edit_event_id": "0.6467684918884489",
+        "selector": ".U2",
+        "center": {
+          "x": 7.805340475559884,
+          "y": 2.412252345578475
+        },
+        "relative_to": "group_center"
+      }
+    ],
 }

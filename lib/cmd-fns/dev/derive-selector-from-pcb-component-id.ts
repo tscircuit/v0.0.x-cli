@@ -1,5 +1,5 @@
 import type { AnySoupElement } from "@tscircuit/builder"
-import su from "@tscircuit/soup-util"
+import { su } from "@tscircuit/soup-util"
 
 export const deriveSelectorFromPcbComponentId = ({
   soup,

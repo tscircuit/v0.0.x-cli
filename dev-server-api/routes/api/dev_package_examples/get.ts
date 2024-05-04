@@ -12,6 +12,7 @@ export default withEdgeSpec({
       dev_package_example_id: z.coerce.number(),
       file_path: z.string(),
       tscircuit_soup: z.any(),
+      completed_edit_events: z.array(z.any()).nullable().default(null),
       is_loading: z.boolean(),
       error: z.string().nullable().optional().default(null),
       last_updated_at: z.string().datetime(),
@@ -35,6 +36,9 @@ export default withEdgeSpec({
         ...r,
         is_loading: r.is_loading === 1,
         tscircuit_soup: JSON.parse(r.tscircuit_soup),
+        completed_edit_events: r.completed_edit_events
+          ? JSON.parse(r.completed_edit_events)
+          : null,
       })),
   })
 })
