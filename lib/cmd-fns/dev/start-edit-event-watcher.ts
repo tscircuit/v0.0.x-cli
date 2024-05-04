@@ -7,6 +7,7 @@ import fs from "fs"
 import { Project, ts } from "ts-morph"
 import * as Path from "path"
 import { ManualPcbPosition } from "@tscircuit/builder"
+import { deriveSelectorFromPcbComponentId } from "./derive-selector-from-pcb-component-id"
 
 // TODO import from builder when builder exports it
 type EditEvent = {
@@ -158,28 +159,35 @@ export const startEditEventWatcher = async (
               if (handled_edit_events.has(edit_event.edit_event_id)) continue
 
               // TODO Figure out a good selector for this pcb_component
-              // const selector =
+              const selector = deriveSelectorFromPcbComponentId({
+                soup: dev_package_example_full.tscircuit_soup,
+                pcb_component_id: edit_event.pcb_component_id,
+              })
 
               console.log(
                 kleur.gray(
-                  `  adding PCB placement from edit event "#${edit_event.pcb_component_id}" "${edit_event.edit_event_id}"`
+                  `  adding PCB placement from edit event for "${selector}"`
                 )
               )
 
-              // pcb_placements.push({
-              //   _edit_event_id: edit_event.edit_event_id,
-              //   selector: edit_event.selector,
-              //   center: edit_event.
-
-              // })
+              pcb_placements.push({
+                _edit_event_id: edit_event.edit_event_id,
+                selector,
+                center: edit_event.new_center,
+                relative_to: "group_center",
+              })
             }
 
-            // Assume we want to add a new placement
-            // const placementsArray = pcb_placements.getFirstChildByKindOrThrow(
-            //   ts.SyntaxKind.ArrayLiteralExpression
-            // )
+            // Edit the pcb placements object
 
-            // const manualEditsFile =
+            pcb_placements_ts.replaceWithText(JSON.stringify(pcb_placements))
+
+            // Save the file
+
+            fs.writeFileSync(
+              Path.join(ctx.cwd, manual_edit_file),
+              ts_manual_edits_file.getFullText()
+            )
           }
         }
       } catch (err: any) {

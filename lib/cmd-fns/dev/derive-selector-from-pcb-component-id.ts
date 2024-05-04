@@ -1,4 +1,6 @@
 import type { AnySoupElement } from "@tscircuit/builder"
+import su from "@tscircuit/soup-util"
+
 export const deriveSelectorFromPcbComponentId = ({
   soup,
   pcb_component_id,
@@ -6,16 +8,16 @@ export const deriveSelectorFromPcbComponentId = ({
   soup: AnySoupElement[]
   pcb_component_id: string
 }) => {
-  const pcb_component = soup.find(
-    (e) => e.type === "pcb_component" && e.pcb_component_id === pcb_component_id
-  )
-  if (!pcb_component)
+  const source_component = su(soup).source_component.getUsing({
+    pcb_component_id,
+  })
+  if (!source_component) {
     throw new Error(
-      `Could not find pcb_component with id "${pcb_component_id}"`
+      `Could not find source component for pcb_component_id="${pcb_component_id}"`
     )
-  const source_component = soup.find(
-    (e) =>
-      e.type === "source_component" &&
-      e.source_component_id === pcb_component.source_component_id
-  )
+  }
+
+  // TODO travel up the tree to make the selector more specific
+
+  return `.${source_component.name}`
 }

@@ -38,6 +38,7 @@
     "@hono/node-server": "^1.8.2",
     "@tscircuit/builder": "^1.5.85",
     "@tscircuit/react-fiber": "^1.0.39",
+    "@tscircuit/soup-util": "^0.0.1",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
     "better-sqlite3": "^9.4.3",
