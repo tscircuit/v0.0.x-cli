@@ -91,6 +91,11 @@ export const startEditEventWatcher = async (
                   `Multiple manual edit files found, tsci currently doesn't know how to handle this, you should go upvote an issue`
                 )
               )
+              for (let i = 0; i < manual_edit_files.length; i++) {
+                console.log(
+                  kleur.gray(`  file ${i + 1}: ${manual_edit_files[i]}`)
+                )
+              }
               continue
             }
 
