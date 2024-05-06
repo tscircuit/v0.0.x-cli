@@ -73,6 +73,7 @@ export const startEditEventWatcher = async (
               ["**/*.manual-edits.ts", "**/manual-edits.ts"],
               {
                 cwd: ctx.cwd,
+                ignore: ["node_modules"],
               }
             )
 
