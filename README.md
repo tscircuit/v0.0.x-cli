@@ -41,15 +41,12 @@ tsci publish
 This project is developed with [bun](https://bun.sh/), make sure you have
 that installed.
 
-Run `bun boostrap` to install dependencies and `bun cli.ts` to run test the cli in development.
+Run `bun bootstrap` to install dependencies and `bun cli.ts` to run test the cli in development.
 
 To run tests, run `bun test`
 
-When you're developing the dev-server, you should do the following:
-
-1. Run the development server with `bun start:dev-server:dev`
-2. Upload examples using `bun dev-server upload --watch ./tests/assets/example-project`
-3. Visit `http://localhost:3020` in your browser
+If you want to test developing, run `bun dev` and visit http://localhost:5173. The project being
+loaded is inside `tests/assets/example-project`
 
 ## Features Coming Soon
 
