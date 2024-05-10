@@ -48,6 +48,9 @@ To run tests, run `bun test`
 If you want to test developing, run `bun dev` and visit http://localhost:5173. The project being
 loaded is inside `tests/assets/example-project`
 
+![image](https://github.com/tscircuit/cli/assets/1910070/cabb180d-a64f-4fe5-a6af-26f990af39b3)
+
+
 ## Features Coming Soon
 
 - [`tsci format`](https://github.com/tscircuit/cli/issues/1)
