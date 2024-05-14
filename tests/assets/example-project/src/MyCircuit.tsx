@@ -6,16 +6,16 @@ export const MyCircuit = () => (
   <board
     width="40mm"
     height="40mm"
-    center_x={0}
-    center_y={0}
-    layout={layout().manualPcbPlacement(manual_edits.pcb_placements)}
+    pcbCenterX={0}
+    pcbCenterY={0}
+    layout={layout().manualEdits(manual_edits)}
   >
     <resistor
       name="R1"
       resistance="20kohm"
       footprint="0805"
-      supplier_part_numbers={{
-        jlcpcb: "C2759650",
+      supplierPartNumbers={{
+        jlcpcb: ["C2759650"],
       }}
     />
   </board>

@@ -142,7 +142,7 @@ export default {
   import manual_edits from "./MyCircuit.manual-edits"
 
   export const MyCircuit = () => (
-    <group layout={layout().manualPcbPositions(manual_edits.pcb_placements)}>
+    <group layout={layout().manualEdits(manual_edits)}>
       <resistor
         resistance="10kohm"
         name="R1"
@@ -161,7 +161,9 @@ export default {
 import { MyCircuit } from "lib/MyCircuit"
 
 export const MyExample = () => (
-  <MyCircuit />
+  <board width="40mm" height="40mm" pcbCenterX={0} pcbCenterY={0}>
+    <MyCircuit />
+  </board>
 )
       `.trim()
   )
