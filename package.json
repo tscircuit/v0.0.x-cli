@@ -21,7 +21,6 @@
     "update-deps": "npm add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && npm run update-deps && cd ../tests/assets/example-project && npm add @tscircuit/builder@latest @tscircuit/react-fiber@latest @tscircuit/layout@latest"
   },
   "bin": {
-    "tscircuit": "./dist/cli.js",
     "tsci": "./dist/cli.js"
   },
   "keywords": [
