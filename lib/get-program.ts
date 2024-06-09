@@ -240,6 +240,7 @@ export const getProgram = (ctx: AppContext) => {
   cmd
     .command("version")
     .description("Print current version")
+    .option("--show-latest", "Show latest versions of dependencies")
     .action((args) => CMDFN.version(ctx, args))
 
   cmd
