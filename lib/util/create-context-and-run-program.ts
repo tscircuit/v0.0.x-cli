@@ -122,6 +122,12 @@ export const createContextAndRunProgram = async (process_args: any) => {
     process.exit(0)
   }
 
+  // HACK: Fixes issue with tsci version --show-latest
+  if (args_without_globals.includes("--show_latest")) {
+    args_without_globals[args_without_globals.indexOf("--show_latest")] =
+      "--show-latest"
+  }
+
   await perfectCli(getProgram(ctx), args_without_globals, {
     async customParamHandler({ commandPath, optionName }, { prompts }) {
       let optionNameHandler =
