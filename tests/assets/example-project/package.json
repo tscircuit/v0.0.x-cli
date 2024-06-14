@@ -4,8 +4,8 @@
   "type": "module",
   "main": "dist/index.js",
   "dependencies": {
-    "@tscircuit/builder": "^1.5.116",
-    "@tscircuit/layout": "^0.0.17",
+    "@tscircuit/builder": "^1.5.118",
+    "@tscircuit/layout": "0.0.21",
     "@tscircuit/react-fiber": "^1.1.27"
   }
 }

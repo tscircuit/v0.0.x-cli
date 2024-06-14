@@ -6,17 +6,11 @@ import fg from "fast-glob"
 import fs from "fs"
 import { Project, ts } from "ts-morph"
 import * as Path from "path"
-import { ManualPcbPosition } from "@tscircuit/builder"
+import type { ManualPcbPosition } from "@tscircuit/builder"
 import { deriveSelectorFromPcbComponentId } from "./derive-selector-from-pcb-component-id"
-
-// TODO import from builder when builder exports it
-type EditEvent = {
-  edit_event_id: string
-  pcb_edit_event_type: "edit_component_location"
-  pcb_component_id: string
-  original_center: { x: number; y: number }
-  new_center: { x: number; y: number }
-}
+import type { EditEvent } from "@tscircuit/manual-edit-events"
+import { getManualTraceHintFromEvent, ManualTraceHint } from "@tscircuit/layout"
+import JSON5 from "json5"
 
 export const startEditEventWatcher = async (
   {
@@ -142,11 +136,34 @@ export const startEditEventWatcher = async (
             const pcb_placements_ts =
               object_literal.getPropertyOrThrow("pcb_placements")
 
+            if (object_literal.getProperty("edit_events") === undefined) {
+              object_literal.addPropertyAssignment({
+                name: "edit_events",
+                initializer: "[]",
+              })
+            }
+
+            const edit_events_ts =
+              object_literal.getPropertyOrThrow("edit_events")
+
+            if (
+              object_literal.getProperty("manual_trace_hints") === undefined
+            ) {
+              object_literal.addPropertyAssignment({
+                name: "manual_trace_hints",
+                initializer: "[]",
+              })
+            }
+            const manual_trace_hints_ts =
+              object_literal.getPropertyOrThrow("manual_trace_hints")
+
             let pcb_placements: (ManualPcbPosition & {
               _edit_event_id?: string
             })[]
+            let in_file_edit_events: EditEvent[]
+            let manual_trace_hints: ManualTraceHint[]
             try {
-              pcb_placements = JSON.parse(
+              pcb_placements = JSON5.parse(
                 pcb_placements_ts.getText().replace(/pcb_placements:\s/, "")
               )
             } catch (e: any) {
@@ -157,60 +174,149 @@ export const startEditEventWatcher = async (
               )
               continue
             }
+            try {
+              in_file_edit_events = JSON5.parse(
+                edit_events_ts.getText().replace(/edit_events:\s/, "")
+              )
+            } catch (e: any) {
+              console.log(
+                kleur.red(
+                  `Error parsing edit_events from manual edits file: ${edit_events_ts.getText()} ${e.toString()}`
+                )
+              )
+              continue
+            }
+            try {
+              manual_trace_hints = JSON5.parse(
+                manual_trace_hints_ts
+                  .getText()
+                  .replace(/manual_trace_hints:\s/, "")
+              )
+            } catch (e: any) {
+              console.log(
+                kleur.red(
+                  `Error parsing manual_trace_hints from manual edits file: ${pcb_placements_ts.getText()} ${e.toString()}`
+                )
+              )
+              continue
+            }
 
             const handled_edit_events = new Set<string>(
               pcb_placements
                 .map((p) => (p as any)._edit_event_id)
-                .filter(Boolean)
+                .concat(in_file_edit_events.map((a) => a.edit_event_id))
             )
 
             // Add PCB placements from edit events
-            for (const edit_event of edit_events) {
-              if (handled_edit_events.has(edit_event.edit_event_id)) continue
+            for (const incoming_edit_event of edit_events) {
+              if (handled_edit_events.has(incoming_edit_event.edit_event_id))
+                continue
 
-              // TODO Figure out a good selector for this pcb_component
-              const selector = deriveSelectorFromPcbComponentId({
-                soup: dev_package_example_full.tscircuit_soup,
-                pcb_component_id: edit_event.pcb_component_id,
-              })
+              if (
+                incoming_edit_event.pcb_edit_event_type ===
+                "edit_component_location"
+              ) {
+                // TODO Figure out a good selector for this pcb_component
+                let pcb_component_selector: string | null = null
+                if (incoming_edit_event.pcb_component_id) {
+                  pcb_component_selector = deriveSelectorFromPcbComponentId({
+                    soup: dev_package_example_full.tscircuit_soup,
+                    pcb_component_id: incoming_edit_event.pcb_component_id,
+                  })
+                }
 
-              const existing_placement_for_selector = pcb_placements.find(
-                (pp) => pp.selector === selector
-              )
+                // TODO we'll need to work past this for edit_event_type=edit_trace
+                if (!pcb_component_selector) continue
 
-              if (!existing_placement_for_selector) {
-                console.log(
-                  kleur.gray(
-                    `  adding PCB placement from edit event for "${selector}"`
-                  )
+                const existing_placement_for_selector = pcb_placements.find(
+                  (pp) => pp.selector === pcb_component_selector
                 )
 
-                pcb_placements.push({
-                  _edit_event_id: edit_event.edit_event_id,
-                  selector,
-                  center: edit_event.new_center,
-                  relative_to: "group_center",
+                if (!existing_placement_for_selector) {
+                  console.log(
+                    kleur.gray(
+                      `  adding PCB placement from edit event for "${pcb_component_selector}"`
+                    )
+                  )
+
+                  pcb_placements.push({
+                    _edit_event_id: incoming_edit_event.edit_event_id,
+                    selector: pcb_component_selector,
+                    center: incoming_edit_event.new_center,
+                    relative_to: "group_center",
+                  })
+                } else {
+                  existing_placement_for_selector.center =
+                    incoming_edit_event.new_center
+                }
+
+                // Edit the pcb placements object
+                pcb_placements_ts.replaceWithText(
+                  `pcb_placements: ${JSON.stringify(
+                    pcb_placements,
+                    null,
+                    "  "
+                  )}`
+                )
+
+                // Save the file
+                fs.writeFileSync(
+                  Path.join(ctx.cwd, manual_edit_file),
+                  ts_manual_edits_file.getFullText()
+                )
+                await devServerAxios.post("/api/dev_package_examples/update", {
+                  dev_package_example_id,
+                  edit_events_last_applied_at:
+                    dev_package_example.edit_events_last_updated_at,
+                })
+              } else if (
+                incoming_edit_event.pcb_edit_event_type === "edit_trace_hint"
+              ) {
+                const new_trace_hint = getManualTraceHintFromEvent(
+                  dev_package_example_full.tscircuit_soup,
+                  incoming_edit_event
+                )
+
+                manual_trace_hints_ts.replaceWithText(
+                  `manual_trace_hints: ${JSON.stringify(
+                    manual_trace_hints
+                      .filter(
+                        (th) =>
+                          th.pcb_port_selector !==
+                          new_trace_hint.pcb_port_selector
+                      )
+                      .concat([new_trace_hint]),
+                    null,
+                    "  "
+                  )}`
+                )
+
+                fs.writeFileSync(
+                  Path.join(ctx.cwd, manual_edit_file),
+                  ts_manual_edits_file.getFullText()
+                )
+                await devServerAxios.post("/api/dev_package_examples/update", {
+                  dev_package_example_id,
+                  edit_events_last_applied_at:
+                    dev_package_example.edit_events_last_updated_at,
                 })
               } else {
-                existing_placement_for_selector.center = edit_event.new_center
+                // All other events just go to the manual-edits.ts file with
+                // in the "edit_events" property
+                edit_events_ts.replaceWithText(
+                  `edit_events: ${JSON.stringify(edit_events, null, "  ")}`
+                )
+                console.log(edit_events_ts.getFullText())
+                fs.writeFileSync(
+                  Path.join(ctx.cwd, manual_edit_file),
+                  ts_manual_edits_file.getFullText()
+                )
+                await devServerAxios.post("/api/dev_package_examples/update", {
+                  dev_package_example_id,
+                  edit_events_last_applied_at:
+                    dev_package_example.edit_events_last_updated_at,
+                })
               }
-
-              // Edit the pcb placements object
-              pcb_placements_ts.replaceWithText(
-                `pcb_placements: ${JSON.stringify(pcb_placements, null, "  ")}`
-              )
-
-              // Save the file
-
-              fs.writeFileSync(
-                Path.join(ctx.cwd, manual_edit_file),
-                ts_manual_edits_file.getFullText()
-              )
-              await devServerAxios.post("/api/dev_package_examples/update", {
-                dev_package_example_id,
-                edit_events_last_applied_at:
-                  dev_package_example.edit_events_last_updated_at,
-              })
             }
           }
         }

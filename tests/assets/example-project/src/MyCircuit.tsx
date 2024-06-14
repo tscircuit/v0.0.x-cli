@@ -13,10 +13,32 @@ export const MyCircuit = () => (
     <resistor
       name="R1"
       resistance="20kohm"
+      pcbX={0}
+      pcbY={0}
       footprint="0805"
       supplierPartNumbers={{
         jlcpcb: ["C2759650"],
       }}
     />
+    <resistor
+      name="R2"
+      pcbX={5}
+      pcbY={0}
+      resistance="20kohm"
+      footprint="0805"
+      supplierPartNumbers={{
+        jlcpcb: ["C2759650"],
+      }}
+    />
+    <trace from=".R1 > .right" to=".R2 > .left" />
+    {/* <tracehint
+      for=".R1 > .right"
+      offsets={[
+        {
+          x: 3,
+          y: 3,
+        },
+      ]}
+    /> */}
   </board>
 )
