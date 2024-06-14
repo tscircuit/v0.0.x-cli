@@ -31,5 +31,14 @@ export const MyCircuit = () => (
       }}
     />
     <trace from=".R1 > .right" to=".R2 > .left" />
+    {/* <tracehint
+      for=".R1 > .right"
+      offsets={[
+        {
+          x: 3,
+          y: 3,
+        },
+      ]}
+    /> */}
   </board>
 )

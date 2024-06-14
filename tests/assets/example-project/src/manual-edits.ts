@@ -15,27 +15,6 @@ export default {
 
   // Manual pcb placements, added when you drag a footprint
   pcb_placements: [],
-  manual_trace_hints: [
-    {
-      "pcb_port_selector": ".R1 > .right",
-      "offsets": [
-        {
-          "x": 1.9062219956253026,
-          "y": 3.058567233009163,
-          "via": false
-        },
-        {
-          "x": 3.542964287848446,
-          "y": 3.797097291695215,
-          "via": false
-        },
-        {
-          "x": 4.760540871087613,
-          "y": 4.096501369540912,
-          "via": false
-        }
-      ]
-    }
-  ],
-    edit_events: []
+  manual_trace_hints: [],
+  edit_events: [],
 }
