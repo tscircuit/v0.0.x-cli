@@ -14,24 +14,28 @@ export default {
   manual_edit_id: "abcdef",
 
   // Manual pcb placements, added when you drag a footprint
-  pcb_placements: [
-      {
-        "_edit_event_id": "0.6467684918884489",
-        "selector": ".U2",
-        "center": {
-          "x": 13.777148607991913,
-          "y": -10.354434189987284
+  pcb_placements: [],
+  manual_trace_hints: [
+    {
+      "pcb_port_selector": ".R1 > .right",
+      "offsets": [
+        {
+          "x": 1.9062219956253026,
+          "y": 3.058567233009163,
+          "via": false
         },
-        "relative_to": "group_center"
-      },
-      {
-        "_edit_event_id": "0.37279140805799216",
-        "selector": ".R1",
-        "center": {
-          "x": 5.433378371344073,
-          "y": -6.95083299460385
+        {
+          "x": 3.542964287848446,
+          "y": 3.797097291695215,
+          "via": false
         },
-        "relative_to": "group_center"
-      }
-    ],
+        {
+          "x": 4.760540871087613,
+          "y": 4.096501369540912,
+          "via": false
+        }
+      ]
+    }
+  ],
+    edit_events: []
 }
