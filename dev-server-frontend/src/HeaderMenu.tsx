@@ -15,7 +15,7 @@ import {
 } from "src/components/ui/menubar"
 import toast from "react-hot-toast"
 import { useGlobalStore } from "./hooks/use-global-store"
-import packageJson from "../package.json"
+import frontendPackageJson from "../package.json"
 import cliPackageJson from "../../package.json"
 import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
 import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
@@ -229,38 +229,35 @@ export const HeaderMenu = () => {
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/builder (cli) v
-              {cliPackageJson.dependencies?.["@tscircuit/builder"]?.replace(
+              {cliPackageJson.devDependencies?.["@tscircuit/builder"]?.replace(
                 /\^/g,
-                ""
+                "",
               )}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/builder (ui) v
-              {packageJson.dependencies?.["@tscircuit/builder"]?.replace(
-                /\^/g,
-                ""
-              )}
+              {frontendPackageJson.dependencies?.[
+                "@tscircuit/builder"
+              ]?.replace(/\^/g, "")}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/react-fiber v
-              {cliPackageJson.dependencies["@tscircuit/react-fiber"].replace(
+              {cliPackageJson.devDependencies["@tscircuit/react-fiber"].replace(
                 /\^/g,
-                ""
+                "",
               )}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/schematic-viewer v
-              {packageJson.dependencies["@tscircuit/schematic-viewer"].replace(
-                /\^/g,
-                ""
-              )}
+              {frontendPackageJson.dependencies[
+                "@tscircuit/schematic-viewer"
+              ].replace(/\^/g, "")}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/pcb-viewer v
-              {packageJson.dependencies["@tscircuit/pcb-viewer"].replace(
-                /\^/g,
-                ""
-              )}
+              {frontendPackageJson.dependencies[
+                "@tscircuit/pcb-viewer"
+              ].replace(/\^/g, "")}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
