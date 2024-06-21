@@ -35,7 +35,7 @@
   "dependencies": {
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
-    "@tscircuit/builder": "^1.5.126",
+    "@tscircuit/builder": "1.5.128",
     "@tscircuit/layout": "^0.0.20",
     "@tscircuit/react-fiber": "^1.1.29",
     "@tscircuit/soup-util": "^0.0.1",
