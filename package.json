@@ -35,10 +35,6 @@
   "dependencies": {
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
-    "@tscircuit/builder": "1.5.128",
-    "@tscircuit/layout": "^0.0.20",
-    "@tscircuit/react-fiber": "^1.1.29",
-    "@tscircuit/soup-util": "^0.0.1",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
     "better-sqlite3": "^9.4.3",
@@ -71,7 +67,18 @@
     "tsup": "^8.0.2",
     "zod": "latest"
   },
+  "peerDependencies": {
+    "@tscircuit/builder": "*",
+    "@tscircuit/layout": "*",
+    "@tscircuit/react-fiber": "*",
+    "@tscircuit/soup-util": "*",
+    "@tscircuit/manual-edit-events": "*"
+  },
   "devDependencies": {
+    "@tscircuit/builder": "1.5.128",
+    "@tscircuit/layout": "^0.0.20",
+    "@tscircuit/react-fiber": "^1.1.29",
+    "@tscircuit/soup-util": "^0.0.1",
     "@tscircuit/manual-edit-events": "^0.0.4",
     "@types/archiver": "^6.0.2",
     "@types/bun": "^1.0.8",
