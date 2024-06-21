@@ -84,7 +84,9 @@ console.log(JSON.stringify(elements))
     .stderr(debug.enabled ? "inheritPiped" : "piped")
     .noThrow()
 
-  const rawSoup = processResult.stdout
+  // TODO we should send it to a temporarty file rather than rely on stdout
+  // which can easily be polluted
+  const rawSoup = processResult.stdout.replace(/^[^\[]*/, "")
   const errText = processResult.stderr
 
   debug(`deleting ${tmpFilePath}`)
