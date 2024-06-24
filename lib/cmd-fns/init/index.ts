@@ -14,6 +14,7 @@ import { getGeneratedReadme } from "./get-generated-readme"
 import { getGeneratedTsconfig } from "./get-generated-tsconfig"
 import { getGeneratedNpmrc } from "./get-generated-npmrc"
 import { createOrModifyNpmrc } from "./create-or-modify-npmrc"
+import prompts from "prompts"
 
 export const initCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -39,9 +40,13 @@ export const initCmd = async (ctx: AppContext, args: any) => {
       if (subName === ".") {
         subName = Path.basename(Path.resolve(params.dir))
       }
-      params.name = `@${myAccount.github_username}/${subName}`
+      params.name = `@tsci/${myAccount.github_username}.${subName}`
     } catch (e: any) {
-      params.name = Path.basename(params.dir ?? ctx.cwd)
+      const { github_username, package_name } = await prompts([
+        { type: "text", name: "github_username", message: "GitHub username" },
+        { type: "text", name: "package_name", message: "Package name" },
+      ])
+      params.name = `@tsci/${github_username}.${package_name}`
     }
   }
 
