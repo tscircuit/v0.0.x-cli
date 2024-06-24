@@ -6,14 +6,13 @@ export const getGeneratedReadme = ({
   shouldHaveProjectGeneratedNotice?: boolean
 }) => {
   return `
-# ${name}
+# ${name.split("/").pop()?.split(".").pop()}
 
 [![tscircuit version badge](https://registry-api.tscircuit.com/badges/view?package_name=${name
-    .replace("@", "")
-    .replace("/", ".")})](https://registry.tscircuit.com/${name.replace(
-    "@",
-    ""
-  )})
+    .replace("@tsci/", "")
+    .replace("/", ".")})](https://registry.tscircuit.com/${name
+    .replace("@tsci/", "")
+    .replace(".", "/")})
 
 ${
   shouldHaveProjectGeneratedNotice
