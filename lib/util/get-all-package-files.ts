@@ -15,6 +15,8 @@ import ignore from "ignore"
 export const getAllPackageFiles = async (
   ctx: AppContext
 ): Promise<Array<string>> => {
+  await ensureNodeModulesIgnored();
+  
   const gitignore = await fs
     .readFile("./.gitignore")
     .then((b) => b.toString().split("\n").filter(Boolean))
@@ -32,4 +34,24 @@ export const getAllPackageFiles = async (
   ])
 
   return Glob.globSync("**/*.{ts,tsx,md}", {}).filter((fp) => !ig.ignores(fp))
+}
+
+/**
+ * Ensure 'node_modules/' is in .gitignore
+ */
+const ensureNodeModulesIgnored = async () => {
+  const gitignorePath = './.gitignore';
+  
+  try {
+    const gitignore = await fs.readFile(gitignorePath, 'utf8');
+    if (!gitignore.includes('node_modules/')) {
+      await fs.appendFile(gitignorePath, '\nnode_modules/\n');
+    }
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      await fs.writeFile(gitignorePath, 'node_modules/\n');
+    } else {
+      console.error('Error while updating .gitignore:', err);
+    }
+  }
 }
