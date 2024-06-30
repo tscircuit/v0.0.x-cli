@@ -19,6 +19,7 @@ import frontendPackageJson from "../package.json"
 import cliPackageJson from "../../package.json"
 import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
 import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
+import { name } from '../package.json';
 
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
@@ -65,7 +66,7 @@ export const HeaderMenu = () => {
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent className="z-[200]">
-            <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
+            <MenubarItem disabled>{name}</MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => {
@@ -150,7 +151,7 @@ export const HeaderMenu = () => {
         <MenubarMenu>
           <MenubarTrigger>Package</MenubarTrigger>
           <MenubarContent className="z-[200]">
-            <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
+            <MenubarItem disabled>{name}</MenubarItem>
             <MenubarSeparator />
             <MenubarCheckboxItem
               checked
