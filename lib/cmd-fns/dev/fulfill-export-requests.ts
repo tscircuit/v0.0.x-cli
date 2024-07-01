@@ -102,11 +102,13 @@ export const fulfillExportRequests = async (
         },
         ctx
       )
-
+    
+      const pnpFileName = `${export_request.export_name}-${export_request.export_parameters.pnp_csv_file_name!}`
+    
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,
-        file_name: export_request.export_parameters.pnp_csv_file_name!,
+        file_name: pnpFileName,
         export_request_id: export_request.export_request_id,
       })
     }
@@ -120,11 +122,13 @@ export const fulfillExportRequests = async (
         },
         ctx
       )
-
+    
+      const bomFileName = `${export_request.export_name}-${export_request.export_parameters.bom_csv_file_name!}`
+    
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,
-        file_name: export_request.export_parameters.bom_csv_file_name!,
+        file_name: bomFileName,
         export_request_id: export_request.export_request_id,
       })
     }
