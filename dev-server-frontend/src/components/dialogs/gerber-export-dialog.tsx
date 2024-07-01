@@ -125,7 +125,7 @@ export const GerberExportDialog = ({
   onClickExport: () => any
 }) => {
   return (
-    <Dialog open={open} onClose={onClose} className="relative z-50">
+    <Dialog open={open} onClose={onClose} className="relative z-[101]">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-lg rounded bg-white p-6 border border-[rgba(0,0,0,0.3)]">
