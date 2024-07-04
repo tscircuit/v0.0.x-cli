@@ -34,7 +34,8 @@ export const Header = () => {
           <TabsList>
             <TabsTrigger value="schematic">Schematic</TabsTrigger>
             <TabsTrigger value="pcb">PCB</TabsTrigger>
-            <TabsTrigger value="split">Split</TabsTrigger>
+            {/* <TabsTrigger value="split">Split</TabsTrigger> */}
+            <TabsTrigger value="3d">3D</TabsTrigger>
           </TabsList>
         </Tabs>
         <Button
