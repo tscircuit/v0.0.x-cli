@@ -1,4 +1,4 @@
-import apiServer from "../../../dev-server-api/dist/bundle"
+import apiServer from "../../../dev-server-api"
 import frontendVfs from "../../../dev-server-frontend/dist/bundle"
 import EdgeRuntimePrimitives from "@edge-runtime/primitives"
 import mime from "mime-types"
@@ -21,7 +21,7 @@ export const devServerRequestHandler = async (bunReq: Request) => {
       body: bunReq.body,
     })
 
-    const response = await apiServer.makeRequest(req, {})
+    const response = await apiServer.makeRequest(req as any, {})
     return response
   } else if (requestType === "preview") {
     let frontendPath = url.pathname.replace("/preview", "")
