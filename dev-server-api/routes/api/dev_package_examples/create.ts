@@ -1,8 +1,8 @@
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 
-export default withEdgeSpec({
+export default withWinterSpec({
   methods: ["POST"],
   jsonBody: z.object({
     file_path: z.string(),

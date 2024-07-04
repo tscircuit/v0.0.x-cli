@@ -1,4 +1,4 @@
-import { NotFoundError, type Middleware } from "edgespec/middleware"
+import { NotFoundError, type Middleware } from "winterspec/middleware"
 import kleur from "kleur"
 
 export const withErrorResponse: Middleware<{}, {}> = async (req, ctx, next) => {

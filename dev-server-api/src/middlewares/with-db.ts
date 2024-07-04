@@ -1,4 +1,4 @@
-import type { Middleware } from "edgespec"
+import type { Middleware } from "winterspec"
 import { getDb, type DbClient } from "../db/get-db"
 
 export const withDb: Middleware<

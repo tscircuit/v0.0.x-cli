@@ -16,9 +16,9 @@
   },
   "dependencies": {
     "better-sqlite3": "^11.0.0",
-    "edgespec": "^0.0.69",
     "kysely": "^0.27.3",
     "kysely-bun-sqlite": "^0.3.2",
+    "winterspec": "0.0.79",
     "zod": "^3.22.4"
   }
 }

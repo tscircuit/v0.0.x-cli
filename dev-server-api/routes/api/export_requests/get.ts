@@ -1,9 +1,9 @@
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
 
-export default withEdgeSpec({
+export default withWinterSpec({
   methods: ["GET", "POST"],
   commonParams: z.object({
     export_request_id: z.coerce.number(),

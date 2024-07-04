@@ -1,8 +1,8 @@
-import { createWithEdgeSpec } from "edgespec"
+import { createWithWinterSpec } from "winterspec"
 import { withDb } from "./middlewares/with-db"
 import { withErrorResponse } from "./middlewares/with-error-response"
 
-export const withEdgeSpec = createWithEdgeSpec({
+export const withWinterSpec = createWithWinterSpec({
   authMiddleware: {},
   beforeAuthMiddleware: [withErrorResponse, withDb],
 })

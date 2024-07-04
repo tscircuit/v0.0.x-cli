@@ -1,11 +1,11 @@
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
 import { export_parameters } from "src/lib/zod/export_parameters"
 
-export default withEdgeSpec({
+export default withWinterSpec({
   methods: ["POST"],
   jsonBody: z.object({
     export_request_id: z.coerce.number(),

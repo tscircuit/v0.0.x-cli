@@ -1,9 +1,9 @@
 import { publicMapExportFile } from "src/lib/public-mapping/public-map-export-file"
 import { export_file } from "src/lib/zod/export_file"
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { z } from "zod"
 
-export default withEdgeSpec({
+export default withWinterSpec({
   methods: ["GET"],
   queryParams: z.object({
     export_file_id: z.coerce.number().int(),

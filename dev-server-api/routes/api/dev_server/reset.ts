@@ -1,5 +1,5 @@
 import { sql } from "kysely"
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { z } from "zod"
 import { unlinkSync } from "fs"
 import { getDbFilePath } from "src/db/get-db"

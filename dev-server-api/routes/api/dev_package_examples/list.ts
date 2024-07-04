@@ -1,8 +1,8 @@
 import { sql } from "kysely"
-import { withEdgeSpec } from "src/with-edge-spec"
+import { withWinterSpec } from "src/with-winter-spec"
 import { z } from "zod"
 
-export default withEdgeSpec({
+export default withWinterSpec({
   methods: ["GET", "POST"],
   jsonResponse: z.object({
     dev_package_examples: z.array(
