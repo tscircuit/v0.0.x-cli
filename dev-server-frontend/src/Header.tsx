@@ -38,7 +38,8 @@ export const Header = () => {
             <TabsTrigger value="3d">3D</TabsTrigger>
           </TabsList>
         </Tabs>
-        <Button
+        {/* Button is only relevant when the "Split" button is available */}
+        {/* <Button
           variant="outline"
           disabled={viewMode !== "split"}
           className="ml-1 group"
@@ -47,7 +48,7 @@ export const Header = () => {
           }}
         >
           <RotateCounterClockwiseIcon className="scale-x-[-1] group-hover:rotate-[30deg] transition-transform" />
-        </Button>
+        </Button> */}
       </div>
     </div>
   )

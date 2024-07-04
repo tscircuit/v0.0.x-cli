@@ -7,8 +7,8 @@
     "update-deps": "bun add -f @tscircuit/builder@latest @tscircuit/react-fiber@latest @tscircuit/layout@latest"
   },
   "dependencies": {
-    "@tscircuit/builder": "1.5.134",
-    "@tscircuit/layout": "^0.0.21",
+    "@tscircuit/builder": "^1.5.134",
+    "@tscircuit/layout": "^0.0.24",
     "@tscircuit/react-fiber": "^1.1.29"
   }
 }

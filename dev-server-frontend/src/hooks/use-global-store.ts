@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware"
 export interface GlobalState {
   active_dev_example_package_id: string | null
 
-  view_mode: "schematic" | "pcb" | "split" | "soup"
+  view_mode: "schematic" | "pcb" | "split" | "soup" | "3d"
   split_mode: "horizontal" | "vertical"
   in_debug_mode: boolean
 
@@ -37,6 +37,6 @@ export const useGlobalStore = create<GlobalState>()(
     }),
     {
       name: "global-store",
-    }
-  )
+    },
+  ),
 )
