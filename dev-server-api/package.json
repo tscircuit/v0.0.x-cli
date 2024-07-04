@@ -3,8 +3,8 @@
   "main": "dist/bundle.ts",
   "type": "module",
   "scripts": {
-    "start": "edgespec dev --port 3021",
-    "build": "edgespec bundle -o dist/bundle.ts"
+    "start": "bun server.ts",
+    "build": "echo 'nothing to do'"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.9",
@@ -18,7 +18,7 @@
     "better-sqlite3": "^11.0.0",
     "kysely": "^0.27.3",
     "kysely-bun-sqlite": "^0.3.2",
-    "winterspec": "0.0.79",
+    "winterspec": "^0.0.80",
     "zod": "^3.22.4"
   }
 }
