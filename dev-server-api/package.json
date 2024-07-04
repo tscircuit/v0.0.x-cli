@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/dev-server-api",
-  "main": "dist/bundle.ts",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
     "start": "bun server.ts",

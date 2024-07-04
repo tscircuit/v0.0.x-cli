@@ -1,7 +1,10 @@
 import { createFetchHandlerFromDir } from "winterspec/adapters/node"
 import { Request as EdgeRuntimeRequest } from "@edge-runtime/primitives"
+import { join } from "node:path"
 
-const serverFetch = await createFetchHandlerFromDir("./routes")
+const serverFetch = await createFetchHandlerFromDir(
+  join(import.meta.dir, "./routes")
+)
 
 console.log("starting dev-server-api on localhost:3021")
 Bun.serve({
