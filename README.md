@@ -50,6 +50,10 @@ loaded is inside `tests/assets/example-project`
 
 ![image](https://github.com/tscircuit/cli/assets/1910070/cabb180d-a64f-4fe5-a6af-26f990af39b3)
 
+![image](https://github.com/tscircuit/cli/assets/1910070/9350c52c-4263-4ba2-b06b-61130b1aab3b)
+
+![image](https://github.com/tscircuit/cli/assets/1910070/d6facd4d-0887-4871-8aa1-e525c519c50d)
+
 
 ## Features Coming Soon
 
