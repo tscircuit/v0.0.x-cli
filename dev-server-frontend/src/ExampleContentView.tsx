@@ -9,10 +9,11 @@ import { SoupTableViewer } from "@tscircuit/table-viewer"
 import "react-data-grid/lib/styles.css"
 import { useEffect, useRef, useState } from "react"
 import type { EditEvent } from "@tscircuit/pcb-viewer"
+import { CadViewer } from "@tscircuit/3d-viewer"
 
 export const ExampleContentView = () => {
   const devExamplePackageId = useGlobalStore(
-    (s) => s.active_dev_example_package_id
+    (s) => s.active_dev_example_package_id,
   )
 
   const {
@@ -33,7 +34,7 @@ export const ExampleContentView = () => {
       refetchIntervalInBackground: true,
       refetchOnWindowFocus: true,
       retry: false,
-    }
+    },
   )
 
   const sentEditEvents = useRef<Record<string, boolean>>({})
@@ -46,7 +47,8 @@ export const ExampleContentView = () => {
   let [editEvents, setEditEvents] = useState<EditEvent[]>([])
 
   editEvents = editEvents.filter(
-    (ee) => ee.created_at > new Date(pkg?.edit_events_last_applied_at).valueOf()
+    (ee) =>
+      ee.created_at > new Date(pkg?.edit_events_last_applied_at).valueOf(),
   )
 
   const editorHeight = window.innerHeight - 52
@@ -64,7 +66,7 @@ export const ExampleContentView = () => {
         viewMode === "split" &&
           splitMode === "horizontal" &&
           "grid grid-cols-2",
-        viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2"
+        viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2",
       )}
     >
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
@@ -101,7 +103,7 @@ export const ExampleContentView = () => {
                 axios.post(`/api/dev_package_examples/update`, {
                   dev_package_example_id: devExamplePackageId,
                   completed_edit_events: changedEditEvents.filter(
-                    (ee) => ee.in_progress === false
+                    (ee) => ee.in_progress === false,
                   ),
                 })
               }
@@ -109,6 +111,22 @@ export const ExampleContentView = () => {
             }}
             soup={pkg.tscircuit_soup}
           />
+        </ErrorBoundary>
+      )}
+      {pkg && viewMode === "3d" && (
+        <ErrorBoundary
+          fallbackRender={(props) => (
+            <div style={{ padding: 20 }}>
+              Failed to render 3d view
+              <div style={{ marginTop: 20, color: "red" }}>
+                {props.error.message}
+              </div>
+            </div>
+          )}
+        >
+          <div style={{ height: itemHeight }}>
+            <CadViewer soup={pkg.tscircuit_soup} />
+          </div>
         </ErrorBoundary>
       )}
       {pkg && viewMode === "soup" && (
