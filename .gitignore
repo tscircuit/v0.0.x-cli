@@ -6,3 +6,5 @@ dist
 .npmrc
 *.__tmp_entrypoint.tsx
 *.zip
+
+.vscode
