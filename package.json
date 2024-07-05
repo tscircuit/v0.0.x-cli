@@ -77,7 +77,7 @@
   },
   "devDependencies": {
     "@tscircuit/builder": "*",
-    "@tscircuit/layout": "^0.0.20",
+    "@tscircuit/layout": "^0.0.24",
     "@tscircuit/react-fiber": "*",
     "@tscircuit/soup-util": "^0.0.1",
     "@tscircuit/manual-edit-events": "^0.0.4",
