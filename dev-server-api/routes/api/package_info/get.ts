@@ -9,13 +9,10 @@ export default withWinterSpec({
   }),
   auth: "none",
 })(async (req, ctx) => {
-  console.log("in endpoint")
-  const db_package_info_request: any = await ctx.db
+  const package_info = await ctx.db
     .selectFrom("package_info")
     .select("name")
-    .execute()
+    .executeTakeFirstOrThrow()
 
-  return ctx.json({
-    package_info: db_package_info_request[0]
-  })
+  return ctx.json({  package_info  })
 })
