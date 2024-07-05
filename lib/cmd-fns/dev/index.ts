@@ -1,20 +1,21 @@
-import { AppContext } from "../../util/app-context"
-import { z } from "zod"
-import kleur from "kleur"
-import prompts from "prompts"
-import open from "open"
-import { startDevServer } from "./start-dev-server"
-import { getDevServerAxios } from "./get-dev-server-axios"
-import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
+import $ from "dax-sh"
+import fs from 'fs'
 import { unlink } from "fs/promises"
+import kleur from "kleur"
+import open from "open"
 import * as Path from "path"
-import { startFsWatcher } from "./start-fs-watcher"
+import prompts from "prompts"
+import { z } from "zod"
+import { AppContext } from "../../util/app-context"
+import { initCmd } from "../init"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
-import { initCmd } from "../init"
-import { startExportRequestWatcher } from "./start-export-request-watcher"
-import $ from "dax-sh"
+import { getDevServerAxios } from "./get-dev-server-axios"
+import { startDevServer } from "./start-dev-server"
 import { startEditEventWatcher } from "./start-edit-event-watcher"
+import { startExportRequestWatcher } from "./start-export-request-watcher"
+import { startFsWatcher } from "./start-fs-watcher"
+import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -57,7 +58,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   // TODO
 
   // Delete old .tscircuit/dev-server.sqlite
-  unlink(Path.join(cwd, ".tscircuit/dev-server.sqlite")).catch(() => {})
+  unlink(Path.join(cwd, ".tscircuit/dev-server.sqlite")).catch(() => { })
 
   console.log(
     kleur.green(
@@ -71,6 +72,19 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   // Reset the database, allows migration to re-run
   await devServerAxios.post("/api/dev_server/reset")
+    .catch(e => {
+      console.log("Failed to reset database, continuing anyway...")
+    })
+
+  // Add package name to the package_info table
+  const packageJsonPath = Path.resolve(cwd, 'package.json')
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+  const packageName = packageJson.name
+
+  console.log(`Adding package info...`)
+  await devServerAxios.post("/api/package_info/create", {
+    package_name: packageName
+  }, ctx)
 
   // Soupify all examples
   console.log(`Loading examples...`)

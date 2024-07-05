@@ -3,13 +3,20 @@ import frontendVfs from "../../../dev-server-frontend/dist/bundle"
 import EdgeRuntimePrimitives from "@edge-runtime/primitives"
 import mime from "mime-types"
 
+/**
+ * Handles all requests to :3020, then proxies...
+ * 
+ * /api/* : to the api server
+ * /*     : to the static frontend bundle inside dev-server-frontend
+ * 
+ */
 export const devServerRequestHandler = async (bunReq: Request) => {
   const url = new URL(bunReq.url)
   const requestType = url.pathname.startsWith("/api")
     ? "api"
     : url.pathname.startsWith("/preview")
-    ? "preview"
-    : "other"
+      ? "preview"
+      : "other"
 
   if (requestType === "api") {
     // We have to shim Bun's Request until they fix the issue where
