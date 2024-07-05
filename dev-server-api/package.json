@@ -4,12 +4,13 @@
   "type": "module",
   "scripts": {
     "start": "bun server.ts",
-    "build": "echo 'nothing to do'"
+    "build": "winterspec bundle-routes -i ./routes -o static-routes.ts"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.9",
     "@types/bun": "latest",
-    "@types/sql.js": "^1.4.9"
+    "@types/sql.js": "^1.4.9",
+    "make-vfs": "^1.0.10"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -18,7 +19,7 @@
     "better-sqlite3": "^11.0.0",
     "kysely": "^0.27.3",
     "kysely-bun-sqlite": "^0.3.2",
-    "winterspec": "^0.0.80",
+    "winterspec": "0.0.81",
     "zod": "^3.22.4"
   }
 }
