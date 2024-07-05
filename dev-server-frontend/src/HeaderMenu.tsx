@@ -1,24 +1,26 @@
+import axios from "axios"
 import { useState } from "react"
+import toast from "react-hot-toast"
+import { useQuery } from "react-query"
 import {
   Menubar,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
   MenubarRadioGroup,
   MenubarRadioItem,
-  MenubarCheckboxItem,
   MenubarSeparator,
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
 } from "src/components/ui/menubar"
-import toast from "react-hot-toast"
-import { useGlobalStore } from "./hooks/use-global-store"
-import frontendPackageJson from "../package.json"
 import cliPackageJson from "../../package.json"
-import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
+import frontendPackageJson from "../package.json"
 import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
+import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
+import { useGlobalStore } from "./hooks/use-global-store"
 
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
@@ -29,6 +31,23 @@ export const HeaderMenu = () => {
     s.split_mode,
     s.setSplitMode,
   ])
+
+  const {
+    data,
+    isLoading,
+  } = useQuery(
+    ["package_info"],
+    async () =>
+      axios
+        .get(`/api/package_info/get`),
+    {
+      refetchOnWindowFocus: true,
+      retry: false,
+    },
+  )
+
+  const name = data?.data.package_info.name
+
   const [inDebugMode, setInDebugMode] = useState(false)
   const gerberExportDialog = useGerberExportDialog()
   const pnpExportDialog = useGenericExportDialog({
@@ -65,7 +84,7 @@ export const HeaderMenu = () => {
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent className="z-[200]">
-            <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
+            <MenubarItem disabled>{name}</MenubarItem>
             <MenubarSeparator />
             <MenubarItem
               onSelect={() => {
@@ -150,7 +169,7 @@ export const HeaderMenu = () => {
         <MenubarMenu>
           <MenubarTrigger>Package</MenubarTrigger>
           <MenubarContent className="z-[200]">
-            <MenubarItem disabled>seveibar/arduino@1.0.0</MenubarItem>
+            <MenubarItem disabled>{name}</MenubarItem>
             <MenubarSeparator />
             <MenubarCheckboxItem
               checked

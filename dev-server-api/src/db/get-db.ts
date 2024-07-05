@@ -1,7 +1,11 @@
-import { Kysely, sql, type Generated, SqliteDialect } from "kysely"
-import { createSchema } from "./create-schema"
 import { mkdirSync } from "fs"
+import { Kysely, SqliteDialect, sql, type Generated } from "kysely"
 import * as Path from "path"
+import { createSchema } from "./create-schema"
+
+export interface PackageInfo {
+  name: string
+}
 
 export interface DevPackageExample {
   dev_package_example_id: Generated<number>
@@ -40,6 +44,7 @@ interface KyselyDatabaseSchema {
   dev_package_example: DevPackageExample
   export_request: ExportRequest
   export_file: ExportFile
+  package_info: PackageInfo
 }
 
 export type DbClient = Kysely<KyselyDatabaseSchema>
@@ -72,7 +77,7 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
           create: true,
         }),
       })
-    } catch (e) {}
+    } catch (e) { }
   }
 
   if (!dialect) {
@@ -82,7 +87,7 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
       dialect = new SqliteDialect({
         database: new BetterSqlite3.default(devServerDbPath),
       })
-    } catch (e) {}
+    } catch (e) { }
   }
 
   if (!dialect) {
@@ -98,12 +103,15 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
   const schemaExistsResult = await sql`
     SELECT name
     FROM sqlite_master
-    WHERE type='table' AND name='dev_package_example'
+    WHERE type='table' AND name IN ('dev_package_example', 'export_request', 'export_file', 'package_info')
   `.execute(db)
 
-  if (schemaExistsResult.rows.length === 0) {
+  // Check if the number of existing tables matches the number of required tables
+  if (schemaExistsResult.rows.length < 4) {
     await createSchema(db)
   }
+
+  globalDb = db
 
   return db
 }

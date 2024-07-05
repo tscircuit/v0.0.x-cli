@@ -64,8 +64,8 @@ export const ExampleContentView = () => {
         "relative",
         `h-[${editorHeight}px]`,
         viewMode === "split" &&
-          splitMode === "horizontal" &&
-          "grid grid-cols-2",
+        splitMode === "horizontal" &&
+        "grid grid-cols-2",
         viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2",
       )}
     >
@@ -141,28 +141,28 @@ export const ExampleContentView = () => {
       )}
       {pkg?.error && viewMode !== "soup" && (
         <div className="absolute top-0 w-full">
-          <div className="bg-red-50 shadow-lg p-4 m-16 border-red-200 border rounded-lg whitespace-pre">
+          <div className="p-4 m-16 whitespace-pre border border-red-200 rounded-lg shadow-lg bg-red-50">
             {pkg?.error}
           </div>
         </div>
       )}
       {notFound && (
-        <div className="absolute top-0 w-full flex justify-center">
+        <div className="absolute top-0 flex justify-center w-full">
           <div className="bg-yellow-50 shadow-lg p-4 m-16 border-yellow-200 border rounded-lg whitespace-pre max-w-[400px]">
             Select an example from the menu above
           </div>
         </div>
       )}
       {isLoading && !isError && (
-        <div className="absolute top-0 w-full flex justify-center">
-          <div className="bg-gray-50 shadow-lg p-4 m-16 border-gray-200 border rounded-lg whitespace-pre">
+        <div className="absolute top-0 flex justify-center w-full">
+          <div className="p-4 m-16 whitespace-pre border border-gray-200 rounded-lg shadow-lg bg-gray-50">
             Loading...
           </div>
         </div>
       )}
       {pkg && pkg.is_loading && (
-        <div className="absolute top-0 right-0 bg-white p-4 py-2 m-4 rounded-md flex items-center z-10 shadow-lg border border-gray-200">
-          <div className="border-2 border-blue-400 border-t-transparent rounded-full w-4 h-4 animate-spin mr-2"></div>
+        <div className="absolute top-0 right-0 z-10 flex items-center p-4 py-2 m-4 bg-white border border-gray-200 rounded-md shadow-lg">
+          <div className="w-4 h-4 mr-2 border-2 border-blue-400 rounded-full border-t-transparent animate-spin"></div>
           Rebuilding...
         </div>
       )}
