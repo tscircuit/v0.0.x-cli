@@ -1,4 +1,4 @@
-name: Test and Benchmark
+name: Bun Test
 
 on:
   pull_request:
