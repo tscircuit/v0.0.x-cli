@@ -3,6 +3,11 @@ import type { DbClient } from "./get-db"
 export const createSchema = async (db: DbClient) => {
   console.log("Creating schema...")
   await db.schema
+    .createTable("package_info")
+    .addColumn("name", "text", (col) => col.notNull())
+    .execute()
+
+  await db.schema
     .createTable("dev_package_example")
     .addColumn("dev_package_example_id", "integer", (col) =>
       col.primaryKey().autoIncrement()
