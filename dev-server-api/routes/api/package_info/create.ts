@@ -14,7 +14,6 @@ export default withWinterSpec({
   auth: "none",
 })(async (req, ctx) => {
   const package_name = req.jsonBody.package_name
-  console.log("PACKAGE NAME", package_name)
   const package_info = await ctx.db
     .insertInto("package_info")
     .values({
