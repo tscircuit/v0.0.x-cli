@@ -58,10 +58,11 @@ export const getDbFilePath = () =>
   process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/devdb"
 
 export const getDb = async (): Promise<ZodLevelDatabase> => {
-  if (globalDb) return globalDb
+  if (globalDb) {
+    return globalDb
+  }
 
   const devServerDbPath = getDbFilePath()
-  // console.log(`Using dev server db at ${devServerDbPath}`)
 
   mkdirSync(devServerDbPath, { recursive: true })
 

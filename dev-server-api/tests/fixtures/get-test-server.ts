@@ -10,7 +10,7 @@ interface TestFixture {
 }
 
 export const getTestFixture = async (): Promise<TestFixture> => {
-  process.env.TSCI_DEV_SERVER_DB = tmpdir() + "/devdb"
+  process.env.TSCI_DEV_SERVER_DB = tmpdir() + `/${Math.random()}` + "/devdb"
   const port = 3001 + Math.floor(Math.random() * 999)
   const server = startServer({ port })
   const url = `http://localhost:${port}`

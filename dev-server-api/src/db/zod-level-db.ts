@@ -36,10 +36,10 @@ export class ZodLevelDatabase {
     if (!valueLoose[idkey]) {
       // generate an id using the "count" key
       let count = await this.db
-        .get(`${collection}:count`, { valueEncoding: "json" })
+        .get(`${collection}.count`, { valueEncoding: "json" })
         .catch(() => 1)
       ;(value as any)[idkey] = count
-      await this.db.put(`${collection}:count`, count + 1)
+      await this.db.put(`${collection}.count`, count + 1)
     }
     const key = `${collection}:${valueLoose[idkey]}`
     const validatedData = DBSchema.shape[collection].parse(value)
@@ -128,7 +128,7 @@ export class ZodLevelDatabase {
       gte: `${collection}:`,
       lte: `${collection}:\uffff`,
     })) {
-      if (key.endsWith(":count")) continue
+      if (key.endsWith(".count")) continue
       try {
         const parsedValue = schema.parse(JSON.parse(value))
         results.push(parsedValue as DBSchemaType[K])

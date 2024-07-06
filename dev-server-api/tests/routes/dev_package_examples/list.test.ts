@@ -13,13 +13,17 @@ it("GET /api/dev_package_examples/list", async () => {
   })
 
   // Then, list all dev package examples
-  const res = await axios.get("/api/dev_package_examples/list").then((r) => r.data)
+  const res = await axios
+    .post("/api/dev_package_examples/list")
+    .then((r) => r.data)
 
   expect(res.dev_package_examples).toBeDefined()
   expect(Array.isArray(res.dev_package_examples)).toBe(true)
   expect(res.dev_package_examples.length).toBeGreaterThan(0)
 
-  const example = res.dev_package_examples.find((e: any) => e.file_path === "examples/test-example.tsx")
+  const example = res.dev_package_examples.find(
+    (e: any) => e.file_path === "examples/test-example.tsx"
+  )
   expect(example).toBeDefined()
   expect(example.export_name).toBe("default")
   expect(example.is_loading).toBe(false)

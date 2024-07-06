@@ -19,7 +19,6 @@ it("POST /api/dev_package_examples/create", async () => {
     })
     .then((r) => r.data)
 
-  console.log(res.dev_package_example)
   expect(res.dev_package_example.file_path).toEqual(
     "examples/basic-resistor.tsx"
   )
