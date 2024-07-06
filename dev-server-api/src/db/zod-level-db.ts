@@ -10,10 +10,18 @@ export class ZodLevelDatabase {
     this.db = new Level(location)
   }
 
+  async open() {
+    return this.db.open()
+  }
+
+  async close() {
+    return this.db.close()
+  }
+
   async get<K extends keyof DBSchemaType>(
     collection: K,
     id: string
-  ): Promise<DBSchemaType[K]> {
+  ): Promise<DBSchemaType[K] | null> {
     const key = `${collection}:${id}`
     const data = await this.db.get(key)
     return DBSchema.shape[collection].parse(JSON.parse(data)) as any
@@ -27,8 +35,9 @@ export class ZodLevelDatabase {
     const valueLoose: any = value
     if (!valueLoose[idkey]) {
       // generate an id using the "count" key
-      let count = await this.db.get(`${collection}:count`)
-      if (!count) count = 1
+      let count = await this.db
+        .get(`${collection}:count`, { valueEncoding: "json" })
+        .catch(() => 1)
       ;(value as any)[idkey] = count
       await this.db.put(`${collection}:count`, count + 1)
     }
@@ -50,7 +59,6 @@ export class ZodLevelDatabase {
     collection: K,
     partialObject: Partial<DBSchemaType[K]>
   ): Promise<DBSchemaType[K] | null> {
-    const results: DBSchemaType[K][] = []
     const schema = DBSchema.shape[collection]
 
     for await (const [key, value] of this.db.iterator({

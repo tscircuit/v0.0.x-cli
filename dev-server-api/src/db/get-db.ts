@@ -2,7 +2,7 @@ import { mkdirSync } from "fs"
 import { Kysely, SqliteDialect, sql, type Generated } from "kysely"
 import * as Path from "path"
 import { createSchema } from "./create-schema"
-import { ZodLevelDatabase } from "./level-db"
+import { ZodLevelDatabase } from "./zod-level-db"
 
 export interface PackageInfo {
   name: string
@@ -55,7 +55,7 @@ export type DbClient = Kysely<KyselyDatabaseSchema>
 let globalDb: ZodLevelDatabase | undefined
 
 export const getDbFilePath = () =>
-  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/devdb.json"
+  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/devdb"
 
 export const getDb = async (): Promise<ZodLevelDatabase> => {
   if (globalDb) return globalDb
@@ -63,7 +63,7 @@ export const getDb = async (): Promise<ZodLevelDatabase> => {
   const devServerDbPath = getDbFilePath()
   // console.log(`Using dev server db at ${devServerDbPath}`)
 
-  mkdirSync(Path.dirname(devServerDbPath), { recursive: true })
+  mkdirSync(devServerDbPath, { recursive: true })
 
   const db = new ZodLevelDatabase(devServerDbPath)
 
