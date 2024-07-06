@@ -30,6 +30,6 @@ jobs:
         run: bun run build
 
       - name: Run pver release
-        run: npx pver release
+        run: npx pver release --npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
