@@ -139,4 +139,8 @@ export class ZodLevelDatabase {
 
     return results
   }
+
+  async clear() {
+    return this.db.clear()
+  }
 }

@@ -1,15 +1,13 @@
-import { sql } from "kysely"
 import { withWinterSpec } from "src/with-winter-spec"
-import { z } from "zod"
-import { unlinkSync } from "fs"
-import { getDbFilePath } from "src/db/get-db"
 
-export default (req: Request) => {
-  unlinkSync(getDbFilePath())
-
+export default withWinterSpec({
+  methods: ["GET", "POST"],
+  auth: "none",
+})(async (req, ctx) => {
+  await ctx.db.clear()
   return new Response(JSON.stringify({}), {
     headers: {
       "content-type": "application/json",
     },
   })
-}
+})
