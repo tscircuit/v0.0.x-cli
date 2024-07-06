@@ -1,6 +1,6 @@
 import { Level } from "level"
 import { z } from "zod"
-import { DBSchema, type DBSchemaType } from "./schema"
+import { DBSchema, type DBSchemaType, type DBInputSchemaType } from "./schema"
 
 // Create a wrapper class for Level with Zod validation
 export class ZodLevelDatabase {
@@ -21,8 +21,8 @@ export class ZodLevelDatabase {
 
   async put<K extends keyof DBSchemaType>(
     collection: K,
-    value: DBSchemaType[K]
-  ): Promise<void> {
+    value: DBInputSchemaType[K]
+  ): Promise<DBSchemaType[K]> {
     const idkey = `${collection}_id`
     const valueLoose: any = value
     if (!valueLoose[idkey]) {
@@ -35,6 +35,7 @@ export class ZodLevelDatabase {
     const key = `${collection}:${valueLoose[idkey]}`
     const validatedData = DBSchema.shape[collection].parse(value)
     await this.db.put(key, JSON.stringify(validatedData))
+    return validatedData as DBSchemaType[K]
   }
 
   async del<K extends keyof DBSchemaType>(
@@ -94,5 +95,18 @@ export class ZodLevelDatabase {
       }
     }
     return true
+  }
+
+  async dump(): Promise<DBSchemaType> {
+    // Serialize all data in the database
+    const dump: any = {}
+    for await (const [key, value] of this.db.iterator({})) {
+      const [collection, id] = key.split(":")
+      if (!dump[collection]) {
+        dump[collection] = {}
+      }
+      dump[collection][id] = JSON.parse(value)
+    }
+    return dump
   }
 }

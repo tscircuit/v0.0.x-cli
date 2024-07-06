@@ -1,17 +1,18 @@
 import { z } from "zod"
 
 // Helper function for nullable fields
-const nullableText = () => z.string().nullable()
+const nullableText = () => z.string().nullable().default(null)
+const id = () => z.any().pipe(z.number().int())
 
 // PackageInfo schema
 export const PackageInfoSchema = z.object({
-  package_info_id: z.number().int(),
+  package_info_id: id(),
   name: z.string(),
 })
 
 // DevPackageExample schema
 export const DevPackageExampleSchema = z.object({
-  dev_package_example_id: z.number().int(),
+  dev_package_example_id: id(),
   file_path: z.string(),
   export_name: nullableText(),
   tscircuit_soup: z.any().nullable(), // Using any for JSON type
@@ -26,7 +27,7 @@ export const DevPackageExampleSchema = z.object({
 
 // ExportRequest schema
 export const ExportRequestSchema = z.object({
-  export_request_id: z.number().int(),
+  export_request_id: id(),
   example_file_path: nullableText(),
   export_parameters: z.any().nullable(), // Using any for JSON type
   export_name: nullableText(),
@@ -38,7 +39,7 @@ export const ExportRequestSchema = z.object({
 
 // ExportFile schema
 export const ExportFileSchema = z.object({
-  export_file_id: z.number().int(),
+  export_file_id: id(),
   file_name: nullableText(),
   file_content: z.instanceof(Buffer).nullable(), // For BLOB type
   is_complete: z.boolean(),
@@ -56,6 +57,7 @@ export const DBSchema = z.object({
 
 // TypeScript type inference
 export type DBSchemaType = z.infer<typeof DBSchema>
+export type DBInputSchemaType = z.input<typeof DBSchema>
 
 // You can also export individual types if needed
 export type PackageInfo = z.infer<typeof PackageInfoSchema>

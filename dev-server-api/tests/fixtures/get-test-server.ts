@@ -19,7 +19,6 @@ export const getTestFixture = async (): Promise<TestFixture> => {
   })
 
   afterEach(() => {
-    console.log("closing server")
     server.stop()
   })
 
