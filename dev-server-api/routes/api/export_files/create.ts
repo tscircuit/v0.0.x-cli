@@ -1,3 +1,4 @@
+import { ExportFileSchema } from "src/db/schema"
 import { publicMapExportFile } from "src/lib/public-mapping/public-map-export-file"
 import { export_file } from "src/lib/zod/export_file"
 import { withWinterSpec } from "src/with-winter-spec"
@@ -8,25 +9,21 @@ export default withWinterSpec({
   jsonBody: z.object({
     export_request_id: z.number().int(),
     file_name: z.string(),
-    file_content_base64: z.string().transform((a) => Buffer.from(a, "base64")),
+    file_content_base64: z.string(),
   }),
   jsonResponse: z.object({
-    export_file,
+    export_file: ExportFileSchema.omit({ file_content_base64: true }),
   }),
   auth: "none",
 })(async (req, ctx) => {
-  const db_export_file = await ctx.db
-    .insertInto("export_file")
-    .values({
-      export_request_id: req.jsonBody.export_request_id,
-      file_name: req.jsonBody.file_name,
-      file_content: req.jsonBody.file_content_base64,
-      created_at: new Date().toISOString(),
-    })
-    .returningAll()
-    .executeTakeFirstOrThrow()
+  const export_file = await ctx.db.put("export_file", {
+    export_request_id: req.jsonBody.export_request_id,
+    file_name: req.jsonBody.file_name,
+    file_content_base64: req.jsonBody.file_content_base64,
+    created_at: new Date().toISOString(),
+  })
 
   return ctx.json({
-    export_file: publicMapExportFile(db_export_file),
+    export_file,
   })
 })

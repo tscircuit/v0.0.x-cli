@@ -41,8 +41,7 @@ export const ExportRequestSchema = z.object({
 export const ExportFileSchema = z.object({
   export_file_id: id(),
   file_name: nullableText(),
-  file_content: z.instanceof(Buffer).nullable(), // For BLOB type
-  is_complete: z.boolean(),
+  file_content_base64: z.string().nullable(),
   export_request_id: z.number().int().nullable(),
   created_at: nullableText(),
 })
