@@ -2,6 +2,7 @@
 // import { WinterSpecRouteMap } from "@winterspec/types"
 
 const routeMap = {
+  "/api/db/download": (await import('routes/api/db/download.ts')).default,
   "/api/dev_package_examples/create": (await import('routes/api/dev_package_examples/create.ts')).default,
   "/api/dev_package_examples/get": (await import('routes/api/dev_package_examples/get.ts')).default,
   "/api/dev_package_examples/list": (await import('routes/api/dev_package_examples/list.ts')).default,
@@ -14,7 +15,10 @@ const routeMap = {
   "/api/export_requests/list": (await import('routes/api/export_requests/list.ts')).default,
   "/api/export_requests/update": (await import('routes/api/export_requests/update.ts')).default,
   "/api/health": (await import('routes/api/health.ts')).default,
-  "/health": (await import('routes/health.ts')).default
+  "/api/package_info/create": (await import('routes/api/package_info/create.ts')).default,
+  "/api/package_info/get": (await import('routes/api/package_info/get.ts')).default,
+  "/health": (await import('routes/health.ts')).default,
+  "/": (await import('routes/index.ts')).default
 }
 
 export default routeMap

@@ -26,30 +26,21 @@ export default withWinterSpec({
         .datetime()
         .nullable()
         .default(null),
-      last_updated_at: z.string().datetime(),
+      last_updated_at: z.string().datetime().nullable(),
     }),
   }),
   auth: "none",
 })(async (req, ctx) => {
+  const dev_package_example = await ctx.db.get(
+    "dev_package_example",
+    req.commonParams.dev_package_example_id
+  )
+
+  if (!dev_package_example) {
+    throw new NotFoundError("Package not found")
+  }
+
   return ctx.json({
-    dev_package_example: await ctx.db
-      .selectFrom("dev_package_example")
-      .selectAll()
-      .where(
-        "dev_package_example_id",
-        "=",
-        req.commonParams.dev_package_example_id
-      )
-      .executeTakeFirstOrThrow((e) => {
-        throw new NotFoundError("Package not found")
-      })
-      .then((r) => ({
-        ...r,
-        is_loading: r.is_loading === 1,
-        tscircuit_soup: JSON.parse(r.tscircuit_soup),
-        completed_edit_events: r.completed_edit_events
-          ? JSON.parse(r.completed_edit_events)
-          : null,
-      })),
+    dev_package_example,
   })
 })

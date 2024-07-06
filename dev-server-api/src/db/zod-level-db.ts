@@ -20,7 +20,7 @@ export class ZodLevelDatabase {
 
   async get<K extends keyof DBSchemaType>(
     collection: K,
-    id: string
+    id: string | number
   ): Promise<DBSchemaType[K] | null> {
     const key = `${collection}:${id}`
     const data = await this.db.get(key)

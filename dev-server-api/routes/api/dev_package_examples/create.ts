@@ -1,5 +1,4 @@
 import { withWinterSpec } from "src/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 
 export default withWinterSpec({
@@ -23,8 +22,6 @@ export default withWinterSpec({
   auth: "none",
 })(async (req, ctx) => {
   const tscircuit_soup = req.jsonBody.tscircuit_soup
-    ? JSON.stringify(req.jsonBody.tscircuit_soup)
-    : undefined
 
   const existingDevPackageExample = await ctx.db.find("dev_package_example", {
     file_path: req.jsonBody.file_path,
