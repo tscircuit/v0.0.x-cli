@@ -1,6 +1,7 @@
 import { afterEach } from "bun:test"
 import defaultAxios from "redaxios"
 import { startServer } from "./start-server"
+import { tmpdir } from "node:os"
 
 interface TestFixture {
   url: string
@@ -9,6 +10,7 @@ interface TestFixture {
 }
 
 export const getTestFixture = async (): Promise<TestFixture> => {
+  process.env.TSCI_DEV_SERVER_DB = tmpdir() + "/devdb.json"
   const port = 3001 + Math.floor(Math.random() * 999)
   const server = startServer({ port })
   const url = `http://localhost:${port}`

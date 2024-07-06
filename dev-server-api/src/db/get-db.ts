@@ -54,12 +54,13 @@ export type DbClient = Kysely<KyselyDatabaseSchema>
 let globalDb: Kysely<KyselyDatabaseSchema> | undefined
 
 export const getDbFilePath = () =>
-  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/dev-server.sqlite"
+  process.env.TSCI_DEV_SERVER_DB ?? "./.tscircuit/devdb.json"
 
 export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
   if (globalDb) return globalDb
 
   const devServerDbPath = getDbFilePath()
+  // console.log(`Using dev server db at ${devServerDbPath}`)
 
   mkdirSync(Path.dirname(devServerDbPath), { recursive: true })
 
@@ -77,7 +78,7 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
           create: true,
         }),
       })
-    } catch (e) { }
+    } catch (e) {}
   }
 
   if (!dialect) {
@@ -87,7 +88,7 @@ export const getDb = async (): Promise<Kysely<KyselyDatabaseSchema>> => {
       dialect = new SqliteDialect({
         database: new BetterSqlite3.default(devServerDbPath),
       })
-    } catch (e) { }
+    } catch (e) {}
   }
 
   if (!dialect) {
