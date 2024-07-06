@@ -117,4 +117,26 @@ export class ZodLevelDatabase {
     }
     return dump
   }
+
+  async list<K extends keyof DBSchemaType>(
+    collection: K
+  ): Promise<DBSchemaType[K][]> {
+    const schema = DBSchema.shape[collection]
+    const results: DBSchemaType[K][] = []
+
+    for await (const [key, value] of this.db.iterator({
+      gte: `${collection}:`,
+      lte: `${collection}:\uffff`,
+    })) {
+      if (key.endsWith(":count")) continue
+      try {
+        const parsedValue = schema.parse(JSON.parse(value))
+        results.push(parsedValue as DBSchemaType[K])
+      } catch (error) {
+        console.error(`Error parsing value for key ${key}:`, error)
+      }
+    }
+
+    return results
+  }
 }
