@@ -16,7 +16,7 @@ export const DevPackageExampleSchema = z.object({
   file_path: z.string(),
   export_name: nullableText(),
   tscircuit_soup: z.any().nullable(), // Using any for JSON type
-  completed_edit_events: z.array(z.any()).nullable().default([]), // Using any for JSON type
+  completed_edit_events: z.array(z.any()).default([]), // Using any for JSON type
   error: nullableText(),
   is_loading: z.boolean(),
   soup_last_updated_at: nullableText(),

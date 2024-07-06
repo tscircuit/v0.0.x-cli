@@ -12,7 +12,7 @@ export default withWinterSpec({
       dev_package_example_id: z.coerce.number(),
       file_path: z.string(),
       tscircuit_soup: z.any(),
-      completed_edit_events: z.array(z.any()).nullable().default(null),
+      completed_edit_events: z.array(z.any()).default([]),
       is_loading: z.boolean(),
       error: z.string().nullable().optional().default(null),
       soup_last_updated_at: z.string().datetime().nullable().default(null),
