@@ -1,5 +1,5 @@
 import $ from "dax-sh"
-import fs from 'fs'
+import fs from "fs"
 import { unlink } from "fs/promises"
 import kleur from "kleur"
 import open from "open"
@@ -58,7 +58,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   // TODO
 
   // Delete old .tscircuit/dev-server.sqlite
-  unlink(Path.join(cwd, ".tscircuit/dev-server.sqlite")).catch(() => { })
+  // unlink(Path.join(cwd, ".tscircuit/dev-server.sqlite")).catch(() => { })
 
   console.log(
     kleur.green(
@@ -71,20 +71,23 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   const server = await startDevServer({ port, devServerAxios })
 
   // Reset the database, allows migration to re-run
-  await devServerAxios.post("/api/dev_server/reset")
-    .catch(e => {
-      console.log("Failed to reset database, continuing anyway...")
-    })
+  await devServerAxios.post("/api/dev_server/reset").catch((e) => {
+    console.log("Failed to reset database, continuing anyway...")
+  })
 
   // Add package name to the package_info table
-  const packageJsonPath = Path.resolve(cwd, 'package.json')
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+  const packageJsonPath = Path.resolve(cwd, "package.json")
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"))
   const packageName = packageJson.name
 
   console.log(`Adding package info...`)
-  await devServerAxios.post("/api/package_info/create", {
-    package_name: packageName
-  }, ctx)
+  await devServerAxios.post(
+    "/api/package_info/create",
+    {
+      package_name: packageName,
+    },
+    ctx
+  )
 
   // Soupify all examples
   console.log(`Loading examples...`)

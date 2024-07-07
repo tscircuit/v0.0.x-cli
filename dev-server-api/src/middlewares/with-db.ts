@@ -11,8 +11,8 @@ export const withDb: Middleware<
   if (!ctx.db) {
     ctx.db = await getDb()
   }
-  await ctx.db.open()
+  // await ctx.db.open()
   const res = await next(req, ctx)
-  await ctx.db.close()
+  // await ctx.db.close()
   return res
 }
