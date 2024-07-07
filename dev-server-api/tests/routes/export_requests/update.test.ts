@@ -27,7 +27,6 @@ it("POST /api/export_requests/update", async () => {
   expect(updateRes.data.export_request.has_error).toBe(false)
 
   // // Verify the update
-  console.log({ exportRequestId })
   const getRes = await axios.post(`/api/export_requests/get`, {
     export_request_id: exportRequestId,
   })
