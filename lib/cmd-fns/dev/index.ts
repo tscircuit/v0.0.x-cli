@@ -16,6 +16,13 @@ import { startEditEventWatcher } from "./start-edit-event-watcher"
 import { startExportRequestWatcher } from "./start-export-request-watcher"
 import { startFsWatcher } from "./start-fs-watcher"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
+import { PostHog } from "posthog-node"
+import crypto from 'crypto'
+
+const posthog = new PostHog(
+  'your_posthog_api_key_here',
+  { host: 'https://us.i.posthog.com' }
+)
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -26,6 +33,16 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   const { port } = params
   const { cwd } = ctx
+
+  const projectHash = crypto.createHash('md5').update(cwd).digest('hex')
+
+  posthog.capture({
+    distinctId: projectHash,
+    event: 'tsci_dev_started',
+    properties: {
+      port: port,
+    }
+  })
 
   // In the future we should automatically run "tsci init" if the directory
   // isn't properly initialized, for now we're just going to do a spot check
@@ -117,14 +134,30 @@ export const devCmd = async (ctx: AppContext, args: any) => {
     })
     if (action === "open-in-browser") {
       open(serverUrl)
+      posthog.capture({
+        distinctId: projectHash,
+        event: 'tsci_dev_open_browser'
+      })
     } else if (action === "open-in-vs-code") {
       await $`code ${cwd}`
+      posthog.capture({
+        distinctId: projectHash,
+        event: 'tsci_dev_open_vscode'
+      })
     } else if (!action || action === "stop") {
       if (server.stop) server.stop()
       if (server.close) server.close()
       fs_watcher.stop()
       er_watcher.stop()
       ee_watcher.stop()
+      
+      posthog.capture({
+        distinctId: projectHash,
+        event: 'tsci_dev_stopped'
+      })
+      
+      await posthog.shutdown()
+      
       break
     }
   }
