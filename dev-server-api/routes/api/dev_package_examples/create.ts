@@ -1,5 +1,4 @@
 import { withWinterSpec } from "src/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 
 export default withWinterSpec({
@@ -17,35 +16,26 @@ export default withWinterSpec({
       file_path: z.string(),
       tscircuit_soup: z.any(),
       error: z.string().nullable().optional(),
-      last_updated_at: z.string().datetime(),
+      last_updated_at: z.string().datetime().nullable(), // TODO remove nullable
     }),
   }),
   auth: "none",
 })(async (req, ctx) => {
   const tscircuit_soup = req.jsonBody.tscircuit_soup
-    ? JSON.stringify(req.jsonBody.tscircuit_soup)
-    : undefined
-  const dev_package_example = await ctx.db
-    .insertInto("dev_package_example")
-    .values({
-      file_path: req.jsonBody.file_path,
-      export_name: req.jsonBody.export_name,
-      error: req.jsonBody.error,
-      tscircuit_soup,
-      is_loading: req.jsonBody.is_loading ? 1 : 0,
-      last_updated_at: new Date().toISOString(),
-    })
-    .onConflict((oc) =>
-      oc.columns(["file_path"]).doUpdateSet({
-        export_name: req.jsonBody.export_name,
-        error: req.jsonBody.error,
-        tscircuit_soup,
-        is_loading: req.jsonBody.is_loading ? 1 : 0,
-        last_updated_at: new Date().toISOString(),
-      })
-    )
-    .returningAll()
-    .executeTakeFirstOrThrow()
+
+  const existingDevPackageExample = await ctx.db.find("dev_package_example", {
+    file_path: req.jsonBody.file_path,
+  })
+
+  const dev_package_example = await ctx.db.put("dev_package_example", {
+    dev_package_example_id: existingDevPackageExample?.dev_package_example_id,
+    file_path: req.jsonBody.file_path,
+    export_name: req.jsonBody.export_name,
+    error: req.jsonBody.error,
+    tscircuit_soup,
+    is_loading: Boolean(req.jsonBody.is_loading),
+    last_updated_at: new Date().toISOString(),
+  })
 
   return ctx.json({
     dev_package_example,

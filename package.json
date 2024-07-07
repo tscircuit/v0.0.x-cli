@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.114",
+  "version": "0.0.120",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
@@ -9,16 +9,16 @@
     "bootstrap": "bun i && cd dev-server-api && bun i && cd ../dev-server-frontend && bun i",
     "bootstrap:ci": "bun i --frozen-lockfile && cd dev-server-api && bun i --frozen-lockfile && cd ../dev-server-frontend && bun i --frozen-lockfile",
     "start": "bun cli.ts",
-    "dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/dev-server.sqlite concurrently 'cd dev-server-api && bun run build && bun start' 'cd dev-server-frontend && bun start' 'bun run dev-with-test-project'",
+    "dev": "TSCI_DEV_SERVER_DB=$(pwd)/.tscircuit/devdb concurrently 'cd dev-server-api && bun run build && bun start' 'cd dev-server-frontend && bun start' 'bun run dev-with-test-project'",
     "clear": "rm -rf .tscircuit ./dev-server-api/.edgespec",
-    "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./tests/assets/example-project",
+    "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./example-project",
     "build:dev-server": "cd dev-server-api && bun run build && cd ../dev-server-frontend && bun run build",
     "build:dev-server:api": "cd dev-server-api && bun run build",
     "build:cli": "bun build-cli.ts",
     "build": "bun build:dev-server && npm run build:cli",
-    "dev-with-test-project": "bun cli.ts dev --cwd ./tests/assets/example-project",
+    "dev-with-test-project": "bun cli.ts dev --cwd ./example-project",
     "test:init": "bun cli.ts init --dir ./tmp/test --name test",
-    "update-deps": "bun add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && bun run update-deps && cd ../tests/assets/example-project && bun run update-deps"
+    "update-deps": "bun add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && bun run update-deps && cd ../example-project && bun run update-deps"
   },
   "bin": {
     "tsci": "./dist/cli.js"
@@ -37,7 +37,6 @@
     "@hono/node-server": "^1.8.2",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
-    "better-sqlite3": "^11.1.2",
     "chokidar": "^3.6.0",
     "commander": "^12.0.0",
     "configstore": "^6.0.0",
@@ -53,7 +52,7 @@
     "ignore": "^5.3.1",
     "json5": "^2.2.3",
     "kleur": "^4.1.5",
-    "kysely-bun-sqlite": "^0.3.2",
+    "level": "^8.0.1",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
     "minimist": "^1.2.8",

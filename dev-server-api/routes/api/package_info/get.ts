@@ -1,18 +1,15 @@
-import { export_package_info } from "src/lib/zod/export_package_info"
+import { PackageInfoSchema } from "src/db/schema"
 import { withWinterSpec } from "src/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({
   methods: ["GET"],
   jsonResponse: z.object({
-    package_info: export_package_info
+    package_info: PackageInfoSchema,
   }),
   auth: "none",
 })(async (req, ctx) => {
-  const package_info = await ctx.db
-    .selectFrom("package_info")
-    .select("name")
-    .executeTakeFirstOrThrow()
+  const package_info = await ctx.db.get("package_info", 1)
 
-  return ctx.json({  package_info  })
+  return ctx.json({ package_info: package_info! })
 })
