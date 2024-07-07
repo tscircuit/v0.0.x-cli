@@ -1,9 +1,8 @@
 import { withWinterSpec } from "src/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
-import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
 import { export_parameters } from "../../../src/lib/zod/export_parameters"
+import { ExportRequestSchema } from "src/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],
@@ -13,23 +12,20 @@ export default withWinterSpec({
     export_parameters: export_parameters,
   }),
   jsonResponse: z.object({
-    export_request,
+    export_request: ExportRequestSchema,
   }),
   auth: "none",
 })(async (req, ctx) => {
-  const db_export_request = await ctx.db
-    .insertInto("export_request")
-    .values({
-      example_file_path: req.jsonBody.example_file_path,
-      export_parameters: JSON.stringify(req.jsonBody.export_parameters),
-      export_name: req.jsonBody.export_name ?? "default",
-      is_complete: 0,
-      created_at: new Date().toISOString(),
-    })
-    .returningAll()
-    .executeTakeFirstOrThrow()
+  const export_request = await ctx.db.put("export_request", {
+    example_file_path: req.jsonBody.example_file_path,
+    export_parameters: req.jsonBody.export_parameters,
+    export_name: req.jsonBody.export_name ?? "default",
+    is_complete: false,
+    has_error: false,
+    created_at: new Date().toISOString(),
+  })
 
   return ctx.json({
-    export_request: publicMapExportRequest(db_export_request),
+    export_request,
   })
 })

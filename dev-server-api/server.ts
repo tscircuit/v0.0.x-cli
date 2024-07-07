@@ -6,7 +6,7 @@ const serverFetch = await createFetchHandlerFromDir(
   join(import.meta.dir, "./routes")
 )
 
-console.log("starting dev-server-api on localhost:3021")
+console.log("starting dev-server-api on http://localhost:3021")
 Bun.serve({
   fetch: (bunReq) => {
     const req = new EdgeRuntimeRequest(bunReq.url, {

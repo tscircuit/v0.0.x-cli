@@ -3,7 +3,7 @@ import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
-import { export_parameters } from "src/lib/zod/export_parameters"
+import { ExportRequestSchema } from "src/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],
@@ -13,24 +13,24 @@ export default withWinterSpec({
     has_error: z.boolean().optional(),
     error: z.string().optional(),
   }),
-  jsonResponse: z.object({}),
+  jsonResponse: z.object({
+    export_request: ExportRequestSchema,
+  }),
   auth: "none",
 })(async (req, ctx) => {
-  await ctx.db
-    .updateTable("export_request")
-    .$if(req.jsonBody.is_complete !== undefined, (qb) =>
-      qb.set({
-        is_complete: req.jsonBody.is_complete ? 1 : 0,
-      })
-    )
-    .$if(req.jsonBody.has_error !== undefined, (qb) =>
-      qb.set({
-        has_error: req.jsonBody.has_error ? 1 : 0,
-        error: req.jsonBody.error,
-      })
-    )
-    .where("export_request_id", "=", req.jsonBody.export_request_id)
-    .execute()
+  const { export_request_id, ...updateData } = req.jsonBody
+  const existingRequest = await ctx.db.get("export_request", export_request_id)
 
-  return ctx.json({})
+  if (!existingRequest) {
+    throw new NotFoundError("Export request not found")
+  }
+
+  const updatedRequest = await ctx.db.put("export_request", {
+    ...existingRequest,
+    ...updateData,
+  })
+
+  return ctx.json({
+    export_request: updatedRequest,
+  })
 })
