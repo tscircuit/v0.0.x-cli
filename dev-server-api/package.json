@@ -7,7 +7,6 @@
     "build": "winterspec bundle-routes -i ./routes -o static-routes.ts"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.9",
     "@types/bun": "latest",
     "@types/sql.js": "^1.4.9",
     "make-vfs": "^1.0.10"
