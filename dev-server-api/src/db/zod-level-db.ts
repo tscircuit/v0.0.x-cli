@@ -1,13 +1,15 @@
-import { Level } from "level"
+// import { Level } from "level"
+// import { GenericJsonLevel } from "./generic-json-level"
+import { MemoryLevel } from "memory-level"
 import { z } from "zod"
 import { DBSchema, type DBSchemaType, type DBInputSchemaType } from "./schema"
 
 // Create a wrapper class for Level with Zod validation
 export class ZodLevelDatabase {
-  private db: Level<string, any>
+  private db: MemoryLevel<string, any>
 
   constructor(location: string) {
-    this.db = new Level(location)
+    this.db = new MemoryLevel() // new GenericJsonLevel(location)
   }
 
   async open() {
@@ -35,11 +37,10 @@ export class ZodLevelDatabase {
     const valueLoose: any = value
     if (!valueLoose[idkey]) {
       // generate an id using the "count" key
-      let count = await this.db
-        .get(`${collection}.count`, { valueEncoding: "json" })
-        .catch(() => 1)
+      let count = await this.db.get(`${collection}.count`).catch(() => 1)
+      if (typeof count === "string") count = parseInt(count)
       ;(value as any)[idkey] = count
-      await this.db.put(`${collection}.count`, count + 1)
+      await this.db.put(`${collection}.count`, (count + 1).toString())
     }
     const key = `${collection}:${valueLoose[idkey]}`
     const validatedData = DBSchema.shape[collection].parse(value)
