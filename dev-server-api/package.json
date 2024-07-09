@@ -15,7 +15,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "level": "^8.0.1",
+    "memory-level": "^1.0.0",
     "redaxios": "^0.5.1",
     "winterspec": "0.0.81",
     "zod": "^3.22.4"

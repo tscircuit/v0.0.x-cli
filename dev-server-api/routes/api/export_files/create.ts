@@ -16,12 +16,14 @@ export default withWinterSpec({
   }),
   auth: "none",
 })(async (req, ctx) => {
+  console.log("putting file")
   const export_file = await ctx.db.put("export_file", {
     export_request_id: req.jsonBody.export_request_id,
     file_name: req.jsonBody.file_name,
     file_content_base64: req.jsonBody.file_content_base64,
     created_at: new Date().toISOString(),
   })
+  console.log("done putting file")
 
   return ctx.json({
     export_file,
