@@ -47,7 +47,7 @@
     "edgespec": "^0.0.69",
     "esbuild": "^0.20.2",
     "fast-glob": "^3.3.2",
-    "glob": "^10.3.10",
+    "glob": "^10.4.5",
     "hono": "^4.1.0",
     "ignore": "^5.3.1",
     "json5": "^2.2.3",
@@ -70,9 +70,9 @@
   "peerDependencies": {
     "@tscircuit/builder": "*",
     "@tscircuit/layout": "*",
+    "@tscircuit/manual-edit-events": "*",
     "@tscircuit/react-fiber": "*",
-    "@tscircuit/soup-util": "*",
-    "@tscircuit/manual-edit-events": "*"
+    "@tscircuit/soup-util": "*"
   },
   "devDependencies": {
     "@tscircuit/builder": "*",
