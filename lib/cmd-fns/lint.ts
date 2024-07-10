@@ -1,7 +1,7 @@
 import { AppContext } from "lib/util/app-context"
 import { z } from "zod"
 import kleur from "kleur"
-import { lintProject } from "../util/tscircuitLinter"
+import { lintProject } from "../util/lint-project"
 
 export const lintCmd = async (ctx: AppContext, args: any) => {
   const params = z
