@@ -45,6 +45,12 @@ export const getProgram = (ctx: AppContext) => {
     .argument("<packages...>", "Packages to remove")
     .action((packages, flags) => CMDFN.remove(ctx, { packages, flags }))
 
+    cmd
+    .command("lint")
+    .description("Lint all TypeScript files in the project")
+    .option("--fix", "Automatically fix problems")
+    .action((args) => CMDFN.lint(ctx, args))
+
   const authCmd = cmd.command("auth").description("Login/logout")
   authCmd
     .command("login")
