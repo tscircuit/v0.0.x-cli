@@ -59,6 +59,7 @@
     "node-persist": "^4.0.1",
     "open": "^10.1.0",
     "perfect-cli": "^1.0.20",
+    "posthog-node": "^4.0.1",
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "semver": "^7.6.0",
@@ -77,9 +78,9 @@
   "devDependencies": {
     "@tscircuit/builder": "*",
     "@tscircuit/layout": "^0.0.24",
+    "@tscircuit/manual-edit-events": "^0.0.4",
     "@tscircuit/react-fiber": "*",
     "@tscircuit/soup-util": "^0.0.11",
-    "@tscircuit/manual-edit-events": "^0.0.4",
     "@types/archiver": "^6.0.2",
     "@types/bun": "^1.0.8",
     "@types/chokidar": "^2.1.3",
