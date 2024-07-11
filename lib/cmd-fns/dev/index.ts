@@ -19,7 +19,7 @@ import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import { PostHog } from "posthog-node"
 import crypto from 'crypto'
 
-declare const POSTHOG_API_KEY: string;
+const POSTHOG_API_KEY: string = process.env.POSTHOG_API_KEY || '';
 
 const posthog = new PostHog(
   POSTHOG_API_KEY,
