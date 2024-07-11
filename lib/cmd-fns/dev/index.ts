@@ -16,15 +16,8 @@ import { startEditEventWatcher } from "./start-edit-event-watcher"
 import { startExportRequestWatcher } from "./start-export-request-watcher"
 import { startFsWatcher } from "./start-fs-watcher"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
-import { PostHog } from "posthog-node"
+import posthog from "lib/posthog"
 import crypto from 'crypto'
-
-const POSTHOG_API_KEY: string = process.env.POSTHOG_API_KEY || '';
-
-const posthog = new PostHog(
-  POSTHOG_API_KEY,
-  { host: 'https://us.i.posthog.com' }
-)
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -161,7 +154,9 @@ export const devCmd = async (ctx: AppContext, args: any) => {
         event: 'tsci_dev_stopped'
       })
       
-      await posthog.shutdown()
+      if (posthog.shutdown) {
+        await posthog.shutdown()
+      }
       
       break
     }
