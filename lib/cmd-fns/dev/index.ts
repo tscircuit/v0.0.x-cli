@@ -18,6 +18,7 @@ import { startFsWatcher } from "./start-fs-watcher"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import posthog from "lib/posthog"
 import crypto from 'crypto'
+import { findAvailablePort } from "./find-available-port"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -26,8 +27,11 @@ export const devCmd = async (ctx: AppContext, args: any) => {
     })
     .parse(args)
 
-  const { port } = params
+  let { port } = params
   const { cwd } = ctx
+
+  // Find an available port
+  port = await findAvailablePort(port)
 
   const projectHash = crypto.createHash('md5').update(cwd).digest('hex')
 
