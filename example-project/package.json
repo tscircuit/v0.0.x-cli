@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@tscircuit/builder": "^1.5.134",
-    "@tscircuit/layout": "^0.0.24",
+    "@tscircuit/layout": "^0.0.25",
     "@tscircuit/react-fiber": "^1.1.29"
   }
 }
