@@ -104,7 +104,7 @@ export const initCmd = async (ctx: AppContext, args: any) => {
   writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
 
   console.log(`Adding ".tscircuit" to .gitignore`)
-  appendFileSync(".gitignore", "\n.tscircuit\n*.__tmp_entrypoint.tsx\ndist", {
+  appendFileSync(".gitignore", "\n.tscircuit\n*.__tmp_entrypoint.tsx\ndist\nnode_modules\n", {
     encoding: "utf-8",
     flag: "a+",
   })
