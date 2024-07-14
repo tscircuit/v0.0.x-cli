@@ -1,8 +1,8 @@
-import { AppContext } from "../util/app-context"
-import { z } from "zod"
-import { getDevServerAxios } from "./dev/get-dev-server-axios"
 import kleur from "kleur"
+import { z } from "zod"
+import { AppContext } from "../util/app-context"
 import { fulfillExportRequests } from "./dev/fulfill-export-requests"
+import { getDevServerAxios } from "./dev/get-dev-server-axios"
 
 export const devServerFulfillExportRequests = async (
   ctx: AppContext,
@@ -10,7 +10,7 @@ export const devServerFulfillExportRequests = async (
 ) => {
   const params = z.object({}).parse(args)
 
-  let server_url = `http://localhost:3020`
+  let server_url = `http://127.0.0.1:3020`
   let dev_server_axios = getDevServerAxios({ serverUrl: server_url })
 
   const checkHealth = () =>
@@ -24,7 +24,7 @@ export const devServerFulfillExportRequests = async (
   if (!is_dev_server_healthy) {
     // attempt to use development-mode port, e.g. if someone ran
     // npm run start:dev-server:dev
-    const devModeServerUrl = "http://localhost:3021"
+    const devModeServerUrl = "http://127.0.0.1:3021"
     dev_server_axios = getDevServerAxios({ serverUrl: devModeServerUrl })
     is_dev_server_healthy = await checkHealth()
     if (is_dev_server_healthy) server_url = devModeServerUrl

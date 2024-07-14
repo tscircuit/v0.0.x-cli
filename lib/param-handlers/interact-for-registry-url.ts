@@ -1,4 +1,3 @@
-import { interactForPackageReleaseId } from "./interact-for-package-release-id"
 import { ParamHandler } from "./param-handler-type"
 
 export const interactForRegistryUrl: ParamHandler = async (params) => {
@@ -10,7 +9,7 @@ export const interactForRegistryUrl: ParamHandler = async (params) => {
     message: "Select a package example",
     choices: [
       "https://registry-api.tscircuit.com",
-      "http://localhost:3100",
+      "http://127.0.0.1:3100",
       "other",
     ].map((a) => ({ title: a, value: a })),
   })

@@ -45,7 +45,7 @@ Run `bun bootstrap` to install dependencies and `bun cli.ts` to run test the cli
 
 To run tests, run `bun test`
 
-If you want to test developing, run `bun dev` and visit http://localhost:5173. The project being
+If you want to test developing, run `bun dev` and visit http://127.0.0.1:5173. The project being
 loaded is inside `example-project`
 
 ![image](https://github.com/tscircuit/cli/assets/1910070/cabb180d-a64f-4fe5-a6af-26f990af39b3)
