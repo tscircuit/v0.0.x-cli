@@ -1,15 +1,11 @@
-import { AppContext } from "../util/app-context"
-import { z } from "zod"
-import { getDevServerAxios } from "./dev/get-dev-server-axios"
 import kleur from "kleur"
+import { AppContext } from "../util/app-context"
 import { fulfillExportRequests } from "./dev/fulfill-export-requests"
+import { getDevServerAxios } from "./dev/get-dev-server-axios"
 
 export const devServerFulfillExportRequests = async (
   ctx: AppContext,
-  args: any
 ) => {
-  const params = z.object({}).parse(args)
-
   let server_url = `http://localhost:3020`
   let dev_server_axios = getDevServerAxios({ serverUrl: server_url })
 

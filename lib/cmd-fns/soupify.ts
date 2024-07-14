@@ -11,6 +11,7 @@ export const soupifyCmd = async (ctx: AppContext, args: any) => {
       file: z.string(),
       export: z.string().optional(),
       output: z.string().optional(),
+      no_cleanup: z.boolean().optional().default(true),
     })
     .parse(args)
 
@@ -18,6 +19,7 @@ export const soupifyCmd = async (ctx: AppContext, args: any) => {
     {
       filePath: params.file,
       exportName: params.export,
+      no_cleanup: params.no_cleanup,
     },
     ctx
   )

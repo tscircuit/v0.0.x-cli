@@ -11,6 +11,7 @@ export const exportBomCsvToBuffer = async (
   ctx: AppContext
 ) => {
   console.log(kleur.gray("[soupifying]..."))
+
   const soup = await soupify(
     {
       filePath: params.example_file_path,

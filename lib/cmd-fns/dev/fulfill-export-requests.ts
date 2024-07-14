@@ -1,11 +1,11 @@
-import { AppContext } from "../../util/app-context"
-import kleur from "kleur"
-import { exportGerbersToZipBuffer } from "lib/export-fns/export-gerbers"
-import { AxiosInstance } from "axios"
 import { ExportRequest } from "@server/lib/zod/export_request"
-import { exportPnpCsvToBuffer } from "lib/export-fns/export-pnp-csv"
+import { AxiosInstance } from "axios"
+import kleur from "kleur"
 import { exportBomCsvToBuffer } from "lib/export-fns/export-bom-csv"
+import { exportGerbersToZipBuffer } from "lib/export-fns/export-gerbers"
+import { exportPnpCsvToBuffer } from "lib/export-fns/export-pnp-csv"
 import { soupify } from "lib/soupify"
+import { AppContext } from "../../util/app-context"
 
 export const uploadBufferToExportFile = async ({
   dev_server_axios,
@@ -47,6 +47,8 @@ export const fulfillExportRequests = async (
       is_complete: false,
     })
     .then((r) => r.data.export_requests)
+
+  const no_cleanup = ctx.args.no_cleanup
 
   for (const export_request of export_requests) {
     console.log(
@@ -99,12 +101,13 @@ export const fulfillExportRequests = async (
         {
           example_file_path: export_request.example_file_path,
           export_name: export_request.export_name,
+          no_cleanup,
         },
         ctx
       )
-    
+
       const pnpFileName = `${export_request.export_name}-${export_request.export_parameters.pnp_csv_file_name!}`
-    
+
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,
@@ -122,9 +125,9 @@ export const fulfillExportRequests = async (
         },
         ctx
       )
-    
+
       const bomFileName = `${export_request.export_name}-${export_request.export_parameters.bom_csv_file_name!}`
-    
+
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,

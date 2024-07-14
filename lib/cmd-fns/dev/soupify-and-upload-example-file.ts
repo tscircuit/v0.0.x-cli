@@ -15,7 +15,10 @@ export const soupifyAndUploadExampleFile = async (
     exampleFileName: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: {
+    runtime: "node" | "bun",
+    args: { no_cleanup: boolean }
+  }
 ) => {
   try {
     const startTime = Date.now()

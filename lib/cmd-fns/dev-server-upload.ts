@@ -1,10 +1,9 @@
-import { AppContext } from "../util/app-context"
-import { z } from "zod"
-import { getDevServerAxios } from "./dev/get-dev-server-axios"
-import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
-import { startFsWatcher } from "./dev/start-fs-watcher"
 import kleur from "kleur"
-import { AxiosInstance } from "axios"
+import { z } from "zod"
+import { AppContext } from "../util/app-context"
+import { getDevServerAxios } from "./dev/get-dev-server-axios"
+import { startFsWatcher } from "./dev/start-fs-watcher"
+import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
 
 export const devServerUpload = async (ctx: AppContext, args: any) => {
   const params = z
@@ -12,8 +11,11 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
       dir: z.string().optional().default(ctx.cwd),
       port: z.coerce.number().optional().nullable().default(null),
       watch: z.boolean().optional().default(false),
+      no_cleanup: z.boolean().optional().default(true),
     })
     .parse(args)
+
+  ctx.args.no_cleanup = params.no_cleanup
 
   let serverUrl = `http://localhost:${params.port ?? 3020}`
   let devServerAxios = getDevServerAxios({ serverUrl })

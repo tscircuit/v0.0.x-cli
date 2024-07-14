@@ -1,18 +1,17 @@
-import kleur from "kleur"
-import { z } from "zod"
-import { AppContext } from "../../util/app-context"
-import * as Path from "path"
-import * as fs from "fs/promises"
-import { existsSync, readFileSync } from "fs"
-import { getAllPackageFiles } from "lib/util/get-all-package-files"
-import prompts from "prompts"
-import { getGeneratedReadme } from "../init/get-generated-readme"
-import { soupify } from "../../soupify"
-import { inferExportNameFromSource } from "../dev/infer-export-name-from-source"
 import $ from "dax-sh"
-import semver from "semver"
+import { existsSync, readFileSync } from "fs"
+import * as fs from "fs/promises"
 import { unlink } from "fs/promises"
-import esbuild from "esbuild"
+import kleur from "kleur"
+import { getAllPackageFiles } from "lib/util/get-all-package-files"
+import * as Path from "path"
+import prompts from "prompts"
+import semver from "semver"
+import { z } from "zod"
+import { soupify } from "../../soupify"
+import { AppContext } from "../../util/app-context"
+import { inferExportNameFromSource } from "../dev/infer-export-name-from-source"
+import { getGeneratedReadme } from "../init/get-generated-readme"
 
 export const publish = async (ctx: AppContext, args: any) => {
   const params = z
@@ -20,6 +19,7 @@ export const publish = async (ctx: AppContext, args: any) => {
       increment: z.boolean().optional(),
       patch: z.boolean().optional(),
       lock: z.boolean().optional(),
+      no_cleanup: z.boolean().optional().default(true),
     })
     .parse(args)
 
@@ -269,6 +269,7 @@ export const publish = async (ctx: AppContext, args: any) => {
       {
         filePath,
         exportName,
+        no_cleanup: params.no_cleanup,
       },
       ctx
     ).catch((e) => e)
@@ -298,11 +299,10 @@ export const publish = async (ctx: AppContext, args: any) => {
     `${name.replace(/\//g, "-")}-${version}.tgz`
   )
   await fs.mkdir(Path.dirname(tmpTarballPath), { recursive: true })
-  const npm_pack_outputs = await $`cd ${
-    ctx.cwd
-  } && npm pack --json --pack-destination ${Path.dirname(
-    tmpTarballPath
-  )}`.json()
+  const npm_pack_outputs = await $`cd ${ctx.cwd
+    } && npm pack --json --pack-destination ${Path.dirname(
+      tmpTarballPath
+    )}`.json()
 
   if (!existsSync(tmpTarballPath)) {
     console.log(kleur.red(`Couldn't find tarball at ${tmpTarballPath}`))
@@ -319,7 +319,9 @@ export const publish = async (ctx: AppContext, args: any) => {
   })
 
   // Clean up .tscircuit/tmp
-  await unlink(tmpTarballPath)
+  if (!params.no_cleanup) {
+    await unlink(tmpTarballPath)
+  }
 
   // 8. Lock/set release to latest version
   await ctx.axios.post("/package_releases/update", {

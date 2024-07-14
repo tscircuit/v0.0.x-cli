@@ -1,21 +1,15 @@
-import { AppContext } from "../util/app-context"
-import { z } from "zod"
-import * as Path from "path"
-import { unlink } from "node:fs/promises"
-import { soupify } from "lib/soupify"
-import * as fs from "fs"
 import {
-  stringifyGerberCommandLayers,
-  convertSoupToGerberCommands,
-  convertSoupToPickAndPlaceCsv,
+  convertSoupToPickAndPlaceCsv
 } from "@tscircuit/builder"
 import kleur from "kleur"
-import archiver from "archiver"
+import { soupify } from "lib/soupify"
+import { AppContext } from "../util/app-context"
 
 export const exportPnpCsvToBuffer = async (
   params: {
     example_file_path: string
     export_name?: string
+    no_cleanup: boolean
   },
   ctx: AppContext
 ) => {
@@ -24,6 +18,7 @@ export const exportPnpCsvToBuffer = async (
     {
       filePath: params.example_file_path,
       exportName: params.export_name,
+      no_cleanup: params.no_cleanup,
     },
     ctx
   )

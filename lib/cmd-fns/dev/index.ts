@@ -24,11 +24,14 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
     .object({
       port: z.coerce.number().optional().default(3020),
+      no_cleanup: z.boolean().optional().default(true),
     })
     .parse(args)
 
-  let { port } = params
+  let { port, no_cleanup } = params
   const { cwd } = ctx
+
+  ctx.args.no_cleanup = no_cleanup
 
   // Find an available port
   port = await findAvailablePort(port)
@@ -152,16 +155,16 @@ export const devCmd = async (ctx: AppContext, args: any) => {
       fs_watcher.stop()
       er_watcher.stop()
       ee_watcher.stop()
-      
+
       posthog.capture({
         distinctId: projectHash,
         event: 'tsci_dev_stopped'
       })
-      
+
       if (posthog.shutdown) {
         await posthog.shutdown()
       }
-      
+
       break
     }
   }

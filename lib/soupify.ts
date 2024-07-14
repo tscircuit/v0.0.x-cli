@@ -16,12 +16,17 @@ export const soupify = async (
     exportName,
   }: {
     filePath: string
-    exportName?: string
+    exportName?: string,
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: {
+    runtime: "node" | "bun",
+    args: { no_cleanup: boolean }
+  }
 ) => {
   debug(`reading ${filePath}`)
   const targetFileContent = await readFile(filePath, "utf-8")
+
+  const no_cleanup = ctx.args.no_cleanup
 
   if (!exportName) {
     if (targetFileContent.includes("export default")) {
@@ -89,8 +94,10 @@ console.log(JSON.stringify(elements))
   const rawSoup = processResult.stdout.replace(/^[^\[]*/, "")
   const errText = processResult.stderr
 
-  debug(`deleting ${tmpFilePath}`)
-  await unlink(tmpFilePath)
+  if (!no_cleanup) {
+    debug(`deleting ${tmpFilePath}`)
+    await unlink(tmpFilePath)
+  }
 
   try {
     debug(`parsing result of soupify...`)

@@ -1,7 +1,6 @@
 import { Command } from "commander"
-import packageJson from "../package.json"
-import { AppContext } from "./util/app-context"
 import * as CMDFN from "lib/cmd-fns"
+import { AppContext } from "./util/app-context"
 
 export const getProgram = (ctx: AppContext) => {
   const cmd = new Command("tsci").description(
@@ -13,6 +12,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Run development server in current directory")
     .option("--cwd <cwd>", "Current working directory")
     .option("--port <port>", "Port to run dev server on")
+    .option("--no-cleanup", "Don't delete the temporary directory", true)
     .action((args) => CMDFN.dev(ctx, args))
 
   cmd
@@ -313,11 +313,13 @@ export const getProgram = (ctx: AppContext) => {
     )
     .option("-w, --watch", "Watch for changes")
     .option("-p, --port", "Port dev server is running on (default: 3020)")
+    .option("--no-cleanup", "Don't delete the temporary directory", true)
     .action((args) => CMDFN.devServerUpload(ctx, args))
 
   devServerCmd
     .command("fulfill-export-requests")
-    .action((args) => CMDFN.devServerFulfillExportRequests(ctx, args))
+    .option("--no-cleanup", "Don't delete the temporary directory", true)
+    .action(() => CMDFN.devServerFulfillExportRequests(ctx))
 
   cmd
     .command("open")

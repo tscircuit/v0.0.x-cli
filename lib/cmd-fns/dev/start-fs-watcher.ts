@@ -9,9 +9,12 @@ export const startFsWatcher = async (
     devServerAxios,
   }: {
     cwd: string
-    devServerAxios: AxiosInstance
+    devServerAxios: AxiosInstance,
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: {
+    runtime: "node" | "bun",
+    args: { no_cleanup: boolean }
+  }
 ) => {
   const watcher = chokidar.watch([`${cwd}/**/*.tsx`, `${cwd}/**/*.ts`], {
     ignored: /node_modules/,
@@ -22,6 +25,7 @@ export const startFsWatcher = async (
     dirty: false,
     should_run: true,
   }
+
   watcher.on("change", async (path) => {
     console.log(path)
     if (path.endsWith(".__tmp_entrypoint.tsx")) return

@@ -13,9 +13,12 @@ export const uploadExamplesFromDirectory = async (
     devServerAxios,
   }: {
     cwd: string
-    devServerAxios: AxiosInstance
+    devServerAxios: AxiosInstance,
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: {
+    runtime: "node" | "bun",
+    args: { no_cleanup: boolean }
+  }
 ) => {
   const examplesDir = joinPath(cwd, "examples")
   const exampleFileNames = await readdir(examplesDir).catch((e) => {
@@ -23,11 +26,13 @@ export const uploadExamplesFromDirectory = async (
     throw e
   })
 
+  const no_cleanup = ctx.args.no_cleanup
+
   // Mark all examples as being "reloaded" in the database
   await markAllExamplesLoading({ devServerAxios })
 
   for (const exampleFileName of exampleFileNames) {
-    if (exampleFileName.endsWith(".__tmp_entrypoint.tsx")) continue
+    if (exampleFileName.endsWith(".__tmp_entrypoint.tsx") && !no_cleanup) continue
     if (!exampleFileName.endsWith(".tsx")) continue
     await soupifyAndUploadExampleFile(
       {

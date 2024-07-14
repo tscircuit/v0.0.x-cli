@@ -9,6 +9,7 @@ export const packageExamplesCreate = async (ctx: AppContext, args: any) => {
       packageNameWithVersion: z.string(),
       file: z.string(),
       export: z.string().optional().default("default"),
+      no_cleanup: z.boolean().optional().default(true),
     })
     .parse(args)
 
@@ -16,6 +17,7 @@ export const packageExamplesCreate = async (ctx: AppContext, args: any) => {
     {
       filePath: params.file,
       exportName: params.export,
+      no_cleanup: params.no_cleanup,
     },
     ctx
   )
