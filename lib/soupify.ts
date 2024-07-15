@@ -18,7 +18,7 @@ export const soupify = async (
     filePath: string
     exportName?: string
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: Pick<AppContext, "runtime" | "params">
 ) => {
   debug(`reading ${filePath}`)
   const targetFileContent = await readFile(filePath, "utf-8")
@@ -89,8 +89,10 @@ console.log(JSON.stringify(elements))
   const rawSoup = processResult.stdout.replace(/^[^\[]*/, "")
   const errText = processResult.stderr
 
-  debug(`deleting ${tmpFilePath}`)
-  await unlink(tmpFilePath)
+  if (ctx.params.cleanup !== false) {
+    debug(`deleting ${tmpFilePath}`)
+    await unlink(tmpFilePath)
+  }
 
   try {
     debug(`parsing result of soupify...`)
