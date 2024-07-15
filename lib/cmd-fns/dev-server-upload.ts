@@ -1,10 +1,9 @@
-import { AppContext } from "../util/app-context"
-import { z } from "zod"
-import { getDevServerAxios } from "./dev/get-dev-server-axios"
-import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
-import { startFsWatcher } from "./dev/start-fs-watcher"
 import kleur from "kleur"
-import { AxiosInstance } from "axios"
+import { z } from "zod"
+import { AppContext } from "../util/app-context"
+import { getDevServerAxios } from "./dev/get-dev-server-axios"
+import { startFsWatcher } from "./dev/start-fs-watcher"
+import { uploadExamplesFromDirectory } from "./dev/upload-examples-from-directory"
 
 export const devServerUpload = async (ctx: AppContext, args: any) => {
   const params = z
@@ -15,7 +14,7 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
     })
     .parse(args)
 
-  let serverUrl = `http://localhost:${params.port ?? 3020}`
+  let serverUrl = `http://127.0.0.1:${params.port ?? 3020}`
   let devServerAxios = getDevServerAxios({ serverUrl })
 
   const checkHealth = () =>
@@ -29,7 +28,7 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
   if (!is_dev_server_healthy && !params.port) {
     // attempt to use development-mode port, e.g. if someone ran
     // npm run start:dev-server:dev
-    const devModeServerUrl = "http://localhost:3021"
+    const devModeServerUrl = "http://127.0.0.1:3021"
     devServerAxios = getDevServerAxios({ serverUrl: devModeServerUrl })
     is_dev_server_healthy = await checkHealth()
     if (is_dev_server_healthy) serverUrl = devModeServerUrl
