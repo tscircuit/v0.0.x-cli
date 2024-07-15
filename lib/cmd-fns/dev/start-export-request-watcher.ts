@@ -22,7 +22,7 @@ export const startExportRequestWatcher = async (
           kleur.red(`Error in export request watcher: ${err.toString()}`)
         )
       }
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 1000))
     }
   })()
 
