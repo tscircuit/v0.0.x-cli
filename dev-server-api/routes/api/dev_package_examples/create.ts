@@ -28,7 +28,7 @@ export default withWinterSpec({
   })
 
   const dev_package_example = await ctx.db.put("dev_package_example", {
-    dev_package_example_id: existingDevPackageExample?.dev_package_example_id,
+    ...existingDevPackageExample,
     file_path: req.jsonBody.file_path,
     export_name: req.jsonBody.export_name,
     error: req.jsonBody.error,

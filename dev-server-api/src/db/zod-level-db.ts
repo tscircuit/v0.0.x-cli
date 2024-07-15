@@ -25,7 +25,8 @@ export class ZodLevelDatabase {
     id: string | number
   ): Promise<DBSchemaType[K] | null> {
     const key = `${collection}:${id}`
-    const data = await this.db.get(key)
+    const data = await this.db.get(key).catch((e) => null)
+    if (!data) return null
     return DBSchema.shape[collection].parse(JSON.parse(data)) as any
   }
 

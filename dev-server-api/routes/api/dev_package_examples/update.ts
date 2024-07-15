@@ -23,7 +23,7 @@ export default withWinterSpec({
   )
 
   if (!dev_package_example) {
-    throw new NotFoundError("Package not found")
+    return new Response("Package not found", { status: 404 })
   }
 
   const new_dev_package_example = {
