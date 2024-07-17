@@ -1,6 +1,6 @@
 # seveibar/example-project-3
 
-To develop and view the examples, run `tsci dev` and open [http://localhost:3020](http://localhost:3020) in your browser.
+To develop and view the examples, run `tsci dev` and open [http://127.0.0.1:3020](http://127.0.0.1:3020) in your browser.
 
 ## Developing
 

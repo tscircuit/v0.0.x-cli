@@ -1,7 +1,8 @@
+import crypto from "crypto"
 import $ from "dax-sh"
 import fs from "fs"
-import { unlink } from "fs/promises"
 import kleur from "kleur"
+import posthog from "lib/posthog"
 import open from "open"
 import * as Path from "path"
 import prompts from "prompts"
@@ -10,15 +11,13 @@ import { AppContext } from "../../util/app-context"
 import { initCmd } from "../init"
 import { createOrModifyNpmrc } from "../init/create-or-modify-npmrc"
 import { checkIfInitialized } from "./check-if-initialized"
+import { findAvailablePort } from "./find-available-port"
 import { getDevServerAxios } from "./get-dev-server-axios"
 import { startDevServer } from "./start-dev-server"
 import { startEditEventWatcher } from "./start-edit-event-watcher"
 import { startExportRequestWatcher } from "./start-export-request-watcher"
 import { startFsWatcher } from "./start-fs-watcher"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
-import posthog from "lib/posthog"
-import crypto from 'crypto'
-import { findAvailablePort } from "./find-available-port"
 
 export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
@@ -33,14 +32,14 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   // Find an available port
   port = await findAvailablePort(port)
 
-  const projectHash = crypto.createHash('md5').update(cwd).digest('hex')
+  const projectHash = crypto.createHash("md5").update(cwd).digest("hex")
 
   posthog.capture({
     distinctId: projectHash,
-    event: 'tsci_dev_started',
+    event: "tsci_dev_started",
     properties: {
       port: port,
-    }
+    },
   })
 
   // In the future we should automatically run "tsci init" if the directory
@@ -78,10 +77,10 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   console.log(
     kleur.green(
-      `\n--------------------------------------------\n\nStarting dev server http://localhost:${port}\n\n--------------------------------------------\n\n`
+      `\n--------------------------------------------\n\nStarting dev server http://127.0.0.1:${port}\n\n--------------------------------------------\n\n`
     )
   )
-  const serverUrl = `http://localhost:${port}`
+  const serverUrl = `http://127.0.0.1:${port}`
   const devServerAxios = getDevServerAxios({ serverUrl })
 
   const server = await startDevServer({ port, devServerAxios })
@@ -138,13 +137,13 @@ export const devCmd = async (ctx: AppContext, args: any) => {
       open(serverUrl)
       posthog.capture({
         distinctId: projectHash,
-        event: 'tsci_dev_open_browser'
+        event: "tsci_dev_open_browser",
       })
     } else if (action === "open-in-vs-code") {
       await $`code ${cwd}`
       posthog.capture({
         distinctId: projectHash,
-        event: 'tsci_dev_open_vscode'
+        event: "tsci_dev_open_vscode",
       })
     } else if (!action || action === "stop") {
       if (server.stop) server.stop()
@@ -152,16 +151,16 @@ export const devCmd = async (ctx: AppContext, args: any) => {
       fs_watcher.stop()
       er_watcher.stop()
       ee_watcher.stop()
-      
+
       posthog.capture({
         distinctId: projectHash,
-        event: 'tsci_dev_stopped'
+        event: "tsci_dev_stopped",
       })
-      
+
       if (posthog.shutdown) {
         await posthog.shutdown()
       }
-      
+
       break
     }
   }

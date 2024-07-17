@@ -81,6 +81,11 @@ export const createContextAndRunProgram = async (process_args: any) => {
       }
       // end ignores ---
 
+      if (err.response?.status === 401) {
+        console.log(kleur.red("Authentication failed. Please run 'tsci login' to authenticate yourself."))
+        process.exit(1)
+      }
+
       console.log(
         kleur.red(
           `[ERR] ${err.response?.status} ${err.config.method?.toUpperCase()} ${
