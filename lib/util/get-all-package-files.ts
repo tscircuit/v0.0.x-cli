@@ -15,20 +15,23 @@ import ignore from "ignore"
 export const getAllPackageFiles = async (
   ctx: AppContext
 ): Promise<Array<string>> => {
-  await ensureNodeModulesIgnored();
-  
-  const gitignore = await fs
-    .readFile("./.gitignore")
-    .then((b) => b.toString().split("\n").filter(Boolean))
-    .catch((e) => null)
+  await ensureNodeModulesIgnored()
 
-  const npmignore = await fs
-    .readFile("./.promptignore")
-    .then((b) => b.toString().split("\n").filter(Boolean))
-    .catch((e) => null)
+  const [gitIgnore, promptIgnore, npmIgnore] = await Promise.all([
+    readIgnoreFile("./.gitignore"),
+    readIgnoreFile("./.promptignore"),
+    readIgnoreFile("./.npmignore"),
+  ])
+
+  const npmAndPromptIgnoreFiles = [
+    ...(promptIgnore ?? []),
+    ...(npmIgnore ?? []),
+  ]
 
   const ig = ignore().add([
-    ...(npmignore ?? gitignore ?? []),
+    ...(npmAndPromptIgnoreFiles.length > 0
+      ? npmAndPromptIgnoreFiles
+      : gitIgnore ?? []),
     ".tscircuit",
     "node_modules/*",
   ])
@@ -36,22 +39,28 @@ export const getAllPackageFiles = async (
   return Glob.globSync("**/*.{ts,tsx,md}", {}).filter((fp) => !ig.ignores(fp))
 }
 
+const readIgnoreFile = async (filePath: string): Promise<string[] | null> =>
+  await fs
+    .readFile(filePath)
+    .then((b) => b.toString().split("\n").filter(Boolean))
+    .catch((e) => null)
+
 /**
  * Ensure 'node_modules/' is in .gitignore
  */
 const ensureNodeModulesIgnored = async () => {
-  const gitignorePath = './.gitignore';
-  
+  const gitignorePath = "./.gitignore"
+
   try {
-    const gitignore = await fs.readFile(gitignorePath, 'utf8');
-    if (!gitignore.includes('node_modules/')) {
-      await fs.appendFile(gitignorePath, '\nnode_modules/\n');
+    const gitignore = await fs.readFile(gitignorePath, "utf8")
+    if (!gitignore.includes("node_modules/")) {
+      await fs.appendFile(gitignorePath, "\nnode_modules/\n")
     }
   } catch (err) {
-    if (err.code === 'ENOENT') {
-      await fs.writeFile(gitignorePath, 'node_modules/\n');
+    if (err.code === "ENOENT") {
+      await fs.writeFile(gitignorePath, "node_modules/\n")
     } else {
-      console.error('Error while updating .gitignore:', err);
+      console.error("Error while updating .gitignore:", err)
     }
   }
 }
