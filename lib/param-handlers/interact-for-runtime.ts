@@ -9,7 +9,7 @@ export const interactForRuntime: ParamHandler = async (params) => {
 
   if (!bunVersion) {
     console.log(
-      kleur.red(`BUN IS NOT INSTALLED! Install bun first https://bun.sh/`)
+      kleur.red(`BUN IS NOT INSTALLED! Install bun first https://bun.sh/`),
     )
   }
 

@@ -97,7 +97,7 @@ export const SelectExampleSearch = () => {
                   value={example.searchable_id}
                   onSelect={() => {
                     setActiveDevExamplePackageId(
-                      example.dev_package_example_id.toString()
+                      example.dev_package_example_id.toString(),
                     )
                     setOpen(false)
                   }}

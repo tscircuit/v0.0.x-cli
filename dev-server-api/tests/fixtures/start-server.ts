@@ -3,7 +3,7 @@ import { Request as EdgeRuntimeRequest } from "@edge-runtime/primitives"
 import { join } from "node:path"
 
 const serverFetch = await createFetchHandlerFromDir(
-  join(import.meta.dir, "../../routes")
+  join(import.meta.dir, "../../routes"),
 )
 
 export const startServer = ({ port }: { port: number }) =>

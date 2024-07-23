@@ -26,6 +26,6 @@ export const packageFilesCreate = async (ctx: AppContext, args: any) => {
     .then((r) => r.data.package_file)
 
   console.log(
-    `Package file created ${kleur.gray(package_file.package_file_id)}`
+    `Package file created ${kleur.gray(package_file.package_file_id)}`,
   )
 }

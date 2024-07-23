@@ -13,7 +13,7 @@ export const checkIfInitialized = async (ctx: AppContext) => {
   const packageJsonRaw = readFileSync(packageJsonPath, "utf-8")
   if (!packageJsonRaw.includes("tscircuit")) {
     console.error(
-      kleur.red(`No tscircuit dependencies are installed in this project.`)
+      kleur.red(`No tscircuit dependencies are installed in this project.`),
     )
     return false
   }

@@ -22,7 +22,7 @@ export class ZodLevelDatabase {
 
   async get<K extends keyof DBSchemaType>(
     collection: K,
-    id: string | number
+    id: string | number,
   ): Promise<DBSchemaType[K] | null> {
     const key = `${collection}:${id}`
     const data = await this.db.get(key).catch((e) => null)
@@ -32,7 +32,7 @@ export class ZodLevelDatabase {
 
   async put<K extends keyof DBSchemaType>(
     collection: K,
-    value: DBInputSchemaType[K]
+    value: DBInputSchemaType[K],
   ): Promise<DBSchemaType[K]> {
     const idkey = `${collection}_id`
     const valueLoose: any = value
@@ -51,7 +51,7 @@ export class ZodLevelDatabase {
 
   async del<K extends keyof DBSchemaType>(
     collection: K,
-    id: string
+    id: string,
   ): Promise<void> {
     const key = `${collection}:${id}`
     await this.db.del(key)
@@ -59,7 +59,7 @@ export class ZodLevelDatabase {
 
   async find<K extends keyof DBSchemaType>(
     collection: K,
-    partialObject: Partial<DBSchemaType[K]>
+    partialObject: Partial<DBSchemaType[K]>,
   ): Promise<DBSchemaType[K] | null> {
     const schema = DBSchema.shape[collection]
 
@@ -82,14 +82,14 @@ export class ZodLevelDatabase {
 
   async findOrThrow<K extends keyof DBSchemaType>(
     collection: K,
-    partialObject: Partial<DBSchemaType[K]>
+    partialObject: Partial<DBSchemaType[K]>,
   ): Promise<DBSchemaType[K]> {
     const result = await this.find(collection, partialObject)
     if (!result) {
       throw new Error(
         `No record in "${collection}" matches query ${JSON.stringify(
-          partialObject
-        )}`
+          partialObject,
+        )}`,
       )
     }
     return result
@@ -97,7 +97,7 @@ export class ZodLevelDatabase {
 
   private matchesPartialObject<T>(
     fullObject: T,
-    partialObject: Partial<T>
+    partialObject: Partial<T>,
   ): boolean {
     for (const [key, value] of Object.entries(partialObject)) {
       if (fullObject[key as keyof T] !== value) {
@@ -121,7 +121,7 @@ export class ZodLevelDatabase {
   }
 
   async list<K extends keyof DBSchemaType>(
-    collection: K
+    collection: K,
   ): Promise<DBSchemaType[K][]> {
     const schema = DBSchema.shape[collection]
     const results: DBSchemaType[K][] = []

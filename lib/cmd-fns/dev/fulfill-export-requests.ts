@@ -40,7 +40,7 @@ export const fulfillExportRequests = async (
   }: {
     dev_server_axios: AxiosInstance
   },
-  ctx: AppContext
+  ctx: AppContext,
 ) => {
   const export_requests: ExportRequest[] = await dev_server_axios
     .post("/api/export_requests/list", {
@@ -51,11 +51,11 @@ export const fulfillExportRequests = async (
   for (const export_request of export_requests) {
     console.log(
       kleur.gray(
-        `Fulfilling export request ${export_request.export_request_id}`
-      )
+        `Fulfilling export request ${export_request.export_request_id}`,
+      ),
     )
     console.log(
-      kleur.gray(`  example_file_path: ${export_request.example_file_path}`)
+      kleur.gray(`  example_file_path: ${export_request.example_file_path}`),
     )
 
     if (export_request.export_parameters.should_export_gerber_zip) {
@@ -76,13 +76,13 @@ export const fulfillExportRequests = async (
           example_file_path: export_request.example_file_path,
           export_name: export_request.export_name,
         },
-        ctx
+        ctx,
       )
 
       console.log(
         kleur.gray(
-          `  uploading zip "${export_request.export_parameters.gerbers_zip_file_name}" to dev server...`
-        )
+          `  uploading zip "${export_request.export_parameters.gerbers_zip_file_name}" to dev server...`,
+        ),
       )
 
       await uploadBufferToExportFile({
@@ -100,11 +100,11 @@ export const fulfillExportRequests = async (
           example_file_path: export_request.example_file_path,
           export_name: export_request.export_name,
         },
-        ctx
+        ctx,
       )
-    
+
       const pnpFileName = `${export_request.export_name}-${export_request.export_parameters.pnp_csv_file_name!}`
-    
+
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,
@@ -120,11 +120,11 @@ export const fulfillExportRequests = async (
           example_file_path: export_request.example_file_path,
           export_name: export_request.export_name,
         },
-        ctx
+        ctx,
       )
-    
+
       const bomFileName = `${export_request.export_name}-${export_request.export_parameters.bom_csv_file_name!}`
-    
+
       await uploadBufferToExportFile({
         dev_server_axios,
         file_buffer: csv_buffer,
@@ -140,7 +140,7 @@ export const fulfillExportRequests = async (
           filePath: export_request.example_file_path,
           exportName: export_request.export_name,
         },
-        ctx
+        ctx,
       )
 
       await uploadBufferToExportFile({

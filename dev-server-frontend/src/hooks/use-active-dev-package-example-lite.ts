@@ -31,8 +31,8 @@ export const useActiveDevPackageExampleLite = () => {
   const activeDevExamplePackage = inflatePackageExample(
     examples?.find(
       (ex) =>
-        ex.dev_package_example_id.toString() === active_dev_example_package_id
-    )
+        ex.dev_package_example_id.toString() === active_dev_example_package_id,
+    ),
   )
 
   return activeDevExamplePackage

@@ -4,9 +4,8 @@ import { ParamHandler } from "./param-handler-type"
 export const interactForPackageReleaseId: ParamHandler = async (params) => {
   const { ctx, prompts } = params
 
-  const package_name_with_version = await interactForPackageNameWithVersion(
-    params
-  )
+  const package_name_with_version =
+    await interactForPackageNameWithVersion(params)
 
   return await ctx.axios
     .post("/package_releases/get", {

@@ -18,7 +18,7 @@ export const withErrorResponse: Middleware<{}, {}> = async (req, ctx, next) => {
             error_code: "not_found",
           },
         },
-        { status: error?.status || 404 }
+        { status: error?.status || 404 },
       )
     }
 
@@ -31,7 +31,7 @@ export const withErrorResponse: Middleware<{}, {}> = async (req, ctx, next) => {
           error_code: error?.error_code ?? "internal_server_error",
         },
       },
-      { status: error?.status || 500 }
+      { status: error?.status || 500 },
     )
   }
 }

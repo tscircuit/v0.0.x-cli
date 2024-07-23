@@ -11,7 +11,7 @@ export const startFsWatcher = async (
     cwd: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: { runtime: "node" | "bun" },
 ) => {
   const watcher = chokidar.watch([`${cwd}/**/*.tsx`, `${cwd}/**/*.ts`], {
     ignored: /node_modules/,

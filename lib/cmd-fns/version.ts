@@ -33,7 +33,7 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
     for (const row of table) {
       const { name } = row
       const { data: packageInfo } = await ctx.axios.get(
-        "https://registry.npmjs.org/" + name
+        "https://registry.npmjs.org/" + name,
       )
       row.latest = packageInfo["dist-tags"].latest
     }

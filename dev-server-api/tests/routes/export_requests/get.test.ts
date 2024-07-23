@@ -22,7 +22,7 @@ it("GET /api/export_requests/get", async () => {
   expect(getRes.data.export_request).toBeDefined()
   expect(getRes.data.export_request.export_request_id).toBe(exportRequestId)
   expect(getRes.data.export_request.example_file_path).toBe(
-    "examples/test-example.tsx"
+    "examples/test-example.tsx",
   )
   expect(getRes.data.export_request.export_name).toBe("default")
   expect(getRes.data.export_request.export_parameters).toMatchObject({

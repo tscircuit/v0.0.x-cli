@@ -104,10 +104,14 @@ export const initCmd = async (ctx: AppContext, args: any) => {
   writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
 
   console.log(`Adding ".tscircuit" to .gitignore`)
-  appendFileSync(".gitignore", "\n.tscircuit\n*.__tmp_entrypoint.tsx\ndist\nnode_modules\n", {
-    encoding: "utf-8",
-    flag: "a+",
-  })
+  appendFileSync(
+    ".gitignore",
+    "\n.tscircuit\n*.__tmp_entrypoint.tsx\ndist\nnode_modules\n",
+    {
+      encoding: "utf-8",
+      flag: "a+",
+    },
+  )
 
   console.log("Add .npmrc with tscircuit registry...")
   await createOrModifyNpmrc({ quiet: false }, ctx)
@@ -137,7 +141,7 @@ export default {
   // Manual pcb placements, added when you drag a footprint
   pcb_placements: [],
 }
-`.trim()
+`.trim(),
   )
 
   writeFileSync(
@@ -155,7 +159,7 @@ export default {
       />
     </group>
   )
-  `.trim()
+  `.trim(),
   )
 
   writeFileSync("index.ts", `export * from "./lib/MyCircuit"`)
@@ -170,7 +174,7 @@ export const MyExample = () => (
     <MyCircuit />
   </board>
 )
-      `.trim()
+      `.trim(),
   )
 
   // Override the README file
@@ -179,7 +183,7 @@ export const MyExample = () => (
     getGeneratedReadme({
       name: params.name!,
       shouldHaveProjectGeneratedNotice: true,
-    })
+    }),
   )
 
   // Open tsconfig.json and modify it to import the tscircuit types

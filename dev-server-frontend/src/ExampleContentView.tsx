@@ -64,8 +64,8 @@ export const ExampleContentView = () => {
         "relative",
         `h-[${editorHeight}px]`,
         viewMode === "split" &&
-        splitMode === "horizontal" &&
-        "grid grid-cols-2",
+          splitMode === "horizontal" &&
+          "grid grid-cols-2",
         viewMode === "split" && splitMode === "vertical" && "grid grid-rows-2",
       )}
     >

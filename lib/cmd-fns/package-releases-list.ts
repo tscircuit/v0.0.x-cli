@@ -26,7 +26,7 @@ export const packageReleasesList = async (ctx: AppContext, args: any) => {
     console.log(
       package_releases
         .map((f: any) => `${params.packageName}@${f.version}`)
-        .join("\n")
+        .join("\n"),
     )
   }
 }

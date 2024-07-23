@@ -18,10 +18,9 @@ export const startEditEventWatcher = async (
   }: {
     devServerAxios: AxiosInstance
   },
-  ctx: AppContext
+  ctx: AppContext,
 ) => {
   let running = true
-
   ;(async () => {
     let last_edit_event_update_time: Record<string, string> = {}
 
@@ -44,11 +43,11 @@ export const startEditEventWatcher = async (
           ) {
             console.log(
               kleur.gray(
-                `Edit event detected for dev_package_example ${dev_package_example.dev_package_example_id}`
-              )
+                `Edit event detected for dev_package_example ${dev_package_example.dev_package_example_id}`,
+              ),
             )
             console.log(
-              kleur.gray(`  file_path: ${dev_package_example.file_path}`)
+              kleur.gray(`  file_path: ${dev_package_example.file_path}`),
             )
 
             last_edit_event_update_time[dev_package_example_id] =
@@ -68,14 +67,14 @@ export const startEditEventWatcher = async (
               {
                 cwd: ctx.cwd,
                 ignore: ["node_modules"],
-              }
+              },
             )
 
             if (manual_edit_files.length === 0) {
               console.log(
                 kleur.red(
-                  `No manual edit files found in "${ctx.cwd}", please create a file "manual-edits.ts" or "*.manual-edits.ts" to persist manual edits`
-                )
+                  `No manual edit files found in "${ctx.cwd}", please create a file "manual-edits.ts" or "*.manual-edits.ts" to persist manual edits`,
+                ),
               )
               continue
             }
@@ -83,12 +82,12 @@ export const startEditEventWatcher = async (
             if (manual_edit_files.length > 1) {
               console.log(
                 kleur.red(
-                  `Multiple manual edit files found, tsci currently doesn't know how to handle this, you should go upvote an issue`
-                )
+                  `Multiple manual edit files found, tsci currently doesn't know how to handle this, you should go upvote an issue`,
+                ),
               )
               for (let i = 0; i < manual_edit_files.length; i++) {
                 console.log(
-                  kleur.gray(`  file ${i + 1}: ${manual_edit_files[i]}`)
+                  kleur.gray(`  file ${i + 1}: ${manual_edit_files[i]}`),
                 )
               }
               continue
@@ -97,11 +96,11 @@ export const startEditEventWatcher = async (
             const manual_edit_file = manual_edit_files[0]
             const manual_edit_file_content = fs.readFileSync(
               Path.join(ctx.cwd, manual_edit_file),
-              "utf-8"
+              "utf-8",
             )
 
             console.log(
-              kleur.gray(`  found manual edit file: ${manual_edit_file}`)
+              kleur.gray(`  found manual edit file: ${manual_edit_file}`),
             )
 
             // 2. Convert the edit events into ManualPcbPosition[] and append,
@@ -118,7 +117,7 @@ export const startEditEventWatcher = async (
 
             const ts_manual_edits_file = project.createSourceFile(
               "manual-edits.ts",
-              manual_edit_file_content
+              manual_edit_file_content,
             )
 
             // Access the default export declaration
@@ -129,7 +128,7 @@ export const startEditEventWatcher = async (
             // Get the object literal expression from the export default statement
             const object_literal =
               default_export_dec.getFirstChildByKindOrThrow(
-                ts.SyntaxKind.ObjectLiteralExpression
+                ts.SyntaxKind.ObjectLiteralExpression,
               )
 
             // Get the `pcb_placements` property
@@ -164,25 +163,25 @@ export const startEditEventWatcher = async (
             let manual_trace_hints: ManualTraceHint[]
             try {
               pcb_placements = JSON5.parse(
-                pcb_placements_ts.getText().replace(/pcb_placements:\s/, "")
+                pcb_placements_ts.getText().replace(/pcb_placements:\s/, ""),
               )
             } catch (e: any) {
               console.log(
                 kleur.red(
-                  `Error parsing pcb_placements from manual edits file: ${pcb_placements_ts.getText()} ${e.toString()}`
-                )
+                  `Error parsing pcb_placements from manual edits file: ${pcb_placements_ts.getText()} ${e.toString()}`,
+                ),
               )
               continue
             }
             try {
               in_file_edit_events = JSON5.parse(
-                edit_events_ts.getText().replace(/edit_events:\s/, "")
+                edit_events_ts.getText().replace(/edit_events:\s/, ""),
               )
             } catch (e: any) {
               console.log(
                 kleur.red(
-                  `Error parsing edit_events from manual edits file: ${edit_events_ts.getText()} ${e.toString()}`
-                )
+                  `Error parsing edit_events from manual edits file: ${edit_events_ts.getText()} ${e.toString()}`,
+                ),
               )
               continue
             }
@@ -190,13 +189,13 @@ export const startEditEventWatcher = async (
               manual_trace_hints = JSON5.parse(
                 manual_trace_hints_ts
                   .getText()
-                  .replace(/manual_trace_hints:\s/, "")
+                  .replace(/manual_trace_hints:\s/, ""),
               )
             } catch (e: any) {
               console.log(
                 kleur.red(
-                  `Error parsing manual_trace_hints from manual edits file: ${pcb_placements_ts.getText()} ${e.toString()}`
-                )
+                  `Error parsing manual_trace_hints from manual edits file: ${pcb_placements_ts.getText()} ${e.toString()}`,
+                ),
               )
               continue
             }
@@ -204,7 +203,7 @@ export const startEditEventWatcher = async (
             const handled_edit_events = new Set<string>(
               pcb_placements
                 .map((p) => (p as any)._edit_event_id)
-                .concat(in_file_edit_events.map((a) => a.edit_event_id))
+                .concat(in_file_edit_events.map((a) => a.edit_event_id)),
             )
 
             // Add PCB placements from edit events
@@ -229,14 +228,14 @@ export const startEditEventWatcher = async (
                 if (!pcb_component_selector) continue
 
                 const existing_placement_for_selector = pcb_placements.find(
-                  (pp) => pp.selector === pcb_component_selector
+                  (pp) => pp.selector === pcb_component_selector,
                 )
 
                 if (!existing_placement_for_selector) {
                   console.log(
                     kleur.gray(
-                      `  adding PCB placement from edit event for "${pcb_component_selector}"`
-                    )
+                      `  adding PCB placement from edit event for "${pcb_component_selector}"`,
+                    ),
                   )
 
                   pcb_placements.push({
@@ -255,14 +254,14 @@ export const startEditEventWatcher = async (
                   `pcb_placements: ${JSON.stringify(
                     pcb_placements,
                     null,
-                    "  "
-                  )}`
+                    "  ",
+                  )}`,
                 )
 
                 // Save the file
                 fs.writeFileSync(
                   Path.join(ctx.cwd, manual_edit_file),
-                  ts_manual_edits_file.getFullText()
+                  ts_manual_edits_file.getFullText(),
                 )
                 await devServerAxios.post("/api/dev_package_examples/update", {
                   dev_package_example_id,
@@ -274,7 +273,7 @@ export const startEditEventWatcher = async (
               ) {
                 const new_trace_hint = getManualTraceHintFromEvent(
                   dev_package_example_full.tscircuit_soup,
-                  incoming_edit_event
+                  incoming_edit_event,
                 )
 
                 manual_trace_hints_ts.replaceWithText(
@@ -283,17 +282,17 @@ export const startEditEventWatcher = async (
                       .filter(
                         (th) =>
                           th.pcb_port_selector !==
-                          new_trace_hint.pcb_port_selector
+                          new_trace_hint.pcb_port_selector,
                       )
                       .concat([new_trace_hint]),
                     null,
-                    "  "
-                  )}`
+                    "  ",
+                  )}`,
                 )
 
                 fs.writeFileSync(
                   Path.join(ctx.cwd, manual_edit_file),
-                  ts_manual_edits_file.getFullText()
+                  ts_manual_edits_file.getFullText(),
                 )
                 await devServerAxios.post("/api/dev_package_examples/update", {
                   dev_package_example_id,
@@ -304,12 +303,12 @@ export const startEditEventWatcher = async (
                 // All other events just go to the manual-edits.ts file with
                 // in the "edit_events" property
                 edit_events_ts.replaceWithText(
-                  `edit_events: ${JSON.stringify(edit_events, null, "  ")}`
+                  `edit_events: ${JSON.stringify(edit_events, null, "  ")}`,
                 )
                 console.log(edit_events_ts.getFullText())
                 fs.writeFileSync(
                   Path.join(ctx.cwd, manual_edit_file),
-                  ts_manual_edits_file.getFullText()
+                  ts_manual_edits_file.getFullText(),
                 )
                 await devServerAxios.post("/api/dev_package_examples/update", {
                   dev_package_example_id,

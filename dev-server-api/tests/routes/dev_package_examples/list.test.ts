@@ -22,7 +22,7 @@ it("GET /api/dev_package_examples/list", async () => {
   expect(res.dev_package_examples.length).toBeGreaterThan(0)
 
   const example = res.dev_package_examples.find(
-    (e: any) => e.file_path === "examples/test-example.tsx"
+    (e: any) => e.file_path === "examples/test-example.tsx",
   )
   expect(example).toBeDefined()
   expect(example.export_name).toBe("default")

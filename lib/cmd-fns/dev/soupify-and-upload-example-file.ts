@@ -15,7 +15,7 @@ export const soupifyAndUploadExampleFile = async (
     exampleFileName: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: { runtime: "node" | "bun" },
 ) => {
   try {
     const startTime = Date.now()
@@ -30,7 +30,7 @@ export const soupifyAndUploadExampleFile = async (
         filePath: examplePath,
         exportName,
       },
-      ctx
+      ctx,
     )
       .then((soup) => ({ soup, error: null }))
       .catch((e) => ({ error: e, soup: undefined }))
@@ -52,8 +52,8 @@ export const soupifyAndUploadExampleFile = async (
       kleur.gray(
         `[   done   ] [ ${Math.round(timeTaken)
           .toString()
-          .padStart(5, " ")}ms ] ${exampleFileName}!`
-      )
+          .padStart(5, " ")}ms ] ${exampleFileName}!`,
+      ),
     )
   } catch (e: any) {
     console.log(kleur.red(`[   error  ] ${e.toString()}`))

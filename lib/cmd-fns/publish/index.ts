@@ -31,7 +31,7 @@ export const publish = async (ctx: AppContext, args: any) => {
   }
 
   const packageJson = JSON.parse(
-    await readFileSync(Path.join(ctx.cwd, "package.json"), "utf-8")
+    await readFileSync(Path.join(ctx.cwd, "package.json"), "utf-8"),
   )
 
   if (!packageJson.version) {
@@ -40,7 +40,7 @@ export const publish = async (ctx: AppContext, args: any) => {
     packageJson.version = "0.0.1"
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
-      JSON.stringify(packageJson, null, 2)
+      JSON.stringify(packageJson, null, 2),
     )
   }
 
@@ -60,44 +60,44 @@ export const publish = async (ctx: AppContext, args: any) => {
     delete packageJson.module
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
-      JSON.stringify(packageJson, null, 2)
+      JSON.stringify(packageJson, null, 2),
     )
   }
 
   if (packageJson.main !== "./dist/index.cjs") {
     console.log(
       kleur.yellow(
-        `package.json "main" field is not set to "./dist/index.cjs". Setting it...`
-      )
+        `package.json "main" field is not set to "./dist/index.cjs". Setting it...`,
+      ),
     )
     packageJson.main = "./dist/index.cjs"
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
-      JSON.stringify(packageJson, null, 2)
+      JSON.stringify(packageJson, null, 2),
     )
   }
   if (packageJson.types !== "./index.ts") {
     console.log(
       kleur.yellow(
-        `package.json "types" field is not set to "./index.ts". Setting it...`
-      )
+        `package.json "types" field is not set to "./index.ts". Setting it...`,
+      ),
     )
     packageJson.types = "./index.ts"
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
-      JSON.stringify(packageJson, null, 2)
+      JSON.stringify(packageJson, null, 2),
     )
   }
   if (!packageJson.files) {
     console.log(
       kleur.yellow(
-        `package.json "files" field is not set. Setting it to ["./dist", "index.ts", "./lib"]...`
-      )
+        `package.json "files" field is not set. Setting it to ["./dist", "index.ts", "./lib"]...`,
+      ),
     )
     packageJson.files = ["dist", "index.ts", "lib"]
     await fs.writeFile(
       Path.join(ctx.cwd, "package.json"),
-      JSON.stringify(packageJson, null, 2)
+      JSON.stringify(packageJson, null, 2),
     )
   }
 
@@ -119,8 +119,8 @@ export const publish = async (ctx: AppContext, args: any) => {
     if (!packageJson.name.includes("/")) {
       console.log(
         kleur.yellow(
-          `Package name "${packageJson.name}" is not scoped. Scoped package names are recommended on the tscircuit registry.`
-        )
+          `Package name "${packageJson.name}" is not scoped. Scoped package names are recommended on the tscircuit registry.`,
+        ),
       )
       const myAccount = await ctx.axios
         .get("/accounts/get")
@@ -143,7 +143,7 @@ export const publish = async (ctx: AppContext, args: any) => {
         packageJson.name = `@${newScopedName}`
         await fs.writeFile(
           Path.join(ctx.cwd, "package.json"),
-          JSON.stringify(packageJson, null, 2)
+          JSON.stringify(packageJson, null, 2),
         )
         name = newScopedName
       }
@@ -151,8 +151,8 @@ export const publish = async (ctx: AppContext, args: any) => {
 
     console.log(
       kleur.green(
-        `Creating package "${packageJson.name}" on tscircuit registry...`
-      )
+        `Creating package "${packageJson.name}" on tscircuit registry...`,
+      ),
     )
     let description = packageJson.description
     if (!description) {
@@ -182,28 +182,28 @@ export const publish = async (ctx: AppContext, args: any) => {
   // 3. If it does, ask to increment the version or update the existing release, if increment is specified, increment the version automatically
   if (existingRelease) {
     console.log(
-      kleur.gray(`Package release already exists: ${name}@${version}`)
+      kleur.gray(`Package release already exists: ${name}@${version}`),
     )
     if (shouldIncrement) {
       console.log(
         kleur.green(
           `Incrementing version from ${version} to ${semver.inc(
             version,
-            "patch"
-          )}...`
-        )
+            "patch",
+          )}...`,
+        ),
       )
       version = semver.inc(version, "patch")
       packageJson.version = version
       await fs.writeFile(
         Path.join(ctx.cwd, "package.json"),
-        JSON.stringify(packageJson, null, 2)
+        JSON.stringify(packageJson, null, 2),
       )
     } else {
       console.log(
         kleur.blue(
-          `Want to increment the version and publish a new release? Use "--increment"!`
-        )
+          `Want to increment the version and publish a new release? Use "--increment"!`,
+        ),
       )
 
       throw new Error("Package release already exists")
@@ -221,8 +221,8 @@ export const publish = async (ctx: AppContext, args: any) => {
   if (!filePaths.includes("README.md")) {
     console.log(
       kleur.yellow(
-        "No README.md found in package files. A README.md is recommended on the tscircuit registry."
-      )
+        "No README.md found in package files. A README.md is recommended on the tscircuit registry.",
+      ),
     )
     const { confirmReadme } = await prompts({
       type: "confirm",
@@ -239,7 +239,7 @@ export const publish = async (ctx: AppContext, args: any) => {
     if (confirmReadme) {
       await fs.writeFile(
         Path.join(ctx.cwd, "README.md"),
-        getGeneratedReadme({ name })
+        getGeneratedReadme({ name }),
       )
       filePaths.push("README.md")
     }
@@ -270,12 +270,12 @@ export const publish = async (ctx: AppContext, args: any) => {
         filePath,
         exportName,
       },
-      ctx
+      ctx,
     ).catch((e) => e)
 
     if (tscircuit_soup instanceof Error) {
       console.log(
-        kleur.red(`Error soupifying ${filePath}: ${tscircuit_soup}, skipping`)
+        kleur.red(`Error soupifying ${filePath}: ${tscircuit_soup}, skipping`),
       )
       continue
     }
@@ -295,13 +295,13 @@ export const publish = async (ctx: AppContext, args: any) => {
   const tmpTarballPath = Path.join(
     ctx.cwd,
     ".tscircuit/tmp",
-    `${name.replace(/\//g, "-")}-${version}.tgz`
+    `${name.replace(/\//g, "-")}-${version}.tgz`,
   )
   await fs.mkdir(Path.dirname(tmpTarballPath), { recursive: true })
   const npm_pack_outputs = await $`cd ${
     ctx.cwd
   } && npm pack --json --pack-destination ${Path.dirname(
-    tmpTarballPath
+    tmpTarballPath,
   )}`.json()
 
   if (!existsSync(tmpTarballPath)) {
@@ -330,7 +330,7 @@ export const publish = async (ctx: AppContext, args: any) => {
 
   console.log(
     kleur.green(
-      `Published ${name}@${version}!\nhttps://registry.tscircuit.com/${name}`
-    )
+      `Published ${name}@${version}!\nhttps://registry.tscircuit.com/${name}`,
+    ),
   )
 }

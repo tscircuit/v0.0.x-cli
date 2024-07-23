@@ -32,14 +32,9 @@ export const HeaderMenu = () => {
     s.setSplitMode,
   ])
 
-  const {
-    data,
-    isLoading,
-  } = useQuery(
+  const { data, isLoading } = useQuery(
     ["package_info"],
-    async () =>
-      axios
-        .get(`/api/package_info/get`),
+    async () => axios.get(`/api/package_info/get`),
     {
       refetchOnWindowFocus: true,
       retry: false,

@@ -17,7 +17,7 @@ export const packageExamplesCreate = async (ctx: AppContext, args: any) => {
       filePath: params.file,
       exportName: params.export,
     },
-    ctx
+    ctx,
   )
 
   const fileContent = await fs.promises.readFile(params.file, "utf8")

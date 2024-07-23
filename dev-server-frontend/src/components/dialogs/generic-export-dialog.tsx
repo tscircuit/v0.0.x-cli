@@ -91,7 +91,7 @@ export const useGenericExportDialog = ({
                   } catch (e: any) {
                     console.error(e)
                     setExportError(
-                      `${e.toString()}\n\n${e.response?.data?.error?.message}`
+                      `${e.toString()}\n\n${e.response?.data?.error?.message}`,
                     )
                     setIsExporting(false)
                     return
@@ -106,13 +106,13 @@ export const useGenericExportDialog = ({
                 export_request.file_summary[0].export_file_id
               window.open(
                 `/api/export_files/download?export_file_id=${export_file_id}`,
-                "_blank"
+                "_blank",
               )
               setIsExporting(false)
             } catch (e: any) {
               console.error(e)
               setExportError(
-                `${e.toString()}\n\n${e.response?.data?.error?.message}`
+                `${e.toString()}\n\n${e.response?.data?.error?.message}`,
               )
               setIsExporting(false)
             }
