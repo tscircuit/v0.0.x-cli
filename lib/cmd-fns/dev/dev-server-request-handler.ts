@@ -5,10 +5,10 @@ import mime from "mime-types"
 
 /**
  * Handles all requests to :3020, then proxies...
- * 
+ *
  * /api/* : to the api server
  * /*     : to the static frontend bundle inside dev-server-frontend
- * 
+ *
  */
 export const devServerRequestHandler = async (bunReq: Request) => {
   const url = new URL(bunReq.url)
@@ -48,7 +48,7 @@ export const devServerRequestHandler = async (bunReq: Request) => {
         headers: {
           "Content-Type": mime.lookup(frontendPath) || "text/plain",
         },
-      }
+      },
     )
   } else {
     return new Response(null, {

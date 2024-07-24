@@ -13,7 +13,7 @@ it("POST /api/export_requests/create", async () => {
   expect(res.status).toBe(200)
   expect(res.data.export_request).toBeDefined()
   expect(res.data.export_request.example_file_path).toBe(
-    "examples/test-example.tsx"
+    "examples/test-example.tsx",
   )
   expect(res.data.export_request.export_name).toBe("default")
   expect(res.data.export_request.export_parameters).toMatchObject({

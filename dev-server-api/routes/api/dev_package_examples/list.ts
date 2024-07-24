@@ -13,7 +13,7 @@ export default withWinterSpec({
         edit_events_last_updated_at: z.string().datetime().nullable(),
         soup_last_updated_at: z.string().datetime().nullable(),
         last_updated_at: z.string().datetime().nullable(),
-      })
+      }),
     ),
   }),
   auth: "none",
@@ -27,7 +27,7 @@ export default withWinterSpec({
       edit_events_last_updated_at: dpe.edit_events_last_updated_at,
       soup_last_updated_at: dpe.soup_last_updated_at,
       last_updated_at: dpe.last_updated_at,
-    })
+    }),
   )
 
   return ctx.json({

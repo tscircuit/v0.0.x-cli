@@ -37,8 +37,8 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
   if (!is_dev_server_healthy) {
     console.log(
       kleur.red(
-        `Dev server doesn't seem to be running at ${serverUrl}. (Could not ping health)`
-      )
+        `Dev server doesn't seem to be running at ${serverUrl}. (Could not ping health)`,
+      ),
     )
     process.exit(1)
   }
@@ -50,7 +50,7 @@ export const devServerUpload = async (ctx: AppContext, args: any) => {
     // Start watcher
     const watcher = await startFsWatcher(
       { cwd: params.dir, devServerAxios },
-      ctx
+      ctx,
     )
   }
 }

@@ -77,8 +77,8 @@ export const devCmd = async (ctx: AppContext, args: any) => {
 
   console.log(
     kleur.green(
-      `\n--------------------------------------------\n\nStarting dev server http://127.0.0.1:${port}\n\n--------------------------------------------\n\n`
-    )
+      `\n--------------------------------------------\n\nStarting dev server http://127.0.0.1:${port}\n\n--------------------------------------------\n\n`,
+    ),
   )
   const serverUrl = `http://127.0.0.1:${port}`
   const devServerAxios = getDevServerAxios({ serverUrl })
@@ -101,7 +101,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
     {
       package_name: packageName,
     },
-    ctx
+    ctx,
   )
 
   // Soupify all examples

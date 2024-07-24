@@ -71,7 +71,7 @@ export const CommandK = () => {
                 onSelect={() =>
                   close() &&
                   store.setActiveDevExamplePackageId(
-                    ex.dev_package_example_id.toString()
+                    ex.dev_package_example_id.toString(),
                   )
                 }
               >

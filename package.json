@@ -18,7 +18,8 @@
     "build": "bun build:dev-server && npm run build:cli",
     "dev-with-test-project": "bun cli.ts dev --cwd ./example-project",
     "test:init": "bun cli.ts init --dir ./tmp/test --name test",
-    "update-deps": "bun add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && bun run update-deps && cd ../example-project && bun run update-deps"
+    "update-deps": "bun add @tscircuit/builder@latest @tscircuit/react-fiber@latest && cd dev-server-frontend && bun run update-deps && cd ../example-project && bun run update-deps",
+    "format": "biome format . --write"
   },
   "bin": {
     "tsci": "./dist/cli.js"
@@ -76,6 +77,7 @@
     "@tscircuit/soup-util": "*"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
     "@tscircuit/builder": "*",
     "@tscircuit/layout": "^0.0.25",
     "@tscircuit/manual-edit-events": "^0.0.4",

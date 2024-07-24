@@ -11,6 +11,6 @@ export default withWinterSpec({
       headers: {
         "content-type": "text/html",
       },
-    }
+    },
   )
 })

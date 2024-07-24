@@ -14,7 +14,7 @@ export default withWinterSpec({
   jsonResponse: z.object({
     export_request: ExportRequestSchema.extend({
       file_summary: z.array(
-        z.object({ file_name: z.string(), export_file_id: z.coerce.number() })
+        z.object({ file_name: z.string(), export_file_id: z.coerce.number() }),
       ),
     }),
   }),
@@ -33,7 +33,7 @@ export default withWinterSpec({
   }
 
   const export_files = (await ctx.db.list("export_file")).filter(
-    (ef) => ef.export_request_id === export_request_id
+    (ef) => ef.export_request_id === export_request_id,
   )
   ext_export_request.file_summary = export_files.map((ef) => ({
     file_name: ef.file_name!,

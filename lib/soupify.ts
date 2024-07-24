@@ -18,7 +18,7 @@ export const soupify = async (
     filePath: string
     exportName?: string
   },
-  ctx: Pick<AppContext, "runtime" | "params">
+  ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   debug(`reading ${filePath}`)
   const targetFileContent = await readFile(filePath, "utf-8")
@@ -38,13 +38,13 @@ export const soupify = async (
 
   if (!exportName) {
     throw new Error(
-      `Couldn't derive an export name and didn't find default export in "${filePath}"`
+      `Couldn't derive an export name and didn't find default export in "${filePath}"`,
     )
   }
 
   const tmpFilePath = Path.join(
     Path.dirname(filePath),
-    Path.basename(filePath).replace(/\.[^\.]+$/, "") + ".__tmp_entrypoint.tsx"
+    Path.basename(filePath).replace(/\.[^\.]+$/, "") + ".__tmp_entrypoint.tsx",
   )
 
   debug(`writing to ${tmpFilePath}`)
@@ -71,7 +71,7 @@ const elements = await createRoot().render(<Component />, projectBuilder)
 
 console.log(JSON.stringify(elements))
 
-`.trim()
+`.trim(),
   )
 
   debug(`using runtime ${ctx.runtime}`)

@@ -62,8 +62,8 @@ export const createContextAndRunProgram = async (process_args: any) => {
         kleur.grey(
           `[RES] ${res.status} ${res.config.method?.toUpperCase()} ${
             res.config.url
-          }`
-        )
+          }`,
+        ),
       )
       return res
     })
@@ -82,7 +82,11 @@ export const createContextAndRunProgram = async (process_args: any) => {
       // end ignores ---
 
       if (err.response?.status === 401) {
-        console.log(kleur.red("Authentication failed. Please run 'tsci login' to authenticate yourself."))
+        console.log(
+          kleur.red(
+            "Authentication failed. Please run 'tsci login' to authenticate yourself.",
+          ),
+        )
         process.exit(1)
       }
 
@@ -92,12 +96,12 @@ export const createContextAndRunProgram = async (process_args: any) => {
             err.config.url
           }\n\n${JSON.stringify(err.response?.data, null, "  ")}`
             .replace(/\\n/g, "\n")
-            .replace(/\\"/g, '"')
-        )
+            .replace(/\\"/g, '"'),
+        ),
       )
       console.log(kleur.yellow("[Request Body]:"), err.config.data)
       return Promise.reject(err)
-    }
+    },
   )
 
   const ctx: AppContext = {

@@ -19,7 +19,7 @@ export const exportGerbersToFile = async (
     export_name?: string
     output_zip_path: string
   },
-  ctx: AppContext
+  ctx: AppContext,
 ) => {
   console.log(kleur.gray("[soupifying]..."))
   const soup = await soupify(
@@ -27,7 +27,7 @@ export const exportGerbersToFile = async (
       filePath: params.example_file_path,
       exportName: params.export_name,
     },
-    ctx
+    ctx,
   )
 
   console.log(kleur.gray("[soup to gerber json]..."))
@@ -67,7 +67,7 @@ export const exportGerbersToFile = async (
 
   if (typeof Bun !== "undefined") {
     throw new Error(
-      `Exporting gerbers doesn't currently work with Bun (bug w/ archiver module)`
+      `Exporting gerbers doesn't currently work with Bun (bug w/ archiver module)`,
     )
   }
 
@@ -92,7 +92,7 @@ export const exportGerbersToZipBuffer = async (
     example_file_path: string
     export_name?: string
   },
-  ctx: AppContext
+  ctx: AppContext,
 ) => {
   const tempDir = Path.join(".tscircuit", "tmp-gerber-zip")
   fs.mkdirSync(tempDir, { recursive: true })
@@ -103,7 +103,7 @@ export const exportGerbersToZipBuffer = async (
       export_name: params.export_name,
       output_zip_path: Path.join(tempDir, "gerbers.zip"),
     },
-    ctx
+    ctx,
   )
 
   const buffer = fs.readFileSync(Path.join(tempDir, "gerbers.zip"))

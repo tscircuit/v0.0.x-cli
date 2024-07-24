@@ -23,7 +23,7 @@ it("POST /api/dev_package_examples/update", async () => {
 
   expect(res.dev_package_example.completed_edit_events).toEqual([])
   expect(res.dev_package_example.edit_events_last_applied_at).toEqual(
-    "2023-01-01T00:00:00.000Z"
+    "2023-01-01T00:00:00.000Z",
   )
 
   const getRes = await axios.post("/api/dev_package_examples/get", {
@@ -33,6 +33,6 @@ it("POST /api/dev_package_examples/update", async () => {
   expect(getRes.status).toBe(200)
   expect(getRes.data.dev_package_example.completed_edit_events).toEqual([])
   expect(getRes.data.dev_package_example.edit_events_last_applied_at).toEqual(
-    "2023-01-01T00:00:00.000Z"
+    "2023-01-01T00:00:00.000Z",
   )
 })

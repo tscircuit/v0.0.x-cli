@@ -14,12 +14,12 @@ export default withWinterSpec({
         dev_server_database_dump: await ctx.db.dump(),
       },
       null,
-      "  "
+      "  ",
     ),
     {
       headers: {
         "content-type": "application/json",
       },
-    }
+    },
   )
 })

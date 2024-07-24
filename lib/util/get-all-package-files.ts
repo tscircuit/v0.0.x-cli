@@ -13,7 +13,7 @@ import ignore from "ignore"
  * Returns an array of files paths.
  */
 export const getAllPackageFiles = async (
-  ctx: AppContext
+  ctx: AppContext,
 ): Promise<Array<string>> => {
   await ensureNodeModulesIgnored()
 

@@ -57,7 +57,7 @@ class GenericJsonLevel extends AbstractLevel<string, any> {
   }
 
   async _batch(
-    operations: Array<{ type: "put" | "del"; key: string; value?: any }>
+    operations: Array<{ type: "put" | "del"; key: string; value?: any }>,
   ): Promise<void> {
     for (const op of operations) {
       if (op.type === "put") {
@@ -99,7 +99,7 @@ class GenericJsonLevel extends AbstractLevel<string, any> {
       async next() {
         if (files.length === 0) {
           files = (await fs.readdir(this.db.location)).filter((file) =>
-            file.endsWith(".json")
+            file.endsWith(".json"),
           )
         }
 

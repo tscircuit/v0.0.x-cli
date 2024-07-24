@@ -33,7 +33,7 @@ export default withWinterSpec({
 })(async (req, ctx) => {
   const dev_package_example = await ctx.db.get(
     "dev_package_example",
-    req.commonParams.dev_package_example_id
+    req.commonParams.dev_package_example_id,
   )
 
   if (!dev_package_example) {

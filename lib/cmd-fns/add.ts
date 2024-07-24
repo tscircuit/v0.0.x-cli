@@ -29,6 +29,6 @@ export const addCmd = async (ctx: AppContext, args: any) => {
   console.log(kleur.gray(`> ${cmd}`))
 
   await $`npm add ${flagsString} ${params.packages.map(
-    (p) => `@tsci/${p.replace(/\//, ".")}`
+    (p) => `@tsci/${p.replace(/\//, ".")}`,
   )}`
 }

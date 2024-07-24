@@ -17,6 +17,6 @@ export const exportGerbersCmd = async (ctx: AppContext, args: any) => {
       export_name: params.export,
       output_zip_path: params.outputfile,
     },
-    ctx
+    ctx,
   )
 }

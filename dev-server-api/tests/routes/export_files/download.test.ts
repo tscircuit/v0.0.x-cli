@@ -16,13 +16,13 @@ it("GET /api/export_files/download", async () => {
 
   const downloadRes = await axios
     .get(
-      `/api/export_files/download?export_file_id=${res.export_file.export_file_id}`
+      `/api/export_files/download?export_file_id=${res.export_file.export_file_id}`,
     )
     .then((r) => r.data)
 
   // Convert downloadRes to base64 string
   const downloadResBase64 = Buffer.from(downloadRes, "binary").toString(
-    "base64"
+    "base64",
   )
 
   expect(downloadResBase64).toEqual(exampleBase64)

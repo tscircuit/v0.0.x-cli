@@ -15,7 +15,7 @@ export const uploadExamplesFromDirectory = async (
     cwd: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" }
+  ctx: { runtime: "node" | "bun" },
 ) => {
   const examplesDir = joinPath(cwd, "examples")
   const exampleFileNames = await readdir(examplesDir).catch((e) => {
@@ -35,7 +35,7 @@ export const uploadExamplesFromDirectory = async (
         examplesDir,
         exampleFileName,
       },
-      ctx
+      ctx,
     )
   }
 }

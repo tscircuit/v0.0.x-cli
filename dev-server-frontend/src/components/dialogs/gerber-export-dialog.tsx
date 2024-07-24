@@ -67,7 +67,7 @@ export const useGerberExportDialog = () => {
                   } catch (e: any) {
                     console.error(e)
                     setExportError(
-                      `${e.toString()}\n\n${e.response?.data?.error?.message}`
+                      `${e.toString()}\n\n${e.response?.data?.error?.message}`,
                     )
                     setIsExporting(false)
                     return
@@ -86,14 +86,14 @@ export const useGerberExportDialog = () => {
 
               window.open(
                 `/api/export_files/download?export_file_id=${export_file_id}`,
-                "_blank"
+                "_blank",
               )
 
               setIsExporting(false)
             } catch (e: any) {
               console.error(e)
               setExportError(
-                `${e.toString()}\n\n${e.response?.data?.error?.message}`
+                `${e.toString()}\n\n${e.response?.data?.error?.message}`,
               )
               setIsExporting(false)
             }

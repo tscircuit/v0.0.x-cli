@@ -6,7 +6,7 @@ import { getDevServerAxios } from "./dev/get-dev-server-axios"
 
 export const devServerFulfillExportRequests = async (
   ctx: AppContext,
-  args: any
+  args: any,
 ) => {
   const params = z.object({}).parse(args)
 
@@ -33,8 +33,8 @@ export const devServerFulfillExportRequests = async (
   if (!is_dev_server_healthy) {
     console.log(
       kleur.red(
-        `Dev server doesn't seem to be running at ${server_url}. (Could not ping health)`
-      )
+        `Dev server doesn't seem to be running at ${server_url}. (Could not ping health)`,
+      ),
     )
     process.exit(1)
   }

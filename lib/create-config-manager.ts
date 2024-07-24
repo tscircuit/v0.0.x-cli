@@ -74,7 +74,7 @@ export const createConfigHandler = ({
   profile?: string
 }): ContextConfigProps => {
   const global_config: TypedConfigstore<GlobalConfigProps> = new Configstore(
-    "tsci"
+    "tsci",
   )
   const current_profile =
     profile ?? global_config.get("current_profile") ?? "default"

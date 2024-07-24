@@ -13,7 +13,7 @@ export const deriveSelectorFromPcbComponentId = ({
   })
   if (!source_component) {
     throw new Error(
-      `Could not find source component for pcb_component_id="${pcb_component_id}"`
+      `Could not find source component for pcb_component_id="${pcb_component_id}"`,
     )
   }
 

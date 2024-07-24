@@ -6,7 +6,7 @@ import { AppContext } from "lib/util/app-context"
 
 export const createOrModifyNpmrc = async (
   { quiet = true }: { quiet?: boolean },
-  ctx: AppContext
+  ctx: AppContext,
 ) => {
   const npmrcPath = Path.join(ctx.cwd, ".npmrc")
 

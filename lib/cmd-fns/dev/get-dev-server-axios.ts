@@ -18,12 +18,12 @@ export const getDevServerAxios = ({ serverUrl }: { serverUrl: string }) => {
             err.config.url
           }\n\n${JSON.stringify(err.response?.data, null, "  ")}`
             .replace(/\\n/g, "\n")
-            .replace(/\\"/g, '"')
-        )
+            .replace(/\\"/g, '"'),
+        ),
       )
       console.log(kleur.yellow("[Request Body]:"), err.config.data)
       return Promise.reject(err)
-    }
+    },
   )
   return devServerAxios
 }

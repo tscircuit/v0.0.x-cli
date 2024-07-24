@@ -19,7 +19,7 @@ export default withWinterSpec({
 })(async (req, ctx) => {
   const dev_package_example = await ctx.db.get(
     "dev_package_example",
-    req.jsonBody.dev_package_example_id
+    req.jsonBody.dev_package_example_id,
   )
 
   if (!dev_package_example) {

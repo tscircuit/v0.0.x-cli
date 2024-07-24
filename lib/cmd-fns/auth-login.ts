@@ -22,7 +22,7 @@ export const authLogin = async (ctx: AppContext, args: any) => {
         headers: {
           Authorization: `Bearer ${login_page.login_page_auth_token}`,
         },
-      }
+      },
     )
 
     if (new_login_page.was_login_successful) {
@@ -48,7 +48,7 @@ export const authLogin = async (ctx: AppContext, args: any) => {
       headers: {
         Authorization: `Bearer ${login_page.login_page_auth_token}`,
       },
-    }
+    },
   )
 
   ctx.profile_config.set("session_token", session.token)

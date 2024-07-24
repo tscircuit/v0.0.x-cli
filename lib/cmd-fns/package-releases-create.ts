@@ -30,6 +30,6 @@ export const packageReleasesCreate = async (ctx: AppContext, args: any) => {
     .then((r) => r.data.package_release)
 
   console.log(
-    `Package release created! ${kleur.gray(package_release.package_release_id)}`
+    `Package release created! ${kleur.gray(package_release.package_release_id)}`,
   )
 }
