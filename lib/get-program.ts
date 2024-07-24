@@ -51,6 +51,11 @@ export const getProgram = (ctx: AppContext) => {
     .description("Lint all TypeScript files in the project")
     .option("--fix", "Automatically fix problems")
     .action((args) => CMDFN.lint(ctx, args))
+  
+  cmd
+    .command("go")
+    .description("Open browser to the TSCircuit Get Started tutorial")
+    .action((args) => CMDFN.go(ctx, args))
 
   const authCmd = cmd.command("auth").description("Login/logout")
   authCmd
