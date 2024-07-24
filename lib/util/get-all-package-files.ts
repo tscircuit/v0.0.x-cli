@@ -17,24 +17,33 @@ export const getAllPackageFiles = async (
 ): Promise<Array<string>> => {
   await ensureNodeModulesIgnored()
 
-  const gitignore = await fs
-    .readFile("./.gitignore")
-    .then((b) => b.toString().split("\n").filter(Boolean))
-    .catch((e) => null)
+  const [gitIgnore, promptIgnore, npmIgnore] = await Promise.all([
+    readIgnoreFile("./.gitignore"),
+    readIgnoreFile("./.promptignore"),
+    readIgnoreFile("./.npmignore"),
+  ])
 
-  const npmignore = await fs
-    .readFile("./.promptignore")
-    .then((b) => b.toString().split("\n").filter(Boolean))
-    .catch((e) => null)
+  const npmAndPromptIgnoreFiles = [
+    ...(promptIgnore ?? []),
+    ...(npmIgnore ?? []),
+  ]
 
   const ig = ignore().add([
-    ...(npmignore ?? gitignore ?? []),
+    ...(npmAndPromptIgnoreFiles.length > 0
+      ? npmAndPromptIgnoreFiles
+      : gitIgnore ?? []),
     ".tscircuit",
     "node_modules/*",
   ])
 
   return Glob.globSync("**/*.{ts,tsx,md}", {}).filter((fp) => !ig.ignores(fp))
 }
+
+const readIgnoreFile = async (filePath: string): Promise<string[] | null> =>
+  await fs
+    .readFile(filePath)
+    .then((b) => b.toString().split("\n").filter(Boolean))
+    .catch((e) => null)
 
 /**
  * Ensure 'node_modules/' is in .gitignore
