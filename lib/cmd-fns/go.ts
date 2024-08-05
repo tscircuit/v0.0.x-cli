@@ -7,8 +7,8 @@ export const goCmd = async (ctx: AppContext, args: any) => {
 
   console.log(
     kleur.cyan(
-      "Opening the TSCircuit Getting Started tutorial in your browser..."
-    )
+      "Opening the TSCircuit Getting Started tutorial in your browser...",
+    ),
   )
   await open(tutorialUrl)
 }
