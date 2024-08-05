@@ -1,7 +1,6 @@
 import { Command } from "commander"
-import packageJson from "../package.json"
-import { AppContext } from "./util/app-context"
 import * as CMDFN from "lib/cmd-fns"
+import type { AppContext } from "./util/app-context"
 
 export const getProgram = (ctx: AppContext) => {
   const cmd = new Command("tsci").description(
@@ -51,7 +50,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Lint all TypeScript files in the project")
     .option("--fix", "Automatically fix problems")
     .action((args) => CMDFN.lint(ctx, args))
-  
+
   cmd
     .command("go")
     .description("Open browser to the TSCircuit Get Started tutorial")

@@ -22,6 +22,8 @@ import { useGenericExportDialog } from "./components/dialogs/generic-export-dial
 import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
 import { useGlobalStore } from "./hooks/use-global-store"
 
+const DEBUG_URL = "https://debug.tscircuit.com"
+
 export const HeaderMenu = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [
     s.view_mode,
@@ -31,10 +33,13 @@ export const HeaderMenu = () => {
     s.split_mode,
     s.setSplitMode,
   ])
+  const devExamplePackageId = useGlobalStore(
+    (s) => s.active_dev_example_package_id,
+  )
 
   const { data, isLoading } = useQuery(
     ["package_info"],
-    async () => axios.get(`/api/package_info/get`),
+    async () => axios.get("/api/package_info/get"),
     {
       refetchOnWindowFocus: true,
       retry: false,
@@ -73,6 +78,33 @@ export const HeaderMenu = () => {
     },
   })
 
+  const handleDebugClick = async () => {
+    const soupData = await axios
+      .post("/api/dev_package_examples/get", {
+        dev_package_example_id: devExamplePackageId,
+      })
+      .then((r) => r.data.dev_package_example.tscircuit_soup)
+
+    // logSoup module is giving cors error
+    await axios.post(
+      `${DEBUG_URL}/api/soup_group/add_soup`,
+      {
+        soup_group_name: name,
+        soup_name: name,
+        username: "tmp",
+        content: {
+          elements: soupData,
+        },
+      },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      },
+    )
+  }
+
   return (
     <>
       <Menubar className="border-none shadow-none">
@@ -87,6 +119,13 @@ export const HeaderMenu = () => {
               }}
             >
               New Circuit
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => {
+                handleDebugClick()
+              }}
+            >
+              Debug
             </MenubarItem>
             <MenubarSeparator />
             <MenubarSub>
