@@ -12,7 +12,7 @@ export const renderCmd = async (
     schematic?: boolean
     output?: string
     type?: string
-  }
+  },
 ) => {
   const inputFile = path.resolve(args.input)
   let outputFile = args.output
@@ -36,7 +36,7 @@ export const renderCmd = async (
     {
       filePath: inputFile,
     },
-    ctx
+    ctx,
   )
 
   const soupBuffer = circuitToPng(soup, viewType)

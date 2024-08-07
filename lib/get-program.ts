@@ -4,7 +4,7 @@ import type { AppContext } from "./util/app-context"
 
 export const getProgram = (ctx: AppContext) => {
   const cmd = new Command("tsci").description(
-    "Develop, test and manage tscircuit packages"
+    "Develop, test and manage tscircuit packages",
   )
 
   cmd
@@ -21,11 +21,11 @@ export const getProgram = (ctx: AppContext) => {
     .option("--name <name>", "Name of the project")
     .option(
       "--runtime <runtime>",
-      "Runtime to use (attempts to bun, otherwise node/tsx)"
+      "Runtime to use (attempts to bun, otherwise node/tsx)",
     )
     .option(
       "--dir <dir>",
-      "Directory to initialize (defaults to ./<name> or . if name not provided)"
+      "Directory to initialize (defaults to ./<name> or . if name not provided)",
     )
     .action((args) => CMDFN.init(ctx, args))
 
@@ -34,7 +34,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Add a package from the tscircuit registry")
     .argument(
       "<packages...>",
-      "Packages to install from registry.tscircuit.com, optionally with version"
+      "Packages to install from registry.tscircuit.com, optionally with version",
     )
     .option("-D, --dev", "Add to devDependencies")
     .action((packages, flags) => CMDFN.add(ctx, { packages, flags }))
@@ -99,7 +99,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Set runtime to use, bun or node")
     .requiredOption(
       "--runtime <runtime>",
-      "Bun or node. Setting to bun generally doubles soupification speed."
+      "Bun or node. Setting to bun generally doubles soupification speed.",
     )
     .action((args) => CMDFN.configSetRuntime(ctx, args))
   configCmd
@@ -161,7 +161,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Create a new package release")
     .option(
       "-p, --package-name-with-version <package_name_with_version>",
-      "Package name and version"
+      "Package name and version",
     )
     .option("--package-name <package_name>", "Package name")
     .option("--release-version <release_version>", "Version to publish")
@@ -171,7 +171,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Update a package release")
     .option(
       "-p, --package-name-with-version <package_name_with_version>",
-      "Package name and version"
+      "Package name and version",
     )
     .option("--is-latest", "Make package release the latest version")
     .option("--is-locked", "Lock the release")
@@ -186,11 +186,11 @@ export const getProgram = (ctx: AppContext) => {
     .description("List all files for a package release")
     .option(
       "--package-name-with-version <package_name_with_version>",
-      "Package name with version"
+      "Package name with version",
     )
     .option(
       "--package-name <package_name>",
-      "Package name (use latest version)"
+      "Package name (use latest version)",
     )
     .option("--package-release-id <package_release_id>", "Package Release Id")
     .action((args) => CMDFN.packageFilesList(ctx, args))
@@ -200,12 +200,12 @@ export const getProgram = (ctx: AppContext) => {
     .description("Download a file from a package release")
     .requiredOption(
       "--package-name-with-version <package_name_with_version>",
-      "Package name and version"
+      "Package name and version",
     )
     .requiredOption("--remote-file-path <remote_file_path>", "Remote file path")
     .option(
       "--output <output>",
-      "Output file path (optional), prints to stdout if not provided"
+      "Output file path (optional), prints to stdout if not provided",
     )
     .action((args) => CMDFN.packageFilesDownload(ctx, args))
   packageFiles
@@ -213,11 +213,11 @@ export const getProgram = (ctx: AppContext) => {
     .description("Create/upload a new package file")
     .option(
       "-p, --package-release-id <package_release_id>",
-      "Package Release Id"
+      "Package Release Id",
     )
     .option(
       "--package-name-with-version <package_name_with_version>",
-      "Package name with version e.g. @tscircuit/arduino@1.2.3"
+      "Package name with version e.g. @tscircuit/arduino@1.2.3",
     )
     .requiredOption("--file <file>", "File to upload")
     .action((args) => CMDFN.packageFilesCreate(ctx, args))
@@ -283,7 +283,7 @@ export const getProgram = (ctx: AppContext) => {
     .requiredOption("--file <file>", "Input example files")
     .option(
       "--export <export_name>",
-      "Name of export to soupify, if not specified, soupify the default/only export"
+      "Name of export to soupify, if not specified, soupify the default/only export",
     )
     .option("--outputfile <outputfile>", "Output file name", "gerbers.zip")
     .action((args) => CMDFN.exportGerbers(ctx, args))
@@ -295,7 +295,7 @@ export const getProgram = (ctx: AppContext) => {
     .option("--output <output.json>", "Output file")
     .option(
       "--export <export_name>",
-      "Name of export to soupify, if not specified, soupify the default/only export"
+      "Name of export to soupify, if not specified, soupify the default/only export",
     )
     .action((args) => CMDFN.soupify(ctx, args))
 
@@ -304,7 +304,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Install a package from the tscircuit registry")
     .argument(
       "<packages...>",
-      "Packages to install from registry.tscircuit.com, optionally with version"
+      "Packages to install from registry.tscircuit.com, optionally with version",
     )
     .option("-D, --dev", "Add to devDependencies")
     .action((packages, flags) => CMDFN.install(ctx, { packages, flags }))
@@ -324,7 +324,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Upload a directory to the dev server")
     .option(
       "--dir <dir>",
-      "Directory to upload (defaults to current directory)"
+      "Directory to upload (defaults to current directory)",
     )
     .option("-w, --watch", "Watch for changes")
     .option("-p, --port", "Port dev server is running on (default: 3020)")
