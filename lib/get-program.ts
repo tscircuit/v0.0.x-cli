@@ -56,6 +56,16 @@ export const getProgram = (ctx: AppContext) => {
     .description("Open browser to the TSCircuit Get Started tutorial")
     .action((args) => CMDFN.go(ctx, args))
 
+  cmd
+    .command("render")
+    .description("Render circuit as image")
+    .requiredOption("--input <input>", "Input TypeScript file path")
+    .option("--pcb", "Render PCB view")
+    .option("--schematic", "Render schematic view")
+    .option("--output <output>", "Output file path")
+    .option("-t, --type <type>", "Output file type (png or svg)")
+    .action((args) => CMDFN.render(ctx, args))
+
   const authCmd = cmd.command("auth").description("Login/logout")
   authCmd
     .command("login")
@@ -331,7 +341,9 @@ export const getProgram = (ctx: AppContext) => {
 
   function recursiveUnhelp(cmd: Command) {
     cmd.helpCommand(false)
-    cmd.commands.forEach((c) => recursiveUnhelp(c))
+    for (const c of cmd.commands) {
+      recursiveUnhelp(c)
+    }
   }
   recursiveUnhelp(cmd)
 
