@@ -4,13 +4,6 @@ const path = require("node:path")
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-    "./dev-server-frontend/pages/**/*.{ts,tsx}",
-    "./dev-server-frontend/components/**/*.{ts,tsx}",
-    "./dev-server-frontend/app/**/*.{ts,tsx}",
     path.join(__dirname, "./src/**/*.{ts,tsx}"),
   ],
   prefix: "",

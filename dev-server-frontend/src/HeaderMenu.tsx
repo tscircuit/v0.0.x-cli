@@ -17,7 +17,6 @@ import {
   MenubarTrigger,
 } from "src/components/ui/menubar"
 import cliPackageJson from "../../package.json"
-import frontendPackageJson from "../package.json"
 import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
 import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
 import { useGlobalStore } from "./hooks/use-global-store"
@@ -281,17 +280,11 @@ export const HeaderMenu = () => {
               @tscircuit/cli v{cliPackageJson.version}
             </MenubarItem>
             <MenubarItem disabled>
-              @tscircuit/builder (cli) v
+              @tscircuit/builder v
               {cliPackageJson.devDependencies?.["@tscircuit/builder"]?.replace(
                 /\^/g,
                 "",
               )}
-            </MenubarItem>
-            <MenubarItem disabled>
-              @tscircuit/builder (ui) v
-              {frontendPackageJson.dependencies?.[
-                "@tscircuit/builder"
-              ]?.replace(/\^/g, "")}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/react-fiber v
@@ -302,15 +295,16 @@ export const HeaderMenu = () => {
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/schematic-viewer v
-              {frontendPackageJson.dependencies[
+              {cliPackageJson.devDependencies[
                 "@tscircuit/schematic-viewer"
               ].replace(/\^/g, "")}
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/pcb-viewer v
-              {frontendPackageJson.dependencies[
-                "@tscircuit/pcb-viewer"
-              ].replace(/\^/g, "")}
+              {cliPackageJson.devDependencies["@tscircuit/pcb-viewer"].replace(
+                /\^/g,
+                "",
+              )}
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>

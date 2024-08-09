@@ -1,6 +1,5 @@
-import { AppContext } from "lib/util/app-context"
+import type { AppContext } from "lib/util/app-context"
 import cliPackageJson from "./../../package.json"
-import frontendPackageJson from "dev-server-frontend/package.json"
 
 export const versionCmd = async (ctx: AppContext, args: any) => {
   if (typeof global !== "undefined" && (global as any).TSCIRCUIT_VERSION) {
@@ -17,11 +16,11 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   })
   table.push({
     name: "@tscircuit/schematic-viewer",
-    current: frontendPackageJson.dependencies["@tscircuit/schematic-viewer"],
+    current: cliPackageJson.dependencies["@tscircuit/schematic-viewer"],
   })
   table.push({
     name: "@tscircuit/pcb-viewer",
-    current: frontendPackageJson.dependencies["@tscircuit/pcb-viewer"],
+    current: cliPackageJson.dependencies["@tscircuit/pcb-viewer"],
   })
   table.push({
     name: "@tscircuit/builder",
