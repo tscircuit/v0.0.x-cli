@@ -6,8 +6,8 @@
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
   "main": "./dist/cli.js",
   "scripts": {
-    "bootstrap": "bun i && cd dev-server-api && bun i && cd ../dev-server-frontend && bun i",
-    "bootstrap:ci": "bun i --frozen-lockfile && cd dev-server-api && bun i --frozen-lockfile && cd ../dev-server-frontend && bun i --frozen-lockfile",
+    "bootstrap": "bun i",
+    "bootstrap:ci": "bun i --frozen-lockfile",
     "start": "bun cli.ts",
     "dev": "bun run build:dev-server && concurrently 'bun run dev:frontend' 'bun run dev:test-project'",
     "dev:frontend": "vite dev --config dev-server-frontend/vite.config.ts",

@@ -1,0 +1,5 @@
+{
+  "name": "example-project",
+  "description": "An example project for tscircuit, this package.json is required",
+  "type": "module"
+}
