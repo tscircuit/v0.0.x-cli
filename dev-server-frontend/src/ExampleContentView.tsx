@@ -72,7 +72,7 @@ export const ExampleContentView = () => {
       {pkg && (viewMode === "schematic" || viewMode === "split") && (
         <ErrorBoundary fallback={<div>Failed to render Schematic</div>}>
           <Schematic
-            key={`sch-${pkg?.soup_last_updated_at}`}
+            key={`sch-${pkg?.dev_package_example_id}-${pkg?.soup_last_updated_at}`}
             style={{ height: itemHeight }}
             soup={pkg.tscircuit_soup}
             showTable={false}
@@ -82,7 +82,7 @@ export const ExampleContentView = () => {
       {pkg && (viewMode === "pcb" || viewMode === "split") && (
         <ErrorBoundary fallback={<div>Failed to render PCB</div>}>
           <PCBViewer
-            key={`pcb-${pkg?.soup_last_updated_at}`}
+            key={`pcb-${pkg?.soup_last_updated_at}-${pkg?.edit_events_last_applied_at}`}
             height={itemHeight}
             allowEditing
             editEvents={editEvents}
