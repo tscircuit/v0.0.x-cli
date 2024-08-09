@@ -10,7 +10,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "http://127.0.0.1:3021",
+      "/api": "http://127.0.0.1:3020",
     },
   },
   optimizeDeps: {
