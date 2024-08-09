@@ -1,5 +1,5 @@
-import { PackageInfoSchema } from "src/db/schema"
-import { withWinterSpec } from "src/with-winter-spec"
+import { PackageInfoSchema } from "@server/db/schema"
+import { withWinterSpec } from "@server/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({

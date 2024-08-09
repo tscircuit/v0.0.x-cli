@@ -1,9 +1,9 @@
-import { withWinterSpec } from "src/with-winter-spec"
+import { withWinterSpec } from "@server/with-winter-spec"
 import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
 import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
-import { ExportRequestSchema } from "src/db/schema"
+import { ExportRequestSchema } from "@server/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],

@@ -1,4 +1,4 @@
-import { withWinterSpec } from "src/with-winter-spec"
+import { withWinterSpec } from "@server/with-winter-spec"
 
 export default withWinterSpec({
   methods: ["GET", "POST"],

@@ -1,7 +1,7 @@
-import { withWinterSpec } from "src/with-winter-spec"
+import { withWinterSpec } from "@server/with-winter-spec"
 import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"
-import { DevPackageExampleSchema } from "src/db/schema"
+import { DevPackageExampleSchema } from "@server/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],

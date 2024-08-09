@@ -1,7 +1,7 @@
-import { ExportFileSchema } from "src/db/schema"
+import { ExportFileSchema } from "@server/db/schema"
 import { publicMapExportFile } from "src/lib/public-mapping/public-map-export-file"
 import { export_file } from "src/lib/zod/export_file"
-import { withWinterSpec } from "src/with-winter-spec"
+import { withWinterSpec } from "@server/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({
