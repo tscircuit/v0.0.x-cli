@@ -13,7 +13,7 @@
     "clear": "rm -rf .tscircuit ./dev-server-api/.edgespec",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./example-project",
     "build:dev-server": "cd dev-server-api && bun run build && cd ../dev-server-frontend && bun run build",
-    "build:dev-server:api": "cd dev-server-api && bun run build",
+    "build:dev-server:api": "cd dev-server-api && winterspec bundle-routes -i ./routes -o ./static-routes.ts",
     "build:cli": "bun build-cli.ts",
     "build": "bun build:dev-server && npm run build:cli",
     "dev-with-test-project": "bun cli.ts dev --cwd ./example-project",
@@ -68,6 +68,7 @@
     "ts-morph": "^22.0.0",
     "tsup": "^8.0.2",
     "winterspec": "0.0.81",
+    "redaxios": "^0.5.1",
     "zod": "latest"
   },
   "peerDependencies": {
@@ -79,6 +80,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "make-vfs": "^1.0.10",
     "@tscircuit/builder": "*",
     "@tscircuit/layout": "^0.0.25",
     "@tscircuit/manual-edit-events": "^0.0.4",
