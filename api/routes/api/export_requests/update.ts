@@ -1,8 +1,7 @@
 import { withWinterSpec } from "api/lib/with-winter-spec"
 import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
-import { export_request } from "@api/src/lib/zod/export_request"
-import { ExportRequestSchema } from "@api/src/db/schema"
+import { ExportRequestSchema } from "api/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],

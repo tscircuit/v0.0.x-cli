@@ -1,4 +1,4 @@
-import { ExportFileSchema } from "api/src/db/schema"
+import { ExportFileSchema } from "api/db/schema"
 import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
 
