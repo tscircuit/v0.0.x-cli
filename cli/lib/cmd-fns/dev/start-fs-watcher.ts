@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios"
 import chokidar from "chokidar"
 import { uploadExamplesFromDirectory } from "./upload-examples-from-directory"
 import kleur from "kleur"
+import { AppContext } from "cli/lib/util/app-context"
 
 export const startFsWatcher = async (
   {
@@ -11,7 +12,7 @@ export const startFsWatcher = async (
     cwd: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" },
+  ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   const watcher = chokidar.watch([`${cwd}/**/*.tsx`, `${cwd}/**/*.ts`], {
     ignored: /node_modules/,

@@ -6,6 +6,7 @@ import { soupify } from "cli/lib/soupify"
 import { soupifyAndUploadExampleFile } from "./soupify-and-upload-example-file"
 import { markAllExamplesLoading } from "./mark-all-examples-loading"
 import { readdir } from "fs/promises"
+import { AppContext } from "cli/lib/util/app-context"
 
 export const uploadExamplesFromDirectory = async (
   {
@@ -15,7 +16,7 @@ export const uploadExamplesFromDirectory = async (
     cwd: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" },
+  ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   const examplesDir = joinPath(cwd, "examples")
   const exampleFileNames = await readdir(examplesDir).catch((e) => {

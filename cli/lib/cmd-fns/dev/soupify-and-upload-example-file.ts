@@ -4,6 +4,7 @@ import { AxiosInstance } from "axios"
 import { readdirSync, readFileSync } from "fs"
 import { soupify } from "cli/lib/soupify"
 import { inferExportNameFromSource } from "./infer-export-name-from-source"
+import { AppContext } from "cli/lib/util/app-context"
 
 export const soupifyAndUploadExampleFile = async (
   {
@@ -15,7 +16,7 @@ export const soupifyAndUploadExampleFile = async (
     exampleFileName: string
     devServerAxios: AxiosInstance
   },
-  ctx: { runtime: "node" | "bun" },
+  ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   try {
     const startTime = Date.now()

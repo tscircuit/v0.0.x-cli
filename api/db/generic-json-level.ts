@@ -108,7 +108,7 @@ class GenericJsonLevel extends AbstractLevel<string, any> {
           return undefined
         }
 
-        return [entry.key, entry.value]
+        return [entry.key, entry.value] as [string, any]
       },
       async seek(target: string) {
         index = files.findIndex((file) => file.startsWith(target))
@@ -116,10 +116,7 @@ class GenericJsonLevel extends AbstractLevel<string, any> {
           index = files.length
         }
       },
-      async end() {
-        // No resources to clean up
-      },
-    }
+    } as any
   }
 }
 
