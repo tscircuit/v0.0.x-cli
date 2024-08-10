@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./App.tsx"
+import App from "./views/App.tsx"
 import "./index.css"
 import { GlobalContextProviders } from "./components/global-context-providers.tsx"
 

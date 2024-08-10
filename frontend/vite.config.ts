@@ -11,8 +11,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: "frontend",
+        replacement: path.resolve(__dirname),
+      },
+      {
         find: "src",
-        replacement: path.resolve(__dirname, "src/"),
+        replacement: path.resolve(__dirname),
       },
     ],
   },
@@ -30,6 +34,9 @@ export default defineConfig({
   },
   build: {
     outDir: path.resolve(__dirname, "dist"),
+    rollupOptions: {
+      input: path.resolve(__dirname, "main.tsx"),
+    },
   },
   base: "/preview",
   css: {

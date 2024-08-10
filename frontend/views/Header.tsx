@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { SelectExampleSearch } from "./components/select-example-search"
-import { Button } from "./components/ui/button"
-import { Tabs, TabsList, TabsTrigger } from "./components/ui/tabs"
+import { SelectExampleSearch } from "frontend/components/select-example-search"
+import { Button } from "frontend/components/ui/button"
+import { Tabs, TabsList, TabsTrigger } from "frontend/components/ui/tabs"
 import { RotateCounterClockwiseIcon } from "@radix-ui/react-icons"
-import { useGlobalStore } from "./hooks/use-global-store"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
 import { HeaderMenu } from "./HeaderMenu"
-import { CommandShortcut } from "./components/ui/command"
+import { CommandShortcut } from "frontend/components/ui/command"
 
 export const Header = () => {
   const [viewMode, setViewMode] = useGlobalStore((s) => [

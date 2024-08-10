@@ -1,9 +1,9 @@
 import { useQuery } from "react-query"
-import { useGlobalStore } from "./hooks/use-global-store"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
 import axios from "axios"
 import { Schematic } from "@tscircuit/schematic-viewer"
 import { PCBViewer } from "@tscircuit/pcb-viewer"
-import { cn } from "./lib/utils"
+import { cn } from "frontend/lib/utils"
 import { ErrorBoundary } from "react-error-boundary"
 import { SoupTableViewer } from "@tscircuit/table-viewer"
 import "react-data-grid/lib/styles.css"
@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react"
 import type { EditEvent } from "@tscircuit/pcb-viewer"
 import { CadViewer } from "@tscircuit/3d-viewer"
 
-export const ExampleContentView = () => {
+export const MainContentView = () => {
   const devExamplePackageId = useGlobalStore(
     (s) => s.active_dev_example_package_id,
   )

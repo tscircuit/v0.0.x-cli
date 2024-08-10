@@ -1,5 +1,5 @@
 import apiServer from "../../../api"
-import frontendVfs from "../../../dev-server-frontend/dist/bundle"
+import frontendVfs from "../../../frontend/dist/bundle"
 import EdgeRuntimePrimitives from "@edge-runtime/primitives"
 import mime from "mime-types"
 

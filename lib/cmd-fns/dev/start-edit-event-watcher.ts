@@ -1,4 +1,4 @@
-import { DevPackageExample } from "@server/db/get-db"
+import { DevPackageExample } from "api/db/get-db"
 import { AxiosInstance } from "axios"
 import kleur from "kleur"
 import { AppContext } from "lib/util/app-context"

@@ -1,6 +1,6 @@
 import type { Middleware } from "winterspec"
-import { getDb } from "../db/get-db"
-import type { ZodLevelDatabase } from "src/db/zod-level-db"
+import { getDb } from "api/db/get-db"
+import type { ZodLevelDatabase } from "api/db/zod-level-db"
 
 export const withDb: Middleware<
   {},

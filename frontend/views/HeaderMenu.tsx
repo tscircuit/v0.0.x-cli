@@ -15,11 +15,11 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "src/components/ui/menubar"
+} from "frontend/components/ui/menubar"
 import cliPackageJson from "../../package.json"
-import { useGenericExportDialog } from "./components/dialogs/generic-export-dialog"
-import { useGerberExportDialog } from "./components/dialogs/gerber-export-dialog"
-import { useGlobalStore } from "./hooks/use-global-store"
+import { useGenericExportDialog } from "frontend/components/dialogs/generic-export-dialog"
+import { useGerberExportDialog } from "frontend/components/dialogs/gerber-export-dialog"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
 
 const DEBUG_URL = "https://debug.tscircuit.com"
 
