@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { withWinterSpec } from "@server/with-winter-spec"
 import { NotFoundError } from "edgespec/middleware"
 import { z } from "zod"

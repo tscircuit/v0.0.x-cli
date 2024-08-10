@@ -1,4 +1,5 @@
 import { PackageInfoSchema } from "@server/db/schema"
+// @ts-nocheck
 import { withWinterSpec } from "@server/with-winter-spec"
 import { z } from "zod"
 

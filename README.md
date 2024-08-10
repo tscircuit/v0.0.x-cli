@@ -1,4 +1,4 @@
-# `tsci` - The TSCircuit Command Line Tool
+# `tsci` - The TSCircuit Command Line & Development Tools
 
 Command line tool for developing tscircuit projects and interacting with the
 tscircuit registry.

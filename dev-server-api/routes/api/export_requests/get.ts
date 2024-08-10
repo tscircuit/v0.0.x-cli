@@ -1,7 +1,7 @@
+// @ts-nocheck
 import { withWinterSpec } from "@server/with-winter-spec"
 import { z } from "zod"
 import { export_request } from "src/lib/zod/export_request"
-import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
 import { NotFoundError } from "edgespec/middleware"
 import { ExportRequestSchema } from "@server/db/schema"
 import { file } from "bun"

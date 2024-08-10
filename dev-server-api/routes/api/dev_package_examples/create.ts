@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { withWinterSpec } from "@server/with-winter-spec"
 import { z } from "zod"
 

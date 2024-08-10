@@ -1,5 +1,5 @@
 import { it, expect } from "bun:test"
-import { getTestFixture } from "@server/tests/fixtures/get-test-server"
+import { getTestFixture } from "@api/tests/fixtures/get-test-server"
 
 it("GET /api/export_requests/list", async () => {
   const { axios } = await getTestFixture()

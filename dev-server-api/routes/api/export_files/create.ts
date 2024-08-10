@@ -1,7 +1,5 @@
-import { ExportFileSchema } from "@server/db/schema"
-import { publicMapExportFile } from "src/lib/public-mapping/public-map-export-file"
-import { export_file } from "src/lib/zod/export_file"
-import { withWinterSpec } from "@server/with-winter-spec"
+import { ExportFileSchema } from "dev-server-api/src/db/schema"
+import { withWinterSpec } from "dev-server-api/src/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({
@@ -16,7 +14,6 @@ export default withWinterSpec({
   }),
   auth: "none",
 })(async (req, ctx) => {
-  console.log("putting file")
   const export_file = await ctx.db.put("export_file", {
     export_request_id: req.jsonBody.export_request_id,
     file_name: req.jsonBody.file_name,
@@ -24,7 +21,6 @@ export default withWinterSpec({
     created_at: new Date().toISOString(),
   })
   console.log("done putting file")
-
   return ctx.json({
     export_file,
   })

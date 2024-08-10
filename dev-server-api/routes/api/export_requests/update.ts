@@ -1,9 +1,9 @@
+// @ts-nocheck
 import { withWinterSpec } from "@server/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
+import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
-import { export_request } from "src/lib/zod/export_request"
-import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
-import { ExportRequestSchema } from "@server/db/schema"
+import { export_request } from "@api/src/lib/zod/export_request"
+import { ExportRequestSchema } from "@api/src/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],

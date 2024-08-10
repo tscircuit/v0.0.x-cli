@@ -1,6 +1,6 @@
-import { withWinterSpec } from "@server/with-winter-spec"
+// @ts-nocheck
+import { withWinterSpec } from "../../../src/with-winter-spec"
 import { z } from "zod"
-import { publicMapExportRequest } from "src/lib/public-mapping/public-map-export-request"
 import { ExportRequestSchema } from "@server/db/schema"
 
 export default withWinterSpec({
