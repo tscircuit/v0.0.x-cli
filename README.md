@@ -1,4 +1,4 @@
-# `tsci` - The TSCircuit Command Line Tool
+# `tsci` - The TSCircuit Command Line & Development Tools
 
 Command line tool for developing tscircuit projects and interacting with the
 tscircuit registry.
@@ -41,7 +41,7 @@ tsci publish
 This project is developed with [bun](https://bun.sh/), make sure you have
 that installed.
 
-Run `bun bootstrap` to install dependencies and `bun cli.ts` to run test the cli in development.
+Run `bun install` to install dependencies and `bun cli/cli.ts` to run test the cli in development, or `bun run dev` to run the dev server.
 
 To run tests, run `bun test`
 

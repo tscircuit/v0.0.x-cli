@@ -9,3 +9,5 @@ dist
 
 .vscode
 .aider*
+package-lock.json
+**/package-lock.json
