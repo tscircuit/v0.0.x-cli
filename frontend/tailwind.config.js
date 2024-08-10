@@ -4,7 +4,7 @@ const path = require("node:path")
 module.exports = {
   darkMode: ["class"],
   content: [
-    path.join(__dirname, "./src/**/*.{ts,tsx}"),
+    path.join(__dirname, "./{src,components,lib,views}/**/*.{ts,tsx}"),
   ],
   prefix: "",
   theme: {

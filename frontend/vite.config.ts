@@ -35,7 +35,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist"),
     rollupOptions: {
-      input: path.resolve(__dirname, "main.tsx"),
+      input: path.resolve(__dirname, "index.html"),
     },
   },
   base: "/preview",
