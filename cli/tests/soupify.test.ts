@@ -3,7 +3,7 @@ import { $ } from "bun"
 
 test("soupify", async () => {
   const result =
-    await $`bun cli.ts soupify -y --file ./example-project/examples/basic-chip.tsx`.text()
+    await $`bun cli/cli.ts soupify -y --file ./example-project/examples/basic-chip.tsx`.text()
 
   expect(result).toContain("10kohm")
 })
