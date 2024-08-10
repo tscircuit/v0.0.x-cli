@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
+import { withWinterSpec } from "api/lib/with-winter-spec"
+import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
 
 export default withWinterSpec({

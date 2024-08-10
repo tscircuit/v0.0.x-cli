@@ -1,8 +1,7 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
-import { export_parameters } from "../../../src/lib/zod/export_parameters"
-import { ExportRequestSchema } from "@server/db/schema"
+import { export_parameters } from "api/lib/zod/export_parameters"
+import { ExportRequestSchema } from "api/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],

@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 
 export default withWinterSpec({
   methods: ["GET", "POST"],

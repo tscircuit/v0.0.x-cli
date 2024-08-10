@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
 import { export_request } from "@api/src/lib/zod/export_request"

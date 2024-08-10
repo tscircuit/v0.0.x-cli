@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { withWinterSpec } from "../../src/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({

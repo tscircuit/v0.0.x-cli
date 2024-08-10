@@ -14,7 +14,7 @@
     "dev:test-project": "bun --hot cli.ts dev --cwd ./example-project",
     "start:dev-server": "bun build:dev-server && bun cli.ts dev -y --cwd ./example-project",
     "build:dev-server": "bun run build:dev-server:api && bun run build:dev-server:frontend",
-    "build:dev-server:api": "cd dev-server-api && winterspec bundle-routes -i ./routes -o ./static-routes.ts",
+    "build:dev-server:api": "cd api && winterspec bundle-routes -i ./routes -o ./static-routes.ts",
     "build:dev-server:frontend": "vite build --config dev-server-frontend/vite.config.ts && make-vfs --content-format string --dir dev-server-frontend/dist --outfile ./dev-server-frontend/dist/bundle.ts",
     "build:cli": "bun build-cli.ts",
     "build": "bun build:dev-server && npm run build:cli",

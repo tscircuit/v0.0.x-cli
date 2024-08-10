@@ -1,6 +1,6 @@
-import { PackageInfoSchema } from "@server/db/schema"
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
+import { PackageInfoSchema } from "api/db/schema"
+
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({

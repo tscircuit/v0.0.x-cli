@@ -4,11 +4,7 @@ import { useGlobalStore } from "src/hooks/use-global-store"
 import { useActiveDevPackageExampleLite } from "src/hooks/use-active-dev-package-example-lite"
 import { Button } from "../ui/button"
 import axios from "axios"
-import {
-  ExportParameters,
-  ExportParametersInput,
-  export_parameters,
-} from "@server/lib/zod/export_parameters"
+import type { ExportParametersInput } from "api/lib/zod/export_parameters"
 
 export const useGenericExportDialog = ({
   exportFileName,

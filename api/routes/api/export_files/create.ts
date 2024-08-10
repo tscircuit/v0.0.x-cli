@@ -1,5 +1,5 @@
-import { ExportFileSchema } from "dev-server-api/src/db/schema"
-import { withWinterSpec } from "dev-server-api/src/with-winter-spec"
+import { ExportFileSchema } from "api/src/db/schema"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
 
 export default withWinterSpec({

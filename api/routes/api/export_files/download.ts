@@ -1,5 +1,5 @@
 import { export_file } from "src/lib/zod/export_file"
-import { withWinterSpec } from "../../../src/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
 

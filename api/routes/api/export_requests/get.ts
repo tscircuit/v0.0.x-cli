@@ -1,10 +1,7 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
+import { withWinterSpec } from "api/lib/with-winter-spec"
 import { z } from "zod"
-import { export_request } from "src/lib/zod/export_request"
-import { NotFoundError } from "edgespec/middleware"
-import { ExportRequestSchema } from "@server/db/schema"
-import { file } from "bun"
+import { NotFoundError } from "winterspec/middleware"
+import { ExportRequestSchema } from "api/db/schema"
 
 export default withWinterSpec({
   methods: ["GET", "POST"],

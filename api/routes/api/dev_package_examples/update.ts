@@ -1,8 +1,7 @@
-// @ts-nocheck
-import { withWinterSpec } from "@server/with-winter-spec"
-import { NotFoundError } from "edgespec/middleware"
+import { withWinterSpec } from "api/lib/with-winter-spec"
+import { NotFoundError } from "winterspec/middleware"
 import { z } from "zod"
-import { DevPackageExampleSchema } from "@server/db/schema"
+import { DevPackageExampleSchema } from "api/db/schema"
 
 export default withWinterSpec({
   methods: ["POST"],
