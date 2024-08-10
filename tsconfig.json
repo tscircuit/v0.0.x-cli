@@ -105,18 +105,4 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true, /* Skip type checking all .d.ts files. */
   },
-  // "include": [
-  //   "dev-server-api/routes/**/*.ts",
-  //   "dev-server-api/src/**/*.ts",
-  //   "dev-server-api/tests/**/*.ts",
-  //   "dev-server-api/index.ts",
-
-  //   // "dev-server-frontend/src/**/*.{ts,tsx}",
-
-  //   // "lib/**/*.ts",
-  // ],
-  // "exclude": [
-  //   "dist",
-  //   "**/dist"
-  // ]
 }
