@@ -1,5 +1,5 @@
-import { DevPackageExample } from "api/db/get-db"
-import { AxiosInstance } from "axios"
+import type { DevPackageExample } from "api/db/schema"
+import type { AxiosInstance } from "axios"
 import kleur from "kleur"
 import { AppContext } from "cli/lib/util/app-context"
 import fg from "fast-glob"
@@ -51,7 +51,7 @@ export const startEditEventWatcher = async (
             )
 
             last_edit_event_update_time[dev_package_example_id] =
-              dev_package_example.edit_events_last_updated_at // TODO last_edit_event_updated_at
+              dev_package_example.edit_events_last_updated_at! // TODO last_edit_event_updated_at
 
             console.log(kleur.gray(`  getting new edit events...`))
 

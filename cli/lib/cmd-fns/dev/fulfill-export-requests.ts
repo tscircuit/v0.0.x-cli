@@ -2,10 +2,10 @@ import { AppContext } from "../../util/app-context"
 import kleur from "kleur"
 import { exportGerbersToZipBuffer } from "cli/lib/export-fns/export-gerbers"
 import { AxiosInstance } from "axios"
-import { ExportRequest } from "@server/lib/zod/export_request"
 import { exportPnpCsvToBuffer } from "cli/lib/export-fns/export-pnp-csv"
 import { exportBomCsvToBuffer } from "cli/lib/export-fns/export-bom-csv"
 import { soupify } from "cli/lib/soupify"
+import { ExportRequest } from "api/db/schema"
 
 export const uploadBufferToExportFile = async ({
   dev_server_axios,
@@ -73,8 +73,8 @@ export const fulfillExportRequests = async (
       }
       const zip_buffer = await exportGerbersToZipBuffer(
         {
-          example_file_path: export_request.example_file_path,
-          export_name: export_request.export_name,
+          example_file_path: export_request.example_file_path!,
+          export_name: export_request.export_name!,
         },
         ctx,
       )
@@ -97,8 +97,8 @@ export const fulfillExportRequests = async (
       console.log(kleur.gray(`\n  exporting pick'n'place...`))
       const csv_buffer = await exportPnpCsvToBuffer(
         {
-          example_file_path: export_request.example_file_path,
-          export_name: export_request.export_name,
+          example_file_path: export_request.example_file_path!,
+          export_name: export_request.export_name!,
         },
         ctx,
       )
@@ -117,8 +117,8 @@ export const fulfillExportRequests = async (
       console.log(kleur.gray(`\n  exporting bill of materials...`))
       const csv_buffer = await exportBomCsvToBuffer(
         {
-          example_file_path: export_request.example_file_path,
-          export_name: export_request.export_name,
+          example_file_path: export_request.example_file_path!,
+          export_name: export_request.export_name!,
         },
         ctx,
       )
@@ -137,8 +137,8 @@ export const fulfillExportRequests = async (
       console.log(kleur.gray(`\n  exporting soup...`))
       const soup = await soupify(
         {
-          filePath: export_request.example_file_path,
-          exportName: export_request.export_name,
+          filePath: export_request.example_file_path!,
+          exportName: export_request.export_name!,
         },
         ctx,
       )
