@@ -3,8 +3,8 @@
 import * as React from "react"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 
-import { cn } from "src/lib/utils"
-import { Button } from "src/components/ui/button"
+import { cn } from "frontend/lib/utils"
+import { Button } from "frontend/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -13,15 +13,15 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "src/components/ui/command"
+} from "frontend/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "src/components/ui/popover"
-import { useGlobalStore } from "src/hooks/use-global-store"
+} from "frontend/components/ui/popover"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
 import { useDevPackageExamples } from "../hooks/use-dev-package-examples"
-import { useActiveDevPackageExampleLite } from "src/hooks/use-active-dev-package-example-lite"
+import { useActiveDevPackageExampleLite } from "frontend/hooks/use-active-dev-package-example-lite"
 
 export function inflatePackageExample(ex: any) {
   if (!ex) return ex

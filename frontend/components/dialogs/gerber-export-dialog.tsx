@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { Dialog } from "@headlessui/react"
-import { useGlobalStore } from "src/hooks/use-global-store"
-import { useActiveDevPackageExampleLite } from "src/hooks/use-active-dev-package-example-lite"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
+import { useActiveDevPackageExampleLite } from "frontend/hooks/use-active-dev-package-example-lite"
 import { Button } from "../ui/button"
 import axios from "axios"
 

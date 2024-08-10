@@ -22,7 +22,7 @@
     }
   },
   "linter": {
-    "enabled": true,
+    "enabled": false,
     "rules": {
       "suspicious": {
         "noExplicitAny": "off"

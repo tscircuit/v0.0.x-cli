@@ -12,19 +12,19 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   table.push({ name: "@tscircuit/cli", current: cliPackageJson.version })
   table.push({
     name: "@tscircuit/react-fiber",
-    current: cliPackageJson.dependencies["@tscircuit/react-fiber"],
+    current: cliPackageJson.devDependencies["@tscircuit/react-fiber"],
   })
   table.push({
     name: "@tscircuit/schematic-viewer",
-    current: cliPackageJson.dependencies["@tscircuit/schematic-viewer"],
+    current: cliPackageJson.devDependencies["@tscircuit/schematic-viewer"],
   })
   table.push({
     name: "@tscircuit/pcb-viewer",
-    current: cliPackageJson.dependencies["@tscircuit/pcb-viewer"],
+    current: cliPackageJson.devDependencies["@tscircuit/pcb-viewer"],
   })
   table.push({
     name: "@tscircuit/builder",
-    current: cliPackageJson.dependencies["@tscircuit/builder"],
+    current: cliPackageJson.devDependencies["@tscircuit/builder"],
   })
 
   if (args.showLatest) {

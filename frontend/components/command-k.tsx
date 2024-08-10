@@ -8,7 +8,7 @@ import {
   CommandList,
   CommandShortcut,
 } from "./ui/command"
-import { useGlobalStore } from "src/hooks/use-global-store"
+import { useGlobalStore } from "frontend/hooks/use-global-store"
 import { useDevPackageExamples } from "../hooks/use-dev-package-examples"
 import { CommandSeparator } from "cmdk"
 
