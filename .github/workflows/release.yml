@@ -24,7 +24,12 @@ jobs:
           bun-version: latest
 
       - name: Install project dependencies
-        run: bun run bootstrap:ci
+        run: |
+          bun install
+
+          # Undo changes to the lockfile that might block release
+          # when this project is more mature use "bun install --frozen-lockfile"
+          git checkout -- bun.lockb
 
       - name: Build project
         run: bun run build
