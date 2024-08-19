@@ -1,7 +1,6 @@
-import { circuitToPng } from "circuit-to-png"
-import fs from "fs"
 import { soupify } from "cli/lib/soupify"
 import type { AppContext } from "cli/lib/util/app-context"
+import fs from "fs"
 import path from "path"
 
 export const renderCmd = async (
@@ -38,7 +37,7 @@ export const renderCmd = async (
     },
     ctx,
   )
-
+  const { circuitToPng } = await import("circuit-to-png")
   const soupBuffer = circuitToPng(soup, viewType)
 
   fs.writeFileSync(outputFile, soupBuffer)
