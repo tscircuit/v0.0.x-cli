@@ -98,7 +98,7 @@
     "@tscircuit/pcb-viewer": "^1.4.4",
     "@tscircuit/react-fiber": "*",
     "@tscircuit/schematic-viewer": "^1.2.14",
-    "@tscircuit/soup-util": "^0.0.18",
+    "@tscircuit/soup-util": "^0.0.19",
     "@tscircuit/table-viewer": "0.0.8",
     "@types/archiver": "^6.0.2",
     "@types/bun": "^1.0.8",
