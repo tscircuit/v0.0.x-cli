@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.166",
+  "version": "0.0.167",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
@@ -67,7 +67,7 @@
     "tsup": "^8.0.2",
     "winterspec": "0.0.86",
     "zod": "^3.22.4",
-    "@tscircuit/builder": "^1.11.1"
+    "@tscircuit/builder": "*"
   },
   "peerDependencies": {
     "@tscircuit/builder": "*",
