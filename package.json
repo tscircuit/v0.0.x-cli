@@ -66,7 +66,8 @@
     "ts-morph": "^22.0.0",
     "tsup": "^8.0.2",
     "winterspec": "0.0.86",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "@tscircuit/builder": "^1.11.1"
   },
   "peerDependencies": {
     "@tscircuit/builder": "*",
@@ -92,7 +93,6 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tscircuit/3d-viewer": "^0.0.16",
-    "@tscircuit/builder": "*",
     "@tscircuit/layout": "^0.0.25",
     "@tscircuit/manual-edit-events": "^0.0.4",
     "@tscircuit/pcb-viewer": "^1.4.4",

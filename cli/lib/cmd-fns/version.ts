@@ -24,7 +24,7 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   })
   table.push({
     name: "@tscircuit/builder",
-    current: cliPackageJson.devDependencies["@tscircuit/builder"],
+    current: cliPackageJson.dependencies["@tscircuit/builder"],
   })
 
   if (args.showLatest) {
