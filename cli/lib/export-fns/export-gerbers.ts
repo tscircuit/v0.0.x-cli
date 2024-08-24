@@ -32,14 +32,14 @@ export const exportGerbersToFile = async (
 
   console.log(kleur.gray("[soup to gerber json]..."))
   const gerber_layer_cmds = convertSoupToGerberCommands(soup, {
-    flip_y_axis: true,
+    flip_y_axis: false,
   })
 
   console.log(kleur.gray("[soup to drl json]..."))
   const drill_cmds = convertSoupToExcellonDrillCommands({
     soup,
     is_plated: true,
-    flip_y_axis: true,
+    flip_y_axis: false,
   })
 
   console.log(kleur.gray("[stringify gerber json]..."))
