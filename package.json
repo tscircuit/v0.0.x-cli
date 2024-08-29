@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.168",
+  "version": "0.0.169",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
@@ -99,7 +99,7 @@
     "@tscircuit/manual-edit-events": "^0.0.4",
     "@tscircuit/pcb-viewer": "^1.4.4",
     "@tscircuit/schematic-viewer": "^1.2.14",
-    "@tscircuit/soup-util": "^0.0.18",
+    "@tscircuit/soup-util": "^0.0.20",
     "@tscircuit/table-viewer": "0.0.8",
     "@types/archiver": "^6.0.2",
     "@types/bun": "^1.0.8",
