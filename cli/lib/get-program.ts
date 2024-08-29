@@ -293,6 +293,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Convert an example file to tscircuit soup")
     .requiredOption("--file <file>", "Input example files")
     .option("--output <output.json>", "Output file")
+    .option("--core", "Use @tscircuit/core to build (future version)")
     .option(
       "--export <export_name>",
       "Name of export to soupify, if not specified, soupify the default/only export",
