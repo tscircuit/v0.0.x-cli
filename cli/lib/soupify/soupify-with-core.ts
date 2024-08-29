@@ -48,5 +48,5 @@ writeFileSync("${tmpOutputPath}", JSON.stringify(project.getCircuitJson()))
 `.trim(),
   )
 
-  await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
+  return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
 }

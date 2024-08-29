@@ -62,5 +62,5 @@ writeFileSync("${tmpOutputPath}", JSON.stringify(elements))
 `.trim(),
   )
 
-  await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
+  return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
 }
