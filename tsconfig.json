@@ -24,6 +24,6 @@
     "skipLibCheck": true, 
     "verbatimModuleSyntax": false,
   },
-  "include": ["src/**/*", "cli/**/*", "frontend/**/*"],
+  "include": ["src/**/*", "cli/**/*", "frontend/**/*", "api/**/*", "scripts/**/*", "example-project/**/*"],
   "exclude": ["node_modules"]
 }
