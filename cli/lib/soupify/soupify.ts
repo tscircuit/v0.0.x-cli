@@ -14,7 +14,7 @@ import { runEntrypointFile } from "./run-entrypoint-file"
 
 const debug = Debug("tscircuit:soupify")
 
-export const soupify = async (
+export const soupifyWithBuilder = async (
   params: {
     filePath: string
     exportName?: string
@@ -43,13 +43,22 @@ import { createRoot } from "@tscircuit/react-fiber"
 import { createProjectBuilder } from "@tscircuit/builder"
 import { writeFileSync } from "node:fs"
 
-import * as EXPORTS from "./${Path.basename(filePath)}"
-
-const Component = EXPORTS["${exportName}"]
+let Component
+try {
+  const EXPORTS = await import("./${Path.basename(filePath)}")
+  Component = EXPORTS["${exportName}"]
+} catch (e) {
+  writeFileSync("${tmpOutputPath}", JSON.stringify({
+    COMPILE_ERROR: e.message + "\\n\\n" + e.stack,
+  }))
+}
 
 if (!Component) {
   console.log(JSON.stringify({
     COMPILE_ERROR: 'Failed to find "${exportName}" export in "${filePath}"'
+  }))
+  writeFileSync("${tmpOutputPath}", JSON.stringify({
+    COMPILE_ERROR: e.message + "\\n\\n" + e.stack,
   }))
   process.exit(0)
 }
@@ -64,3 +73,5 @@ writeFileSync("${tmpOutputPath}", JSON.stringify(elements))
 
   return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
 }
+
+export const soupify = soupifyWithBuilder
