@@ -12,7 +12,7 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
   table.push({ name: "@tscircuit/cli", current: cliPackageJson.version })
   table.push({
     name: "@tscircuit/react-fiber",
-    current: cliPackageJson.devDependencies["@tscircuit/react-fiber"],
+    current: cliPackageJson.dependencies["@tscircuit/react-fiber"],
   })
   table.push({
     name: "@tscircuit/schematic-viewer",

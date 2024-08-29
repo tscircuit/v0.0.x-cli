@@ -15,6 +15,8 @@
 
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true, 
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
   },
+  "include": ["src/**/*", "cli/**/*", "frontend/**/*"],
+  "exclude": ["node_modules"]
 }
