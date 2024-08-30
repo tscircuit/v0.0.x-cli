@@ -23,6 +23,7 @@ export const devCmd = async (ctx: AppContext, args: any) => {
   const params = z
     .object({
       port: z.coerce.number().optional().default(3020),
+      core: z.boolean().optional(),
     })
     .parse(args)
 

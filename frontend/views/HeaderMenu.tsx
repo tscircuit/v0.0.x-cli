@@ -288,7 +288,7 @@ export const HeaderMenu = () => {
             </MenubarItem>
             <MenubarItem disabled>
               @tscircuit/react-fiber v
-              {cliPackageJson.devDependencies["@tscircuit/react-fiber"].replace(
+              {cliPackageJson.dependencies["@tscircuit/react-fiber"].replace(
                 /\^/g,
                 "",
               )}

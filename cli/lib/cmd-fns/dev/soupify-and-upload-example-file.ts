@@ -30,6 +30,7 @@ export const soupifyAndUploadExampleFile = async (
       {
         filePath: examplePath,
         exportName,
+        useCore: ctx.params.core,
       },
       ctx,
     )

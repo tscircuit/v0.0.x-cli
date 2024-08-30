@@ -1,14 +1,15 @@
+import "@tscircuit/core"
 import { layout } from "@tscircuit/layout"
 import manual_edits from "../src/manual-edits"
 
-export const BasicBug = () => (
+export const BasicChip = () => (
   <board pcbCenterX={0} pcbCenterY={0} width="20mm" height="20mm">
     <group
       layout={layout()
         .autoLayoutSchematic()
         .manualPcbPlacement(manual_edits.pcb_placements)}
     >
-      <bug
+      <chip
         name="U2"
         schPortArrangement={{
           leftSize: 4,
@@ -23,7 +24,7 @@ export const BasicBug = () => (
         }}
       />
       <resistor name="R1" resistance="10kohm" footprint="0805" />
-      <trace from=".U2 > .1" to=".R1 > .left" />
+      <trace from=".U2 > .1" to=".R1 > port.1" />
     </group>
   </board>
 )
