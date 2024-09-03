@@ -123,7 +123,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
 
   if (args["version"] && args._.length === 2) {
     await versionCmd(ctx, {})
-    return ctx
+    process.exit(0)
   }
 
   // HACK: Fixes issue with tsci version --show-latest
