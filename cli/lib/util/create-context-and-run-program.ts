@@ -82,12 +82,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
       // end ignores ---
 
       if (err.response?.status === 401) {
-        console.log(
-          kleur.red(
-            "Authentication failed. Please run 'tsci login' to authenticate yourself.",
-          ),
-        )
-        process.exit(1)
+        throw new Error("Authentication failed. Please run 'tsci login' to authenticate yourself.")
       }
 
       console.log(
@@ -128,7 +123,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
 
   if (args["version"] && args._.length === 2) {
     await versionCmd(ctx, {})
-    process.exit(0)
+    return ctx
   }
 
   // HACK: Fixes issue with tsci version --show-latest
