@@ -19,8 +19,8 @@ export default {
       _edit_event_id: "0.6668756126702717",
       selector: ".U2",
       center: {
-        x: -5.004250626566417,
-        y: 0.13319298245614064,
+        x: -5.830346475507767,
+        y: -1.3620071684587813,
       },
       relative_to: "group_center",
     },
@@ -28,8 +28,8 @@ export default {
       _edit_event_id: "0.867524742177592",
       selector: ".R1",
       center: {
-        x: 2.8351077694235585,
-        y: 0,
+        x: 3.679808841099163,
+        y: 3.6320191158900847,
       },
       relative_to: "group_center",
     },

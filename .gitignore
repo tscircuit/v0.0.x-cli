@@ -5,6 +5,7 @@ dist
 # tests/example-init
 .npmrc
 *.__tmp_entrypoint.tsx
+*.__tmp_output.json
 *.zip
 
 .vscode

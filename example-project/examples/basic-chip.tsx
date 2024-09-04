@@ -3,8 +3,9 @@ import { layout } from "@tscircuit/layout"
 import manual_edits from "../src/manual-edits"
 
 export const BasicChip = () => (
-  <board pcbCenterX={0} pcbCenterY={0} width="20mm" height="20mm">
+  <board pcbX={0} pcbY={0} width="20mm" height="20mm">
     <group
+      subcircuit
       layout={layout()
         .autoLayoutSchematic()
         .manualPcbPlacement(manual_edits.pcb_placements)}

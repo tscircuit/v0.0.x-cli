@@ -6,8 +6,8 @@ export const MyCircuit = () => (
   <board
     width="40mm"
     height="40mm"
-    pcbCenterX={0}
-    pcbCenterY={0}
+    pcbX={0}
+    pcbY={0}
     layout={layout().manualEdits(manual_edits)}
   >
     <resistor

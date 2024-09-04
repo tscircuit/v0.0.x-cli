@@ -12,7 +12,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Run development server in current directory")
     .option("--cwd <cwd>", "Current working directory")
     .option("--port <port>", "Port to run dev server on")
-    .option("--core", "Use @tscircuit/core beta")
+    .option("--no-core", "Use @tscircuit/core beta", false)
     .option("--no-cleanup", "Don't cleanup temporary files (for debugging)")
     .action((args) => CMDFN.dev(ctx, args))
 
@@ -294,7 +294,7 @@ export const getProgram = (ctx: AppContext) => {
     .description("Convert an example file to tscircuit soup")
     .requiredOption("--file <file>", "Input example files")
     .option("--output <output.json>", "Output file")
-    .option("--core", "Use @tscircuit/core to build (future version)")
+    .option("--no-core", "Use @tscircuit/core to build (future version)", false)
     .option(
       "--export <export_name>",
       "Name of export to soupify, if not specified, soupify the default/only export",
