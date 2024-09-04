@@ -36,9 +36,8 @@
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
     "@tscircuit/builder": "*",
-    "@tscircuit/props": "^0.0.52",
     "@tscircuit/core": "0.0.29",
-    "@tscircuit/react-fiber": "*",
+    "@tscircuit/props": "^0.0.52",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
     "chokidar": "^3.6.0",
@@ -76,7 +75,6 @@
     "@tscircuit/builder": "*",
     "@tscircuit/layout": "*",
     "@tscircuit/manual-edit-events": "*",
-    "@tscircuit/react-fiber": "*",
     "@tscircuit/soup-util": "*"
   },
   "devDependencies": {
