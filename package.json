@@ -9,7 +9,7 @@
     "start": "bun cli/cli.ts",
     "dev": "bun run build:dev-server && concurrently 'bun run dev:frontend' 'bun run dev:test-project'",
     "dev:frontend": "vite dev --config frontend/vite.config.ts",
-    "dev:test-project": "buncli/ --hot cli/cli.ts dev --cwd ./example-project",
+    "dev:test-project": "bun --hot cli/cli.ts dev --core --cwd ./example-project",
     "start:dev-server": "bun build:dev-server && bun cli/cli.ts dev -y --cwd ./example-project",
     "build": "bun build:dev-server && npm run build:cli",
     "build:cli": "bun scripts/build-cli.ts",
