@@ -11,6 +11,5 @@ export const MacroKeypad = () => (
     layout={layout().manualEdits(manualEdits)}
   >
     <SwitchShaft name="SW1" />
-    <resistor name="R1" resistance="1k" footprint="0402" />
   </board>
 )
