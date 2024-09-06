@@ -26,6 +26,7 @@ export const Key = (props: {
         pcbY={props.pcbY - 6}
       />
       <trace
+        // @ts-ignore
         key="trace1"
         from={`.${shaftName} .pin2`}
         to={`.${diodeName} .pin1`}
