@@ -32,13 +32,13 @@ export const soupifyWithCore = async (
     tmpEntrypointPath,
     `
 import React from "react"
-import { Project } from "@tscircuit/core"
+import { Circuit } from "@tscircuit/core"
 import * as EXPORTS from "./${Path.basename(filePath)}"
 import { writeFileSync } from "node:fs"
 
 const Component = EXPORTS["${exportName}"]
 
-const project = new Project()
+const project = new Circuit()
 
 try {
   project.add(<Component />)
