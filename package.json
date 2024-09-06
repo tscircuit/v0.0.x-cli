@@ -36,7 +36,7 @@
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
     "@tscircuit/builder": "*",
-    "@tscircuit/props": "^0.0.52",
+    "@tscircuit/props": "^0.0.62",
     "@tscircuit/core": "0.0.30",
     "@tscircuit/react-fiber": "*",
     "archiver": "^7.0.1",
