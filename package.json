@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.182",
+  "version": "0.0.184",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
@@ -36,7 +36,7 @@
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
     "@tscircuit/builder": "*",
-    "@tscircuit/core": "^0.0.35",
+    "@tscircuit/core": "0.0.35",
     "@tscircuit/props": "^0.0.62",
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
