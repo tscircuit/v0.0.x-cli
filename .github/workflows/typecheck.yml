@@ -25,5 +25,5 @@ jobs:
       - name: Build (required for dist imports)
         run: bun run build
 
-      - name: Run format check
+      - name: Run type check
         run: bunx tsc --noEmit

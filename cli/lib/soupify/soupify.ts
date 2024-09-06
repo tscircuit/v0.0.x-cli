@@ -26,7 +26,7 @@ export const soupifyWithBuilder = async (
   },
   ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
-  let { filePath, exportName, useCore } = params
+  let { filePath, exportName, useCore = true } = params
   if (useCore) return soupifyWithCore(params, ctx)
 
   exportName ??= await getExportNameFromFile(filePath)

@@ -287,13 +287,6 @@ export const HeaderMenu = () => {
               )}
             </MenubarItem>
             <MenubarItem disabled>
-              @tscircuit/react-fiber v
-              {cliPackageJson.dependencies["@tscircuit/react-fiber"].replace(
-                /\^/g,
-                "",
-              )}
-            </MenubarItem>
-            <MenubarItem disabled>
               @tscircuit/schematic-viewer v
               {cliPackageJson.devDependencies[
                 "@tscircuit/schematic-viewer"
