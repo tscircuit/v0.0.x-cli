@@ -43,8 +43,8 @@ const project = new Circuit()
 try {
   project.add(<Component />)
 } catch (e: any) {
-  console.log(e.toString())
-  writeFileSync("[during .add()] ${tmpOutputPath}", JSON.stringify({
+  console.log("[during .add()] ", e.toString())
+  writeFileSync("${tmpOutputPath}", JSON.stringify({
     COMPILE_ERROR: e.toString() + "\\n\\n" + e.stack,
   }))
   throw e
