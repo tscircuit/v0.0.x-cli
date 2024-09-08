@@ -97,7 +97,7 @@
     "@tscircuit/3d-viewer": "^0.0.17",
     "@tscircuit/layout": "^0.0.28",
     "@tscircuit/manual-edit-events": "^0.0.4",
-    "@tscircuit/pcb-viewer": "^1.4.4",
+    "@tscircuit/pcb-viewer": "^1.9.1",
     "@tscircuit/schematic-viewer": "^1.2.14",
     "@tscircuit/soup-util": "^0.0.23",
     "@tscircuit/table-viewer": "0.0.8",

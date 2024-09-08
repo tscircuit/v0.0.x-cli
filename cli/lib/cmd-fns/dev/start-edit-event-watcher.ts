@@ -11,6 +11,9 @@ import { deriveSelectorFromPcbComponentId } from "./derive-selector-from-pcb-com
 import type { EditEvent } from "@tscircuit/manual-edit-events"
 import { getManualTraceHintFromEvent, ManualTraceHint } from "@tscircuit/layout"
 import JSON5 from "json5"
+import Debug from "debug"
+
+const debug = Debug("tscircuit:cli:edit-event-watcher")
 
 export const startEditEventWatcher = async (
   {
@@ -46,14 +49,12 @@ export const startEditEventWatcher = async (
                 `Edit event detected for dev_package_example ${dev_package_example.dev_package_example_id}`,
               ),
             )
-            console.log(
-              kleur.gray(`  file_path: ${dev_package_example.file_path}`),
-            )
+            debug(`file_path: ${dev_package_example.file_path}`)
 
             last_edit_event_update_time[dev_package_example_id] =
               dev_package_example.edit_events_last_updated_at! // TODO last_edit_event_updated_at
 
-            console.log(kleur.gray(`  getting new edit events...`))
+            debug(`  getting new edit events...`)
 
             const dev_package_example_full = await devServerAxios
               .post("/api/dev_package_examples/get", {
@@ -99,9 +100,7 @@ export const startEditEventWatcher = async (
               "utf-8",
             )
 
-            console.log(
-              kleur.gray(`  found manual edit file: ${manual_edit_file}`),
-            )
+            debug(`  found manual edit file: ${manual_edit_file}`)
 
             // 2. Convert the edit events into ManualPcbPosition[] and append,
             //    removing any old placements/positions for the same selector.
@@ -211,6 +210,10 @@ export const startEditEventWatcher = async (
               if (handled_edit_events.has(incoming_edit_event.edit_event_id))
                 continue
 
+              debug(
+                `incoming_edit_event: ${JSON.stringify(incoming_edit_event)}`,
+              )
+
               if (
                 incoming_edit_event.pcb_edit_event_type ===
                 "edit_component_location"
@@ -223,6 +226,10 @@ export const startEditEventWatcher = async (
                     pcb_component_id: incoming_edit_event.pcb_component_id,
                   })
                 }
+
+                debug(
+                  `edit event pcb_component_selector: "${pcb_component_selector}"`,
+                )
 
                 // TODO we'll need to work past this for edit_event_type=edit_trace
                 if (!pcb_component_selector) continue
