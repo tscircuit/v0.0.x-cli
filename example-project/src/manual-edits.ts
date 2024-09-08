@@ -52,6 +52,102 @@ export default {
       relative_to: "group_center",
     },
   ],
-  manual_trace_hints: [],
+  manual_trace_hints: [
+    {
+      "pcb_port_selector": ".SW4 > .pin2",
+      "offsets": [
+        {
+          "x": -8.492199000694345,
+          "y": -1.998912735924403,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".D4 > .pin2",
+      "offsets": [
+        {
+          "x": -13.122988422132295,
+          "y": -8.524891307031254,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".D1 > .pin2",
+      "offsets": [
+        {
+          "x": -8.302539134254346,
+          "y": -25.869889610856028,
+          "via": true
+        },
+        {
+          "x": 32.60178017340978,
+          "y": -2.310485746577827,
+          "via": true
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".SW7 > .pin1",
+      "offsets": [
+        {
+          "x": -23.955683342322523,
+          "y": 10.88389101192926,
+          "via": false
+        },
+        {
+          "x": -16.747386499009068,
+          "y": 10.88389101192926,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".SW4 > .pin1",
+      "offsets": [
+        {
+          "x": -23.904010775309708,
+          "y": -3.8845684719809483,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".SW1 > .pin2",
+      "offsets": [
+        {
+          "x": -9.94176262647342,
+          "y": -22.9635299104251,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".D2 > .pin2",
+      "offsets": [
+        {
+          "x": 13.891002671418706,
+          "y": -22.21580740004698,
+          "via": false
+        }
+      ]
+    },
+    {
+      "pcb_port_selector": ".D3 > .pin2",
+      "offsets": [
+        {
+          "x": 30.876601037632064,
+          "y": -25.674952976702208,
+          "via": true
+        },
+        {
+          "x": 44.2153867766214,
+          "y": 0.20923347590906705,
+          "via": true
+        }
+      ]
+    }
+  ],
   edit_events: [],
 }

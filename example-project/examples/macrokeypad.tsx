@@ -29,7 +29,11 @@ export const MacroKeypad = () => {
   }
 
   return (
-    <board width="120mm" height="80mm">
+    <board
+      width="120mm"
+      height="80mm"
+      layout={layout().manualEdits(manualEdits)}
+    >
       {keyPositions.map(({ keyNum, x, y }) => (
         <Key name={`K${keyNum}`} keyNum={keyNum} pcbX={x} pcbY={y} />
       ))}
