@@ -82,7 +82,7 @@ export const MainContentView = () => {
       {pkg && (viewMode === "pcb" || viewMode === "split") && (
         <ErrorBoundary fallback={<div>Failed to render PCB</div>}>
           <PCBViewer
-            key={`pcb-${pkg?.soup_last_updated_at}-${pkg?.edit_events_last_applied_at}`}
+            key={`pcb-${pkg?.dev_package_example_id}`}
             height={itemHeight}
             allowEditing
             editEvents={editEvents}
