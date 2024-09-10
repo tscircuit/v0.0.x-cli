@@ -12,3 +12,6 @@ dist
 .aider*
 package-lock.json
 **/package-lock.json
+
+.yalc
+yalc.lock
