@@ -5,8 +5,6 @@ import { unlink } from "node:fs/promises"
 import { soupify } from "cli/lib/soupify"
 import * as fs from "fs"
 import {
-  stringifyGerberCommandLayers,
-  convertSoupToGerberCommands,
   convertSoupToPickAndPlaceCsv,
 } from "@tscircuit/builder"
 import kleur from "kleur"
