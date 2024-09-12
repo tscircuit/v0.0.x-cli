@@ -42,6 +42,7 @@
     "archiver": "^7.0.1",
     "axios": "^1.6.7",
     "chokidar": "^3.6.0",
+    "circuit-json-to-gerber": "^0.0.4",
     "circuit-to-png": "^0.0.3",
     "circuit-to-svg": "^0.0.22",
     "commander": "^12.0.0",
