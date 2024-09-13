@@ -81,7 +81,7 @@
     "@tscircuit/soup-util": "*"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "^1.9.0",
     "@headlessui/react": "^1.7.18",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-context-menu": "^2.1.5",
