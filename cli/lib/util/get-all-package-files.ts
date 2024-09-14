@@ -31,7 +31,7 @@ export const getAllPackageFiles = async (
   const ig = ignore().add([
     ...(npmAndPromptIgnoreFiles.length > 0
       ? npmAndPromptIgnoreFiles
-      : gitIgnore ?? []),
+      : (gitIgnore ?? [])),
     ".tscircuit",
     "node_modules/*",
   ])
