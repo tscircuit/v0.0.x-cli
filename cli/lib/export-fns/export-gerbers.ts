@@ -9,7 +9,7 @@ import {
   convertSoupToGerberCommands,
   convertSoupToExcellonDrillCommands,
   stringifyExcellonDrill,
-} from "@tscircuit/builder"
+} from "circuit-json-to-gerber"
 import kleur from "kleur"
 import archiver from "archiver"
 

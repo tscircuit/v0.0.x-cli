@@ -4,11 +4,7 @@ import * as Path from "path"
 import { unlink } from "node:fs/promises"
 import { soupify } from "cli/lib/soupify"
 import * as fs from "fs"
-import {
-  stringifyGerberCommandLayers,
-  convertSoupToGerberCommands,
-  convertSoupToPickAndPlaceCsv,
-} from "@tscircuit/builder"
+import { convertSoupToPickAndPlaceCsv } from "@tscircuit/builder"
 import kleur from "kleur"
 import archiver from "archiver"
 
