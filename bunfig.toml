@@ -1,0 +1,2 @@
+[test]
+preload = ["./cli/tests/fixtures/preload.ts"]
