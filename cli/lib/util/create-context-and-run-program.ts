@@ -121,7 +121,12 @@ export const createContextAndRunProgram = async (process_args: any) => {
     params: args,
   }
 
+  if (args["color"] === false) {
+    kleur.enabled = false
+  }
+
   delete args["cwd"]
+  delete args["color"]
 
   const { _: positional, ...flagsAndParams } = args
   const args_without_globals = positional.concat(dargs(flagsAndParams))

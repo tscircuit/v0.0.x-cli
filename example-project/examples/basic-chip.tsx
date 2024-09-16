@@ -4,12 +4,7 @@ import manual_edits from "../src/manual-edits"
 
 export const BasicChip = () => (
   <board pcbX={0} pcbY={0} width="20mm" height="20mm">
-    <group
-      subcircuit
-      layout={layout()
-        .autoLayoutSchematic()
-        .manualPcbPlacement(manual_edits.pcb_placements)}
-    >
+    <group subcircuit>
       <chip
         name="U2"
         schPortArrangement={{
@@ -24,7 +19,7 @@ export const BasicChip = () => (
           "4": "D+",
         }}
       />
-      <resistor name="R1" resistance="10kohm" footprint="0805" />
+      <resistor name="R1" pcbX={4} resistance="10kohm" footprint="0805" />
       <trace from=".U2 > .1" to=".R1 > port.1" />
     </group>
   </board>

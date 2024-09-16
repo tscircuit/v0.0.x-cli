@@ -281,7 +281,11 @@ export const getProgram = (ctx: AppContext) => {
   exportCmd
     .command("gerbers")
     .description("Export Gerber files from an example file")
-    .requiredOption("--file <file>", "Input example files")
+    .option(
+      "--file <file>",
+      "Input example file (deprecated, use --input instead)",
+    )
+    .option("--input <input>", "Input example file")
     .option(
       "--export <export_name>",
       "Name of export to soupify, if not specified, soupify the default/only export",

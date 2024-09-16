@@ -137,7 +137,7 @@ export const HeaderMenu = () => {
                   Pick'n'Place CSV
                 </MenubarItem>
                 <MenubarItem onSelect={() => bomExportDialog.openDialog()}>
-                  Bill of Materials
+                  Bill of Materials CSV
                 </MenubarItem>
                 <MenubarItem
                   onSelect={() => {
@@ -154,7 +154,7 @@ export const HeaderMenu = () => {
                   Schematic (PDF)
                 </MenubarItem>
                 <MenubarItem onSelect={() => soupExportDialog.openDialog()}>
-                  tscircuit Soup JSON
+                  Circuit JSON
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>

@@ -60,17 +60,6 @@ export const fulfillExportRequests = async (
 
     if (export_request.export_parameters.should_export_gerber_zip) {
       console.log(kleur.gray(`\n  exporting gerbers...`))
-      if (typeof Bun !== "undefined") {
-        const err_str =
-          "Bun currently isn't capable of exporting due to an archiver bug, exports will not work."
-        console.log(kleur.red(err_str))
-        await dev_server_axios.post("/api/export_requests/update", {
-          export_request_id: export_request.export_request_id,
-          has_error: true,
-          error: err_str,
-        })
-        return
-      }
       const zip_buffer = await exportGerbersToZipBuffer(
         {
           example_file_path: export_request.example_file_path!,
