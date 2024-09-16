@@ -6,7 +6,8 @@
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
   "main": "./dist/cli.js",
   "scripts": {
-    "start": "bun cli/cli.ts",
+    "cli": "bun cli/cli.ts",
+    "start": "bun run dev",
     "dev": "bun run build:dev-server && concurrently 'bun run dev:frontend' 'bun run dev:test-project'",
     "dev:fast": "concurrently 'bun run dev:frontend' 'bun run dev:test-project'",
     "dev:frontend": "vite dev --config frontend/vite.config.ts",
@@ -69,6 +70,7 @@
     "prompts": "^2.4.2",
     "redaxios": "^0.5.1",
     "semver": "^7.6.0",
+    "tempy": "^3.1.0",
     "ts-morph": "^22.0.0",
     "tsup": "^8.0.2",
     "winterspec": "0.0.86",
