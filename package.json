@@ -96,7 +96,7 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@tscircuit/3d-viewer": "^0.0.17",
+    "@tscircuit/3d-viewer": "^0.0.18",
     "@tscircuit/layout": "^0.0.28",
     "@tscircuit/manual-edit-events": "^0.0.4",
     "@tscircuit/pcb-viewer": "^1.10.2",
