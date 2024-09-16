@@ -10,7 +10,7 @@ test("tsci export gerbers --input example-project/examples/basic-chip.tsx", asyn
   const tempDir = temporaryDirectory()
   const gerberPath = join(tempDir, "gerbers.zip")
   const { stdout, stderr } =
-    await $`bun cli/cli.ts export gerbers --input example-project/examples/basic-chip.tsx --outputfile ${gerberPath}`
+    await $`bun cli/cli.ts export gerbers --input example-project/examples/basic-chip.tsx --outputfile ${gerberPath} --no-color`
 
   expect(stderr.toString()).toBe("")
   expect(stdout.toString()).toContain("gerbers.zip")
