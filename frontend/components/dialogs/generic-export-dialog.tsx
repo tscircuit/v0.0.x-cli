@@ -11,11 +11,13 @@ export const useGenericExportDialog = ({
   dialogTitle,
   dialogDescription,
   exportParameters,
+  fileExtension = "",
 }: {
   exportFileName: string
   dialogTitle: string
   dialogDescription: string
   exportParameters: ExportParametersInput
+  fileExtension?: string
 }) => {
   const [open, setIsOpen] = useState(false)
   const activeDevExamplePackage = useActiveDevPackageExampleLite()
@@ -40,7 +42,7 @@ export const useGenericExportDialog = ({
       activeDevExamplePackage
     const outputName = `${
       inputFilePath.split("/").pop()?.split(".")[0]
-    }-${exampleExportName}-${exportFileName}`
+    }-${exampleExportName}-${exportFileName}${fileExtension}`
 
     return {
       openDialog,
