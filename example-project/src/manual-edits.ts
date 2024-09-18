@@ -123,6 +123,16 @@ export default {
         },
       ],
     },
+    {
+      pcb_port_selector: ".SW6 > .pin1",
+      offsets: [
+        {
+          x: 14.242563958561936,
+          y: -0.4071654915144425,
+          via: false,
+        },
+      ],
+    },
   ],
   edit_events: [],
 }

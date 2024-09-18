@@ -6,6 +6,7 @@ import { exportPnpCsvToBuffer } from "cli/lib/export-fns/export-pnp-csv"
 import { exportBomCsvToBuffer } from "cli/lib/export-fns/export-bom-csv"
 import { soupify } from "cli/lib/soupify"
 import { ExportRequest } from "api/db/schema"
+import { exportKicadPcbToBuffer } from "cli/lib/export-fns/export-kicad-pcb"
 
 export const uploadBufferToExportFile = async ({
   dev_server_axios,
@@ -136,6 +137,24 @@ export const fulfillExportRequests = async (
         dev_server_axios,
         file_buffer: Buffer.from(JSON.stringify(soup, null, 2), "utf-8"),
         file_name: export_request.export_parameters.soup_json_file_name!,
+        export_request_id: export_request.export_request_id,
+      })
+    }
+
+    if (export_request.export_parameters.should_export_kicad_pcb) {
+      console.log(kleur.gray(`\n  exporting KiCad PCB...`))
+      const kicadPcbBuffer = await exportKicadPcbToBuffer(
+        {
+          example_file_path: export_request.example_file_path!,
+          export_name: export_request.export_name!,
+        },
+        ctx,
+      )
+
+      await uploadBufferToExportFile({
+        dev_server_axios,
+        file_buffer: kicadPcbBuffer,
+        file_name: export_request.export_parameters.kicad_pcb_file_name!,
         export_request_id: export_request.export_request_id,
       })
     }

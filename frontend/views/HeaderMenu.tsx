@@ -77,6 +77,17 @@ export const HeaderMenu = () => {
     },
   })
 
+  const kicadPcbExportDialog = useGenericExportDialog({
+    dialogTitle: "Export KiCad PCB",
+    dialogDescription:
+      "Export the circuit as a KiCad PCB file. This can be opened and edited in KiCad.",
+    exportFileName: "kicad_pcb",
+    fileExtension: ".kicad_pcb",
+    exportParameters: {
+      should_export_kicad_pcb: true,
+    },
+  })
+
   const handleDebugClick = async () => {
     const soupData = await axios
       .post("/api/dev_package_examples/get", {
@@ -155,6 +166,9 @@ export const HeaderMenu = () => {
                 </MenubarItem>
                 <MenubarItem onSelect={() => soupExportDialog.openDialog()}>
                   Circuit JSON
+                </MenubarItem>
+                <MenubarItem onSelect={() => kicadPcbExportDialog.openDialog()}>
+                  KiCad PCB
                 </MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
@@ -306,6 +320,7 @@ export const HeaderMenu = () => {
       <pnpExportDialog.Component />
       <bomExportDialog.Component />
       <soupExportDialog.Component />
+      <kicadPcbExportDialog.Component />
     </>
   )
 }

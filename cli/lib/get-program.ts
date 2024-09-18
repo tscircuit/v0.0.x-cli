@@ -293,6 +293,17 @@ export const getProgram = (ctx: AppContext) => {
     .option("--outputfile <outputfile>", "Output file name", "gerbers.zip")
     .action((args) => CMDFN.exportGerbers(ctx, args))
 
+  exportCmd
+    .command("kicad_pcb")
+    .description("Export KiCad PCB file from an example file")
+    .option("--input <input>", "Input example file")
+    .option(
+      "--export <export_name>",
+      "Name of export to soupify, if not specified, soupify the default/only export",
+    )
+    .option("--outputfile <outputfile>", "Output file name", "output.kicad_pcb")
+    .action((args) => CMDFN.exportKicadPcb(ctx, args))
+
   cmd
     .command("soupify")
     .description("Convert an example file to tscircuit soup")
