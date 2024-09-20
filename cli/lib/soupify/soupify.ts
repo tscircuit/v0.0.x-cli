@@ -31,7 +31,8 @@ export const soupifyWithBuilder = async (
 
   exportName ??= await getExportNameFromFile(filePath)
 
-  const { tmpEntrypointPath, tmpOutputPath } = await getTmpEntrypointFilePath(filePath)
+  const { tmpEntrypointPath, tmpOutputPath } =
+    await getTmpEntrypointFilePath(filePath)
 
   debug(`writing to ${tmpEntrypointPath}`)
   writeFileSync(
