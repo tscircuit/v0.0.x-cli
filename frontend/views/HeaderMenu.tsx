@@ -294,8 +294,8 @@ export const HeaderMenu = () => {
               @tscircuit/cli v{cliPackageJson.version}
             </MenubarItem>
             <MenubarItem disabled>
-              @tscircuit/builder v
-              {cliPackageJson.dependencies?.["@tscircuit/builder"]?.replace(
+              @tscircuit/core v
+              {cliPackageJson.dependencies?.["@tscircuit/core"]?.replace(
                 /\^/g,
                 "",
               )}
