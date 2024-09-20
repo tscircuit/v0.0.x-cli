@@ -22,10 +22,6 @@ export const versionCmd = async (ctx: AppContext, args: any) => {
     name: "@tscircuit/pcb-viewer",
     current: cliPackageJson.devDependencies["@tscircuit/pcb-viewer"],
   })
-  table.push({
-    name: "@tscircuit/builder",
-    current: cliPackageJson.dependencies["@tscircuit/builder"],
-  })
 
   if (args.showLatest) {
     // Get the latest version for each package

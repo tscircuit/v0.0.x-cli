@@ -1,6 +1,6 @@
 import { AppContext } from "../util/app-context"
 import { soupify } from "cli/lib/soupify"
-import { convertSoupToBomRows, convertBomRowsToCsv } from "@tscircuit/builder"
+// import { convertSoupToBomRows, convertBomRowsToCsv } from "@tscircuit/builder"
 import kleur from "kleur"
 
 export const exportBomCsvToBuffer = async (
@@ -24,7 +24,10 @@ export const exportBomCsvToBuffer = async (
   const bom_rows = await convertSoupToBomRows({ soup })
 
   console.log(kleur.gray("[bom rows to csv]..."))
-  const bom_csv = await convertBomRowsToCsv(bom_rows)
+  throw new Error(
+    "This functionality was previously available in @tscircuit/builder but has been removed. Please extract from builder and re-implement. If you're an end-user, sorry.",
+  )
+  // const bom_csv = await convertBomRowsToCsv(bom_rows)
 
-  return Buffer.from(bom_csv, "utf-8")
+  // return Buffer.from(bom_csv, "utf-8")
 }

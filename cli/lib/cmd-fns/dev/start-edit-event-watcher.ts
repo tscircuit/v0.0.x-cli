@@ -6,14 +6,19 @@ import fg from "fast-glob"
 import fs from "fs"
 import { Project, ts } from "ts-morph"
 import * as Path from "path"
-import type { ManualPcbPosition } from "@tscircuit/builder"
 import { deriveSelectorFromPcbComponentId } from "./derive-selector-from-pcb-component-id"
 import type { EditEvent } from "@tscircuit/manual-edit-events"
-import { getManualTraceHintFromEvent, ManualTraceHint } from "@tscircuit/layout"
+import {
+  getManualTraceHintFromEvent,
+  ManualTraceHint,
+  ManualEditFile,
+} from "@tscircuit/layout"
 import JSON5 from "json5"
 import Debug from "debug"
 
 const debug = Debug("tscircuit:cli:edit-event-watcher")
+
+type ManualPcbPosition = Required<ManualEditFile>["pcb_placements"][number]
 
 export const startEditEventWatcher = async (
   {
