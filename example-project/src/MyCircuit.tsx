@@ -3,13 +3,7 @@ import { layout } from "@tscircuit/layout"
 import manual_edits from "./manual-edits"
 
 export const MyCircuit = () => (
-  <board
-    width="40mm"
-    height="40mm"
-    pcbX={0}
-    pcbY={0}
-    layout={layout().manualEdits(manual_edits)}
-  >
+  <board width="40mm" height="40mm" pcbX={0} pcbY={0}>
     <resistor
       name="R1"
       resistance="20kohm"

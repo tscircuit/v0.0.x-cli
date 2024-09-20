@@ -10,6 +10,7 @@ import Debug from "debug"
 import { getExportNameFromFile } from "./get-export-name-from-file"
 import { getTmpEntrypointFilePath } from "./get-tmp-entrpoint-filepath"
 import { runEntrypointFile } from "./run-entrypoint-file"
+import fs from "node:fs/promises"
 
 const debug = Debug("tscircuit:soupify")
 
@@ -25,7 +26,11 @@ export const soupifyWithCore = async (
   exportName ??= await getExportNameFromFile(filePath)
 
   const { tmpEntrypointPath, tmpOutputPath } =
-    getTmpEntrypointFilePath(filePath)
+    await getTmpEntrypointFilePath(filePath)
+
+  // Remove existing entrypoint or tmp output files
+  await fs.unlink(tmpEntrypointPath).catch(() => {})
+  await fs.unlink(tmpOutputPath).catch(() => {})
 
   debug(`writing to ${tmpEntrypointPath}`)
   writeFileSync(
