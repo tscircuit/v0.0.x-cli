@@ -1,4 +1,4 @@
-import type { AnySoupElement } from "@tscircuit/builder"
+import type { AnySoupElement } from "@tscircuit/soup"
 import { su } from "@tscircuit/soup-util"
 
 export const deriveSelectorFromPcbComponentId = ({
@@ -8,7 +8,7 @@ export const deriveSelectorFromPcbComponentId = ({
   soup: AnySoupElement[]
   pcb_component_id: string
 }) => {
-  const source_component = su(soup).source_component.getUsing({
+  const source_component = su(soup as any).source_component.getUsing({
     pcb_component_id,
   })
   if (!source_component) {
