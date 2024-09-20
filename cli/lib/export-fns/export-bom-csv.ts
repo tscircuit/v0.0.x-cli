@@ -1,6 +1,5 @@
 import { AppContext } from "../util/app-context"
 import { soupify } from "cli/lib/soupify"
-// import { convertSoupToBomRows, convertBomRowsToCsv } from "@tscircuit/builder"
 import kleur from "kleur"
 
 export const exportBomCsvToBuffer = async (

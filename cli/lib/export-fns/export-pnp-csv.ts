@@ -4,7 +4,6 @@ import * as Path from "path"
 import { unlink } from "node:fs/promises"
 import { soupify } from "cli/lib/soupify"
 import * as fs from "fs"
-import { convertSoupToPickAndPlaceCsv } from "@tscircuit/builder"
 import kleur from "kleur"
 import archiver from "archiver"
 
@@ -25,7 +24,10 @@ export const exportPnpCsvToBuffer = async (
   )
 
   console.log(kleur.gray("[soup to pnp csv string]..."))
-  const pnp_csv = await convertSoupToPickAndPlaceCsv(soup)
+  throw new Error(
+    "This functionality was previously available in @tscircuit/builder but has been removed. Please extract from builder and re-implement. If you're an end-user, sorry.",
+  )
+  // const pnp_csv = await convertSoupToPickAndPlaceCsv(soup)
 
-  return Buffer.from(pnp_csv, "utf-8")
+  // return Buffer.from(pnp_csv, "utf-8")
 }
