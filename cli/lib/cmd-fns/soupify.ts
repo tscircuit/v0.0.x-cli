@@ -19,7 +19,6 @@ export const soupifyCmd = async (ctx: AppContext, args: any) => {
     {
       filePath: params.file,
       exportName: params.export,
-      useCore: !params.noCore,
     },
     ctx,
   )
