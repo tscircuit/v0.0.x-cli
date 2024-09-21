@@ -1,7 +1,10 @@
 import { AppContext } from "../util/app-context"
 import { soupify } from "cli/lib/soupify"
-import { convertSoupToBomRows, convertBomRowsToCsv } from "@tscircuit/builder"
 import kleur from "kleur"
+import {
+  convertCircuitJsonToBomRows,
+  convertBomRowsToCsv,
+} from "circuit-json-to-bom-csv"
 
 export const exportBomCsvToBuffer = async (
   params: {
@@ -20,8 +23,7 @@ export const exportBomCsvToBuffer = async (
   )
 
   console.log(kleur.gray("[soup to bom rows]..."))
-  // @ts-ignore
-  const bom_rows = await convertSoupToBomRows({ soup })
+  const bom_rows = await convertCircuitJsonToBomRows({ circuitJson: soup })
 
   console.log(kleur.gray("[bom rows to csv]..."))
   const bom_csv = await convertBomRowsToCsv(bom_rows)

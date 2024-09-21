@@ -3,8 +3,8 @@ import { z } from "zod"
 import * as Path from "path"
 import { unlink } from "node:fs/promises"
 import { soupify } from "cli/lib/soupify"
+import { convertCircuitJsonToPickAndPlaceCsv } from "circuit-json-to-pnp-csv"
 import * as fs from "fs"
-import { convertSoupToPickAndPlaceCsv } from "@tscircuit/builder"
 import kleur from "kleur"
 import archiver from "archiver"
 
@@ -25,7 +25,7 @@ export const exportPnpCsvToBuffer = async (
   )
 
   console.log(kleur.gray("[soup to pnp csv string]..."))
-  const pnp_csv = await convertSoupToPickAndPlaceCsv(soup)
+  const pnp_csv = await convertCircuitJsonToPickAndPlaceCsv(soup)
 
   return Buffer.from(pnp_csv, "utf-8")
 }
