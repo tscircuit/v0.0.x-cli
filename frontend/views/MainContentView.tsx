@@ -110,32 +110,7 @@ export const MainContentView = () => {
               }
               setEditEvents(changedEditEvents)
             }}
-            // soup={pkg.tscircuit_soup}
-            soup={
-              [
-                {
-                  type: "pcb_smtpad",
-                  x: 10,
-                  y: 10,
-                  name: "Pad 1",
-                  shape: "rect",
-                  width: 10,
-                  height: 10,
-                  layer: "top",
-                  pcb_smtpad_id: "1",
-                } as PcbSmtPad,
-                {
-                  type: "pcb_hole",
-                  x: 30,
-                  y: 10,
-                  name: "Hole 1",
-                  hole_shape: "circle",
-                  hole_diameter: 10,
-                  layer: "top",
-                  pcb_hole_id: "1",
-                } as PcbHole,
-              ] as PcbCircuitElement[]
-            }
+            soup={pkg.tscircuit_soup}
           />
         </ErrorBoundary>
       )}
