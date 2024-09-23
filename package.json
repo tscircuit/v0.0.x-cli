@@ -1,6 +1,6 @@
 {
   "name": "@tscircuit/cli",
-  "version": "0.0.220",
+  "version": "0.0.221",
   "private": false,
   "type": "module",
   "description": "Command line tool for developing, publishing and installing tscircuit circuits",
