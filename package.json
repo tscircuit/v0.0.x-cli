@@ -35,7 +35,7 @@
   "dependencies": {
     "@edge-runtime/primitives": "^4.1.0",
     "@hono/node-server": "^1.8.2",
-    "@tscircuit/core": "^0.0.76",
+    "@tscircuit/core": "^0.0.84",
     "@tscircuit/props": "^0.0.62",
     "@tscircuit/soup": "^0.0.73",
     "archiver": "^7.0.1",
@@ -101,7 +101,7 @@
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@tscircuit/3d-viewer": "^0.0.18",
+    "@tscircuit/3d-viewer": "^0.0.26",
     "@tscircuit/layout": "^0.0.28",
     "@tscircuit/manual-edit-events": "^0.0.4",
     "@tscircuit/pcb-viewer": "^1.10.4",
