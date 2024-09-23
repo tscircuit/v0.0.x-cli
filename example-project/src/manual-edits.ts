@@ -52,6 +52,22 @@ export default {
       relative_to: "group_center",
     },
   ],
-  manual_trace_hints: [],
+  manual_trace_hints: [
+    {
+      pcb_port_selector: ".D4 > .pin2",
+      offsets: [
+        {
+          x: -12.12299453118936,
+          y: -8.872955772271606,
+          via: true,
+        },
+        {
+          x: 43.833615026953254,
+          y: -17.47530225275473,
+          via: true,
+        },
+      ],
+    },
+  ],
   edit_events: [],
 }

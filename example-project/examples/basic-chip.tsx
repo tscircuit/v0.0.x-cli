@@ -8,8 +8,8 @@ export const BasicChip = () => (
       <chip
         name="U2"
         schPortArrangement={{
-          leftSize: 4,
-          rightSize: 4,
+          leftSize: 8,
+          rightSize: 8,
         }}
         footprint="ssop16"
         pinLabels={{

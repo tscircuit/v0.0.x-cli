@@ -1,4 +1,5 @@
-import { SwitchShaft } from "./SwitchShaft"
+import { Keyswitch } from "./Keyswitch"
+import { KeyswitchSocket } from "./KeyswitchSocket"
 
 export const Key = (props: {
   name: string
@@ -6,15 +7,23 @@ export const Key = (props: {
   pcbX: number
   pcbY: number
 }) => {
-  const shaftName = `SW${props.keyNum}`
+  const socketName = `SW${props.keyNum}`
+  const switchHoleName = `HO${props.keyNum}`
   const diodeName = `D${props.keyNum}`
   return (
     <>
-      <SwitchShaft
+      <KeyswitchSocket
         key="shaft1"
-        name={shaftName}
+        layer="bottom"
+        name={socketName}
         pcbX={props.pcbX}
         pcbY={props.pcbY}
+      />
+      <Keyswitch
+        key="switch"
+        name={switchHoleName}
+        pcbX={props.pcbX + 0.55}
+        pcbY={props.pcbY + -3.81}
       />
       <diode
         // @ts-ignore
@@ -22,13 +31,14 @@ export const Key = (props: {
         pcbRotation={-90}
         name={diodeName}
         footprint="0603"
+        layer="bottom"
         pcbX={props.pcbX + 7}
         pcbY={props.pcbY - 6}
       />
       <trace
         // @ts-ignore
         key="trace1"
-        from={`.${shaftName} .pin2`}
+        from={`.${socketName} .pin2`}
         to={`.${diodeName} .pin1`}
       />
     </>

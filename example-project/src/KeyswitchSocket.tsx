@@ -5,13 +5,18 @@ import "@tscircuit/core"
  *
  * Datasheet: https://wmsc.lcsc.com/wmsc/upload/file/pdf/v2/lcsc/2211090930_Kailh-CPG151101S11-1_C5184526.pdf
  */
-export const SwitchShaft = (props: {
+export const KeyswitchSocket = (props: {
   name: string
   pcbX?: number
   pcbY?: number
+  layer?: "top" | "bottom"
 }) => (
   <chip
     {...props}
+    pcbRotation={0}
+    cadModel={{
+      objUrl: `https://modelcdn.tscircuit.com/easyeda_models/download?pn=C5184526`,
+    }}
     footprint={
       <footprint>
         {/* <silkscreentext text={props.name} /> */}

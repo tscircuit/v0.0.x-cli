@@ -2,7 +2,7 @@ import { layout } from "@tscircuit/layout"
 import { ArduinoProMicroBreakout } from "example-project/src/ArduinoProMicroBreakout"
 import { Key } from "example-project/src/Key"
 import manualEdits from "example-project/src/manual-edits"
-import { SwitchShaft } from "example-project/src/SwitchShaft"
+import { KeyswitchSocket } from "example-project/src/KeyswitchSocket"
 
 export const MacroKeypad = () => {
   const keyPositions = Array.from({ length: 9 })

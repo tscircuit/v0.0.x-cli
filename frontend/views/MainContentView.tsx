@@ -10,6 +10,7 @@ import "react-data-grid/lib/styles.css"
 import { useEffect, useRef, useState } from "react"
 import type { EditEvent } from "@tscircuit/pcb-viewer"
 import { CadViewer } from "@tscircuit/3d-viewer"
+import type { PcbHole, PcbSmtPad, PcbCircuitElement } from "circuit-json"
 
 export const MainContentView = () => {
   const devExamplePackageId = useGlobalStore(
