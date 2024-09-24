@@ -18,13 +18,6 @@ export const Keyswitch = (props: {
       }}
       footprint={
         <footprint>
-          <smtpad
-            shape="rect"
-            width="0.1mm"
-            height="0.1mm"
-            portHints={["pin1"]}
-            layer="top"
-          />
           <hole diameter={2.5} pcbX={0} pcbY={0} />
         </footprint>
       }

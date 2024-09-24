@@ -17,6 +17,9 @@ export const KeyswitchSocket = (props: {
     cadModel={{
       objUrl: `https://modelcdn.tscircuit.com/easyeda_models/download?pn=C5184526`,
     }}
+    supplierPartNumbers={{
+      jlcpcb: ["C5184526"],
+    }}
     footprint={
       <footprint>
         {/* <silkscreentext text={props.name} /> */}
