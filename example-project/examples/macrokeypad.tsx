@@ -30,14 +30,14 @@ export const MacroKeypad = () => {
 
   return (
     <board
-      width="120mm"
-      height="80mm"
+      width="85mm"
+      height="60mm"
       layout={layout().manualEdits(manualEdits)}
     >
       {keyPositions.map(({ keyNum, x, y }) => (
-        <Key name={`K${keyNum}`} keyNum={keyNum} pcbX={x} pcbY={y} />
+        <Key name={`K${keyNum}`} keyNum={keyNum} pcbX={x - 12.5} pcbY={y + 2} />
       ))}
-      <ArduinoProMicroBreakout key="u1" name="U1" pcbX={44} />
+      <ArduinoProMicroBreakout key="u1" name="U1" pcbX={30.5} />
       {keyPositions.map(({ keyNum, row, col }) => (
         <trace
           // @ts-ignore
