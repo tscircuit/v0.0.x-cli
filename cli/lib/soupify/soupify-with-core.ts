@@ -24,8 +24,8 @@ export const soupifyWithCore = async (
   let { filePath, exportName } = params
   exportName ??= await getExportNameFromFile(filePath)
 
-  
-  let { tmpEntrypointPath, tmpOutputPath } = await getTmpEntrypointFilePath(filePath)
+  let { tmpEntrypointPath, tmpOutputPath } =
+    await getTmpEntrypointFilePath(filePath)
   // Remove existing entrypoint or tmp output files
   await fs.unlink(tmpEntrypointPath).catch(() => {})
   await fs.unlink(tmpOutputPath).catch(() => {})
@@ -65,8 +65,7 @@ export const soupifyWithCore = async (
                 
                 writeFileSync("${tmpOutputPath}", JSON.stringify(project.getCircuitJson()))
                 `.trim(),
-              )
-              
-              return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
-            }
-            
+  )
+
+  return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
+}
