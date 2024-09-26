@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "fs"
 import kleur from "kleur"
 import { AppContext } from "cli/lib/util/app-context"
-import * as Path from "path"
+import * as Path from "path/posix"
 import open from "open"
 
 export const openCmd = async (ctx: AppContext, args: any) => {

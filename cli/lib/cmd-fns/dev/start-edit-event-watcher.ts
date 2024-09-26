@@ -5,7 +5,7 @@ import { AppContext } from "cli/lib/util/app-context"
 import fg from "fast-glob"
 import fs from "fs"
 import { Project, ts } from "ts-morph"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { deriveSelectorFromPcbComponentId } from "./derive-selector-from-pcb-component-id"
 import type { EditEvent } from "@tscircuit/manual-edit-events"
 import {

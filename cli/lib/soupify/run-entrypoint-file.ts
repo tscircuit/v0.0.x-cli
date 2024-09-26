@@ -17,44 +17,58 @@ export const runEntrypointFile = async (
   }: { tmpEntrypointPath: string; tmpOutputPath: string },
   ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
+  try{
+  console.log(1)
   debug(`using runtime ${ctx.runtime}`)
   const processCmdPart1 =
     ctx.runtime === "node"
       ? $`npx tsx ${tmpEntrypointPath}`
       : $`bun ${tmpEntrypointPath}`
+      console.log(2)
 
   debug(`starting process....`)
-  const processResult = await processCmdPart1
-    .stdout(debug.enabled ? "inheritPiped" : "piped")
+  console.log(debug.enabled)
+  
+  try{
+    const processResult = await processCmdPart1
     .stderr(debug.enabled ? "inheritPiped" : "piped")
-    .noThrow()
-
+    .stdout(debug.enabled ? "inheritPiped" : "piped")
+  }catch(e){
+    console.log(e)
+  }
+    
+ console.log(tmpOutputPath
+ )
   const rawSoup = await readFile(tmpOutputPath, "utf-8")
-  const errText = processResult.stderr
+  // const errText = processResult.stderr
 
+  console.log(4)
   if (ctx.params.cleanup !== false) {
     debug(`deleting ${tmpEntrypointPath}`)
     await unlink(tmpEntrypointPath)
     debug(`deleting ${tmpOutputPath}`)
     await unlink(tmpOutputPath)
   }
-
+  
   try {
     debug(`parsing result of soupify...`)
     const soup = JSON.parse(rawSoup)
-
+    
     if (soup.COMPILE_ERROR) {
       // console.log(kleur.red(`Failed to compile ${filePath}`))
       console.log(kleur.red(soup.COMPILE_ERROR))
       throw new Error(soup.COMPILE_ERROR)
     }
-
+    console.log('final')
     return soup
   } catch (e: any) {
     // console.log(kleur.red(`Failed to parse result of soupify: ${e.toString()}`))
     const t = Date.now()
     console.log(`Dumping raw output to .tscircuit/err-${t}.log`)
-    writeFileSync(`.tscircuit/err-${t}.log`, rawSoup + "\n\n" + errText)
-    throw new Error(errText)
+    // writeFileSync(`.tscircuit/err-${t}.log`, rawSoup + "\n\n" + errText)
+    // throw new Error(errText)
   }
+}catch(e){
+  console.log(e)
+}
 }

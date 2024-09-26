@@ -5,7 +5,7 @@ import {
   AbstractValueIterator,
 } from "abstract-level"
 import { promises as fs } from "fs"
-import path from "path"
+import path from "path/posix"
 
 interface JSONLevelOptions {}
 

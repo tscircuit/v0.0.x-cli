@@ -1,7 +1,7 @@
 import { soupify } from "cli/lib/soupify"
 import type { AppContext } from "cli/lib/util/app-context"
 import fs from "fs"
-import path from "path"
+import path from "path/posix"
 
 export const renderCmd = async (
   ctx: AppContext,
