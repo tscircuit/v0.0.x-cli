@@ -18,16 +18,12 @@ export const runEntrypointFile = async (
   ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   try {
-    console.log(1)
     debug(`using runtime ${ctx.runtime}`)
     const processCmdPart1 =
       ctx.runtime === "node"
         ? $`npx tsx ${tmpEntrypointPath}`
         : $`bun ${tmpEntrypointPath}`
-    console.log(2)
-
     debug(`starting process....`)
-    console.log(debug.enabled)
 
     try {
       const processResult = await processCmdPart1
@@ -36,12 +32,9 @@ export const runEntrypointFile = async (
     } catch (e) {
       console.log(e)
     }
-
-    console.log(tmpOutputPath)
     const rawSoup = await readFile(tmpOutputPath, "utf-8")
     // const errText = processResult.stderr
 
-    console.log(4)
     if (ctx.params.cleanup !== false) {
       debug(`deleting ${tmpEntrypointPath}`)
       await unlink(tmpEntrypointPath)
@@ -58,7 +51,6 @@ export const runEntrypointFile = async (
         console.log(kleur.red(soup.COMPILE_ERROR))
         throw new Error(soup.COMPILE_ERROR)
       }
-      console.log("final")
       return soup
     } catch (e: any) {
       // console.log(kleur.red(`Failed to parse result of soupify: ${e.toString()}`))
