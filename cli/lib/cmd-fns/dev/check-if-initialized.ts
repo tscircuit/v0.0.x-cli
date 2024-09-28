@@ -1,6 +1,6 @@
 import { AppContext } from "../../util/app-context"
 import kleur from "kleur"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { existsSync, readFileSync } from "fs"
 
 export const checkIfInitialized = async (ctx: AppContext) => {

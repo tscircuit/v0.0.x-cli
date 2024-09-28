@@ -8,7 +8,7 @@ import {
   writeFile,
   appendFileSync,
 } from "fs"
-import * as Path from "node:path"
+import * as Path from "node:path/posix"
 import $ from "dax-sh"
 import { getGeneratedReadme } from "./get-generated-readme"
 import { getGeneratedTsconfig } from "./get-generated-tsconfig"

@@ -1,5 +1,5 @@
 import kleur from "kleur"
-import { join as joinPath } from "path"
+import { join as joinPath } from "path/posix"
 import { AxiosInstance } from "axios"
 import { readdirSync, readFileSync } from "fs"
 import { soupify } from "cli/lib/soupify"

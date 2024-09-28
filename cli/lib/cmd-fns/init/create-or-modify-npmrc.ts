@@ -1,6 +1,6 @@
 import { existsSync, writeFileSync } from "fs"
 import kleur from "kleur"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { getGeneratedNpmrc } from "./get-generated-npmrc"
 import { AppContext } from "cli/lib/util/app-context"
 

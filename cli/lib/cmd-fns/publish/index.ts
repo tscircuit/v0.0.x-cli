@@ -1,7 +1,7 @@
 import kleur from "kleur"
 import { z } from "zod"
 import { AppContext } from "../../util/app-context"
-import * as Path from "path"
+import * as Path from "path/posix"
 import * as fs from "fs/promises"
 import { existsSync, readFileSync } from "fs"
 import { getAllPackageFiles } from "cli/lib/util/get-all-package-files"

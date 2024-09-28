@@ -1,4 +1,4 @@
-import Path from "node:path"
+import Path from "node:path/posix"
 import fs from "fs/promises"
 
 export const getTmpEntrypointFilePath = async (filePath: string) => {
