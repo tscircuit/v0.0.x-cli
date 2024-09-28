@@ -29,7 +29,6 @@ export const exportGerbersToFile = async (
     },
     ctx,
   )
-  console.log(soup, "soup")
 
   console.log(kleur.gray("[soup to gerber json]..."))
   const gerber_layer_cmds = convertSoupToGerberCommands(soup, {
@@ -92,7 +91,6 @@ export const exportGerbersToZipBuffer = async (
 ) => {
   const tempDir = Path.join(".tscircuit", "tmp-gerber-zip")
   fs.mkdirSync(tempDir, { recursive: true })
-  console.log("step two")
   await exportGerbersToFile(
     {
       example_file_path: params.example_file_path,
@@ -101,7 +99,6 @@ export const exportGerbersToZipBuffer = async (
     },
     ctx,
   )
-  console.log("step last")
 
   const buffer = fs.readFileSync(Path.join(tempDir, "gerbers.zip"))
 

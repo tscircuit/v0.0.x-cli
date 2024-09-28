@@ -27,6 +27,7 @@ export const runEntrypointFile = async (
   const processResult = await processCmdPart1
     .stderr(debug.enabled ? "inheritPiped" : "piped")
     .stdout(debug.enabled ? "inheritPiped" : "piped")
+    .noThrow()
 
   const rawSoup = await readFile(tmpOutputPath, "utf-8")
   const errText = processResult.stderr
