@@ -77,7 +77,7 @@ export const SelectExampleSearch = () => {
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] p-0 z-50">
+      <PopoverContent className="w-[400px] p-0 z-[101]">
         <Command value={active_dev_example_package_id ?? "none"}>
           <CommandInput placeholder="Search for circuit..." className="h-9" />
           <CommandList>
