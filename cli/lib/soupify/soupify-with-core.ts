@@ -22,49 +22,52 @@ export const soupifyWithCore = async (
   ctx: Pick<AppContext, "runtime" | "params">,
 ) => {
   let { filePath, exportName } = params
+
   exportName ??= await getExportNameFromFile(filePath)
 
-  let { tmpEntrypointPath, tmpOutputPath } =
+  const { tmpEntrypointPath, tmpOutputPath } =
     await getTmpEntrypointFilePath(filePath)
+
   // Remove existing entrypoint or tmp output files
   await fs.unlink(tmpEntrypointPath).catch(() => {})
   await fs.unlink(tmpOutputPath).catch(() => {})
+
   debug(`writing to ${tmpEntrypointPath}`)
   writeFileSync(
     tmpEntrypointPath,
     `
-    import React from "react"
-    import { Circuit } from "@tscircuit/core"
-    import * as EXPORTS from "./${Path.basename(filePath)}"
-    import { writeFileSync } from "node:fs"
-    
-    const Component = EXPORTS["${exportName}"]
-    
-    const project = new Circuit()
-    
-    try {
-      project.add(<Component />)
-      } catch (e: any) {
-        console.log("[during .add()] ", e.toString())
-        writeFileSync("${tmpOutputPath}", JSON.stringify({
-          COMPILE_ERROR: e.toString() + "\\n\\n" + e.stack,
-          }))
-          throw e
-          }
-          
-          try {
-            project.render()
-            } catch (e: any) {
-              console.log(e.toString())
-              writeFileSync("${tmpOutputPath}", JSON.stringify({
-                COMPILE_ERROR: e.toString() + "\\n\\n" + e.stack,
-                }))
-                throw e
-                }
-                
-                
-                writeFileSync("${tmpOutputPath}", JSON.stringify(project.getCircuitJson()))
-                `.trim(),
+import React from "react"
+import { Circuit } from "@tscircuit/core"
+import * as EXPORTS from "./${Path.basename(filePath)}"
+import { writeFileSync } from "node:fs"
+
+const Component = EXPORTS["${exportName}"]
+
+const project = new Circuit()
+
+try {
+  project.add(<Component />)
+} catch (e: any) {
+  console.log("[during .add()] ", e.toString())
+  writeFileSync("${tmpOutputPath}", JSON.stringify({
+    COMPILE_ERROR: e.toString() + "\\n\\n" + e.stack,
+  }))
+  throw e
+}
+
+try {
+  project.render()
+} catch (e: any) {
+  console.log(e.toString())
+  writeFileSync("${tmpOutputPath}", JSON.stringify({
+    COMPILE_ERROR: e.toString() + "\\n\\n" + e.stack,
+  }))
+  throw e
+}
+
+
+writeFileSync("${tmpOutputPath}", JSON.stringify(project.getCircuitJson()))
+`.trim(),
   )
 
   return await runEntrypointFile({ tmpEntrypointPath, tmpOutputPath }, ctx)
