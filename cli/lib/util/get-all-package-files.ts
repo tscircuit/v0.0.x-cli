@@ -56,8 +56,8 @@ const ensureNodeModulesIgnored = async () => {
     if (!gitignore.includes("node_modules/")) {
       await fs.appendFile(gitignorePath, "\nnode_modules/\n")
     }
-  } catch (err: any) {
-    if (err.code === "ENOENT") {
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
       await fs.writeFile(gitignorePath, "node_modules/\n")
     } else {
       console.error("Error while updating .gitignore:", err)
