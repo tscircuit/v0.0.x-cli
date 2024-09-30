@@ -18,7 +18,7 @@ export type CliArgs = {
   help?: boolean
 }
 
-export const createContextAndRunProgram = async (process_args: any) => {
+export const createContextAndRunProgram = async (process_args: string[]) => {
   const args = minimist(process_args)
 
   const { global_config, profile_config, current_profile } =
