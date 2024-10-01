@@ -4,7 +4,7 @@ import { temporaryDirectory } from "tempy"
 import { join } from "path/posix"
 import { existsSync, readFileSync } from "fs"
 
-test("tsci export pnp_csv --input example-project/examples/basic-chip.tsx", async () => {
+test("tsci export pnp_csv --input example-project/examples/macrokeypad.tsx", async () => {
   const tempDir = temporaryDirectory()
   const pnpCsvPath = join(tempDir, "pnp.csv")
   const { stdout, stderr } =
