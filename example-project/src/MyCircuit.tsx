@@ -24,7 +24,7 @@ export const MyCircuit = () => (
         jlcpcb: ["C2759650"],
       }}
     />
-    <trace from=".R1 > .right" to=".R2 > .left" />
+    <trace from=".R1 > .pin1" to=".R2 > .pin2" />
     {/* <tracehint
       for=".R1 > .right"
       offsets={[
