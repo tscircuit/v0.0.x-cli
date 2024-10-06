@@ -1,9 +1,12 @@
 import { AxiosInstance } from "axios"
-import Configstore from "configstore"
 import { ContextConfigProps } from "cli/lib/create-config-manager"
 
 export type AppContext = {
-  args: any
+  args: {
+    cmd: string[]
+    yes: boolean
+    help: boolean | undefined
+  }
   cwd: string
   cmd: string[]
   params: Record<string, any>
