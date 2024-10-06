@@ -8,6 +8,6 @@ async function main() {
 }
 
 main().catch((e: Error) => {
-  console.log(kleur.gray(e.stack ?? "Error Stack Not Available"))
+  console.log(kleur.gray(e.stack ?? ""))
   console.log(kleur.red(`Error running CLI: ${e.toString()}`))
 })
