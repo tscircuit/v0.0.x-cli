@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { exportPnpCsvToBuffer } from "../export-fns/export-pnp-csv";
-import { AppContext } from "../util/app-context";
+import { z } from "zod"
+import { exportPnpCsvToBuffer } from "../export-fns/export-pnp-csv"
+import { AppContext } from "../util/app-context"
 import fs from "fs/promises"
-import kleur from "kleur";
+import kleur from "kleur"
 
 export const exportPnpCsv = async (ctx: AppContext, args: any) => {
   const params = z
@@ -25,8 +25,8 @@ export const exportPnpCsv = async (ctx: AppContext, args: any) => {
       export_name: params.export,
     },
     ctx,
-  );
+  )
   console.log(kleur.gray(`[writing to ${params.outputfile}]...`))
-  await fs.writeFile(params.outputfile, pnpCsvBuffer);
+  await fs.writeFile(params.outputfile, pnpCsvBuffer)
   console.log(kleur.green(`Pnp CSV file exported to ${params.outputfile}`))
 }
