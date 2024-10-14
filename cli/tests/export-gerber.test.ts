@@ -1,7 +1,7 @@
 import { test, expect, describe } from "bun:test"
 import { $ } from "bun"
 import { temporaryDirectory } from "tempy"
-import { join } from "path"
+import { join } from "path/posix"
 import { existsSync, readdirSync, readFileSync } from "fs"
 import extract from "extract-zip"
 import pcbStackup from "pcb-stackup"

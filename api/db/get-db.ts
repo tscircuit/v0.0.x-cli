@@ -1,5 +1,5 @@
 import { mkdirSync } from "fs"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { ZodLevelDatabase } from "./zod-level-db"
 
 let globalDb: ZodLevelDatabase | undefined

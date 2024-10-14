@@ -22,11 +22,11 @@ export const runEntrypointFile = async (
     ctx.runtime === "node"
       ? $`npx tsx ${tmpEntrypointPath}`
       : $`bun ${tmpEntrypointPath}`
-
   debug(`starting process....`)
+
   const processResult = await processCmdPart1
-    .stdout(debug.enabled ? "inheritPiped" : "piped")
     .stderr(debug.enabled ? "inheritPiped" : "piped")
+    .stdout(debug.enabled ? "inheritPiped" : "piped")
     .noThrow()
 
   const rawSoup = await readFile(tmpOutputPath, "utf-8")
@@ -48,7 +48,6 @@ export const runEntrypointFile = async (
       console.log(kleur.red(soup.COMPILE_ERROR))
       throw new Error(soup.COMPILE_ERROR)
     }
-
     return soup
   } catch (e: any) {
     // console.log(kleur.red(`Failed to parse result of soupify: ${e.toString()}`))

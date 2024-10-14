@@ -1,7 +1,7 @@
 import { test, expect, describe } from "bun:test"
 import { $ } from "bun"
 import { temporaryDirectory } from "tempy"
-import { join } from "path"
+import { join } from "path/posix"
 import { existsSync } from "fs"
 
 test("tsci export gerbers --input example-project/examples/macrokeypad.tsx", async () => {

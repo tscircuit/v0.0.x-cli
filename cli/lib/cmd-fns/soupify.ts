@@ -1,6 +1,6 @@
 import { AppContext } from "../util/app-context"
 import { z } from "zod"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { unlink } from "node:fs/promises"
 import { soupify } from "cli/lib/soupify"
 import { writeFileSync } from "fs"

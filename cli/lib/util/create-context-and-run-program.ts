@@ -18,7 +18,7 @@ export type CliArgs = {
   help?: boolean
 }
 
-export const createContextAndRunProgram = async (process_args: any) => {
+export const createContextAndRunProgram = async (process_args: string[]) => {
   const args = minimist(process_args)
 
   const { global_config, profile_config, current_profile } =
@@ -104,6 +104,10 @@ export const createContextAndRunProgram = async (process_args: any) => {
     },
   )
 
+  function isBunRuntime() {
+    return typeof process !== "undefined" && "isBun" in process
+  }
+
   const ctx: AppContext = {
     cmd: args._,
     cwd: args.cwd ?? process.cwd(),
@@ -112,7 +116,7 @@ export const createContextAndRunProgram = async (process_args: any) => {
     axios,
     global_config,
     profile_config,
-    runtime: global_config.get("runtime") ?? "node",
+    runtime: isBunRuntime() ? "bun" : (global_config.get("runtime") ?? "node"),
     args: {
       cmd: args._,
       yes: args.y ?? args.yes,

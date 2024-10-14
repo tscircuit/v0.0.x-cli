@@ -1,7 +1,7 @@
 import { AppContext } from "../util/app-context"
 import { z } from "zod"
 import $ from "dax-sh"
-import * as Path from "path"
+import * as Path from "path/posix"
 import { unlink } from "node:fs/promises"
 import kleur from "kleur"
 import { writeFileSync } from "fs"
