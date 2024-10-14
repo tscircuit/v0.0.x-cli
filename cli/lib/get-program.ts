@@ -69,10 +69,10 @@ export const getProgram = (ctx: AppContext) => {
 
   const genCmd = cmd.command("gen").description("Generate components")
   genCmd
-    .command("jlcpcb <jlcpcbPartNumber>")
+    .command("jlcpcb <jlcpcbPartNumberOrUrl>")
     .description("Generate JLCPCB-specific files")
-    .action((partNumber, args) =>
-      CMDFN.genJlcpcbComponent(ctx, { partNumber, ...args }),
+    .action((partNumberOrUrl, args) =>
+      CMDFN.genJlcpcbComponent(ctx, { partNumberOrUrl, ...args }),
     )
 
   const authCmd = cmd.command("auth").description("Login/logout")
