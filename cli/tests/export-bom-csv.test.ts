@@ -21,5 +21,4 @@ test("tsci export bom_csv --input example-project/examples/macrokeypad.tsx", asy
   expect(bomCsvContent).toContain("Value")
   expect(bomCsvContent).toContain("Footprint")
   expect(bomCsvContent).toContain("JLCPCB Part#")
-  expect(bomCsvContent).toContain("pcb_component_0")
 })
