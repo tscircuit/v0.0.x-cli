@@ -108,7 +108,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tscircuit/3d-viewer": "^0.0.58",
     "@tscircuit/layout": "^0.0.29",
-    "@tscircuit/manual-edit-events": "^0.0.4",
+    "@tscircuit/manual-edit-events": "^0.0.6",
     "@tscircuit/pcb-viewer": "^1.10.8",
     "@tscircuit/schematic-viewer": "^1.2.14",
     "@tscircuit/soup-util": "^0.0.41",
