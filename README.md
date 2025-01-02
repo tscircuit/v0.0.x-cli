@@ -1,5 +1,11 @@
 # `tsci` - The TSCircuit Command Line & Development Tools
 
+
+> [!CAUTION]
+> The v0.0.x version of the CLI has been completely rewritten, check out [the new version here](https://github.com/tscircuit/cli)
+
+---
+
 Command line tool for developing tscircuit projects and interacting with the
 tscircuit registry.
 
